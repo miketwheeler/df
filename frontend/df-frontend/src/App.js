@@ -5,6 +5,8 @@ import Home from './components/homepage/Home'
 import Teams from './components/teams/Teams'
 import Projects from './components/projects/Projects'
 import { Routes, Route, Navigate } from "react-router-dom";
+import { ThemeProvider } from '@mui/material/styles';
+import { theme } from './theme'
 
 
 function App() {
@@ -19,19 +21,17 @@ function App() {
 
 
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-      
-      <Route index element={<Home />} />
-
-        <Route path="/teams" element={<Teams />} />
-
-        <Route path="/projects" element={<Projects />} />
-
-        {/* Catch all - replace with 404 component if you want */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Route>
-    </Routes>
+    <ThemeProvider theme={theme}>
+      <Routes>
+          <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="/teams" element={<Teams />} />
+              <Route path="/projects" element={<Projects />} />
+              {/* Catch all - replace with 404 component if you want */}
+              <Route path="*" element={<Navigate to="/" replace />} />
+          </Route>
+      </Routes>
+    </ThemeProvider>
   );
 }
 
