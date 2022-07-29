@@ -28,8 +28,23 @@ function TabPanel(props) {
     );
 }
 
+// const actionRef = React.useRef();
 
-function Header() {
+// React.useEffect(() => {
+//   const timeout = setTimeout(() => {
+//     actionRef.current.updateIndicator();
+//   }, theme.transitions.duration.enteringScreen);
+
+//   return () => {
+//     clearTimeout(timeout);
+//   };
+// }, [open, theme]);
+
+// //…
+
+// <Tabs action={actionRef} />
+
+function Header({extraStyles, leftShift}) {
     const theme = useTheme();
 
     const [value, setValue] = React.useState(0);
@@ -39,18 +54,17 @@ function Header() {
     };
 
     return (
-        <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+        <Box sx={{ width: '100%', bgcolor: 'background.paper', ...extraStyles }}>
             <AppBar position="static" sx={{ m: 0, p: 0 }}>
                 <Tabs 
                     value={value} 
                     onChange={handleChange} 
-                    centered
                     textColor='inherit'
                     indicatorColor='secondary'
-                    // variant='centered'
+                    scrollButtons="auto"
+                    variant='scrollable'
                     allowScrollButtonsMobile
-                    scrollButtons
-                    sx={{ height: 'fitContent' }}
+                    sx={{ mx: 'auto' }}
                     >
 
                     {/* Hot Swapping for page-specific tabbing -> ie. Messages, Project Tracking, Current Work, etc... */}

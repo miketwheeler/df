@@ -111,7 +111,7 @@ const Appbar = ({extraStyles, leftShift}) => {
     return (
         <AppBar position="fixed" sx={{...extraStyles}} >
             <Container maxWidth="xl" >
-                <Toolbar disableGutters sx={{pl: 4}}>
+                <Toolbar disableGutters>
                 {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
                 <Typography
                     variant="h4"
