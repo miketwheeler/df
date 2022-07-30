@@ -9,6 +9,7 @@ import { Typography } from '@mui/material';
 
 
 function TabPanel(props) {
+    const theme = useTheme();
     const { children, value, index, ...other } = props;
 
     return (
@@ -20,7 +21,7 @@ function TabPanel(props) {
             {...other}
         >
             {value === index && (
-            <Box sx={{ p: 3 }}>
+            <Box sx={{ px: 3, py: 8}}>
                 <Typography>{children}</Typography>
             </Box>
             )}
@@ -28,21 +29,6 @@ function TabPanel(props) {
     );
 }
 
-// const actionRef = React.useRef();
-
-// React.useEffect(() => {
-//   const timeout = setTimeout(() => {
-//     actionRef.current.updateIndicator();
-//   }, theme.transitions.duration.enteringScreen);
-
-//   return () => {
-//     clearTimeout(timeout);
-//   };
-// }, [open, theme]);
-
-// //…
-
-// <Tabs action={actionRef} />
 
 function Header({extraStyles, leftShift}) {
     const theme = useTheme();
@@ -64,7 +50,7 @@ function Header({extraStyles, leftShift}) {
                     scrollButtons="auto"
                     variant='scrollable'
                     allowScrollButtonsMobile
-                    sx={{ mx: 'auto' }}
+                    sx={{ mx: 'auto', my:.75, borderBottom: `2px solid ${theme.palette.secondary}` }}
                     >
 
                     {/* Hot Swapping for page-specific tabbing -> ie. Messages, Project Tracking, Current Work, etc... */}

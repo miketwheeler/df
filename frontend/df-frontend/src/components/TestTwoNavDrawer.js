@@ -2,6 +2,7 @@ import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
+import MuiTab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import List from '@mui/material/List';
@@ -29,6 +30,9 @@ import NewspaperIcon from '@mui/icons-material/Newspaper';
 import TestAppBar from './TestAppBar';
 import { Button, Icon } from '@mui/material';
 import { Container } from '@mui/system';
+
+import TabUnstyled, { tabUnstyledClasses } from '@mui/base/TabUnstyled';
+import { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
 
 
 
@@ -86,6 +90,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
+// const StyledTab = styled(MuiTab, )
+
 export default function NavDrawer() {
     // const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -104,20 +110,64 @@ export default function NavDrawer() {
         setOpen(false);
     };
 
-    const Lister = (icon, label) => {
+    // const Lister = (icon, label) => {
+    //     return(
+    //         <ListItem id={value} autoFocus disablePadding sx={{ display: 'block', border: 'none', p:0, m:0 }}>
+    //             <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
+    //                 <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
+    //                     { icon }
+    //                 </ListItemIcon>
+    //                 <ListItemText sx={{ opacity: open ? 1 : 0, color: 'white'}}>
+    //                     { label }
+    //                 </ListItemText>
+    //             </ListItemButton>
+    //         </ListItem>
+    //     )
+    // }
+
+    const TabComponent = (i, icon, label) => {
         return(
-            <IconButton key={label} disablePadding sx={{ display: 'block', border: 'none', p:0, m:0 }}>
-                <Box sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
-                    <Icon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
-                        { icon }
-                    </Icon>
-                    <Typography sx={{ opacity: open ? 1 : 0, color: 'white'}}>
-                        { label }
-                    </Typography>
-                </Box>
-            </IconButton>
+            <MyTabInner value={i}>
+                <MyTabInnerButton>
+                    <MyTabInnerIcon>
+                        {icon}
+                    </MyTabInnerIcon>
+                </MyTabInnerButton>
+                <MyTabInnerText>
+                    {label}
+                </MyTabInnerText>
+            </MyTabInner>
         )
     }
+    
+    const MyTabInner = styled('button')(({theme}) => ({
+        display: 'block',
+        border: 'none',
+        background: theme.palette.background.paper,
+        "&:focus": {
+            borderRight: `3px solid ${theme.palette.secondary}`,
+
+        }
+    }))
+    const MyTabInnerButton = styled('button')(({theme}) => ({
+        minHeight: 48,
+        justifyContent: open ? 'initial' : 'center',
+        px: 2.5,
+        color: 'white',
+        border: 'none',
+        background: theme.palette.background.paper
+    }))
+    const MyTabInnerIcon = styled('button')(({theme}) => ({
+        minWidth: 0,
+        mr: open ? 3 : 'auto',
+        justifyContent: 'center',
+        border: 'none',
+        background: theme.palette.background.paper
+    }))
+    const MyTabInnerText = styled('span')(({theme}) => ({
+        opacity: open ? 1 : 0,
+        color: 'white',
+    }))
 
     // const getTheLabel = (label) => {
     //     return (
@@ -180,53 +230,85 @@ export default function NavDrawer() {
                 }
                 <Divider />
 
-                <Tabs 
+                <Tabs
                     orientation="vertical" 
                     scrollable 
                     value={value} 
                     onChange={handleChange} 
                     aria-label="vertical pages directory"
+                    indicatorColor='secondary'
                     // sx={{border}}
                     >
                     {
                         allTabLabels.map((text, i) => (
-                            // <Tab label={text} icon={allIcons[i]} iconPosition="start" />
                             <Tab 
-                                key={text} 
-                                disablePadding 
-                                sx={{ color: 'white' }}
-                                // icon={allIcons[i]}
-                                // label={text}
-                                iconPosition="start"
-                                // iconWrapper={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}
-                                component={() => Lister(allIcons[i], text)}
+                                label={
+                                    open ? text : null
+                                } 
+                                icon={allIcons[i]} 
+                                iconPosition="start" 
+                                iconWrapper={{
+                                    minWidth: 0,
+                                    // mr: open ? 3 : 'auto',
+                                    alignSelf: 'center'
+                                }}
+                                sx={{ 
+                                    color: 'white',
+                                    textDecoration: 'none',
+                                    minHeight: 48, 
+                                    justifyContent: open ? "initial" : "center",
+                                    px: open ? 2.5 : 0,
+                                    display: 'block',
+                                    width: open ? '80px' : "auto",
+                                    p: 0,
+                                    m: 0,
+                                }}
+                                />
+                            
+                            // <Tab 
+                            //     key={text} 
+                            //     component={() => TabComponent(value, allIcons[i], text)}
+                            //     >
+
                                 
-                                // iconPosition="start"
-                                // icon={getTheIcon(allIcons[i])}
-                                // label={getTheLabel(text)} 
-                                >
-                                {/* <Box key={text} disablePadding sx={{ display: 'block' }}> */}
-                                    {/* <Box
-                                        sx={{
-                                            minHeight: 48,
-                                            justifyContent: open ? 'initial' : 'center',
-                                            px: 2.5,
-                                            color: 'white'
-                                        }}
-                                        > */}
-                                        {/* <IconButton
-                                            sx={{
-                                                minWidth: 0,
-                                                mr: open ? 3 : 'auto',
-                                                justifyContent: 'center',
-                                            }}
-                                            >
-                                            { allIcons[i] }
-                                        </IconButton>
-                                        <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} /> */}
-                                    {/* </Box> */}
-                                {/* </Box> */}
-                            </Tab>
+                            // {/* // <Tab */}
+                            // {/* //     key={text} 
+                            // //     disablePadding 
+                            // //     sx={{ color: 'white' }}
+                            // //     sx={{ color: 'white', justifyContent: 'left'  }}
+                            // //     icon={allIcons[i]}
+                            // //     label={text}
+                            // //     iconPosition="start"
+                            // //     iconWrapper={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}
+                            // //     component={() => Lister(allIcons[i], text)}
+                                
+                            // //     iconPosition="start"
+                            // //     icon={getTheIcon(allIcons[i])}
+                            // //     label={getTheLabel(text)} 
+                            // //     >  */}
+
+                            //     {/* <Box key={text} disablePadding sx={{ display: 'block' }}> */}
+                            //         {/* <Box
+                            //             sx={{
+                            //                 minHeight: 48,
+                            //                 justifyContent: open ? 'initial' : 'center',
+                            //                 px: 2.5,
+                            //                 color: 'white'
+                            //             }}
+                            //             > */}
+                            //             {/* <IconButton
+                            //                 sx={{
+                            //                     minWidth: 0,
+                            //                     mr: open ? 3 : 'auto',
+                            //                     justifyContent: 'center',
+                            //                 }}
+                            //                 >
+                            //                 { allIcons[i] }
+                            //             </IconButton>
+                            //             <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} /> */}
+                            //         {/* </Box> */}
+                            //     {/* </Box> */}
+                            // // </Tab>
                         ))
                     }
 
