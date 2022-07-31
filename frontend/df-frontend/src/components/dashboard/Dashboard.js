@@ -5,7 +5,10 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { useTheme } from '@mui/material/styles'
 import AppBar from '@mui/material/AppBar'
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
+
+import Tooltip from '@mui/material/Tooltip';
+
 
 
 function TabPanel(props) {
@@ -32,7 +35,8 @@ function TabPanel(props) {
 
 function Header({extraStyles, leftShift}) {
     const theme = useTheme();
-
+    const ffam = theme.typography.fontFamily;
+    
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -49,35 +53,54 @@ function Header({extraStyles, leftShift}) {
                     indicatorColor='secondary'
                     scrollButtons="auto"
                     variant='scrollable'
-                    allowScrollButtonsMobile
-                    sx={{ mx: 'auto', my:.75, borderBottom: `2px solid ${theme.palette.secondary}` }}
+                    // allowScrollButtonsMobile
+                    sx={{ mt: .6, mx: 'auto', borderBottom: `2px solid ${theme.palette.secondary}` }}
                     >
 
                     {/* Hot Swapping for page-specific tabbing -> ie. Messages, Project Tracking, Current Work, etc... */}
-                    <Tab label="Currents" sx={{ fontFamily: theme.typography.fontFamily}} />
-                    <Tab label="Messages" sx={{ fontFamily: theme.typography.fontFamily}} />
-                    <Tab label="Tasks" sx={{ fontFamily: theme.typography.fontFamily}} />
-                    <Tab label="Designation" sx={{ fontFamily: theme.typography.fontFamily}} />
+                    {/* Dynamically Load these Tabs ? (*tried on main nav with some issues though was mess with custom vertical/disappearing tab) */}
+                    <Tooltip title="Dashboard/Home">
+                        <Tab label="Home" sx={{ fontFamily: ffam, textTransform: 'none'}} />
+                    </Tooltip>
+                    <Tooltip title="Dashboard/Tasks">
+                        <Tab label="Tasks" sx={{ fontFamily: ffam, textTransform: 'none'}} />
+                    </Tooltip>
+                    <Tooltip title="Dashboard/Team">
+                        <Tab label="Team" sx={{ fontFamily: ffam, textTransform: 'none'}} />
+                    </Tooltip>
+                    <Tooltip title="Dashboard/Messages">
+                        <Tab label="Messges" sx={{ fontFamily: ffam, textTransform: 'none'}} />
+                    </Tooltip>
+                    <Tooltip title="Dashboard/Schedule">
+                        <Tab label="Schedule" sx={{ fontFamily: ffam, textTransform: 'none'}} />
+                    </Tooltip>
                 </Tabs>
             </AppBar>
+
+            {/* Dynamically load these - i.e. for each in this passed list build the panel according to each route */}
             <TabPanel value={value} index={0}>
                 <Typography sx={{color: 'white'}}>
-                    Item Supposed to be Home
+                    Item Supposed to be Dash-Home
                 </Typography> 
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <Typography sx={{color: 'white'}}>
-                    Item Supposed to be Projects
+                    Item Supposed to be Dash-Tasks
                 </Typography> 
             </TabPanel>
             <TabPanel value={value} index={2}>
                 <Typography sx={{color: 'white'}}>
-                    Item Supposed to be Teams
+                Item Supposed to be my Dash-Team
                 </Typography> 
             </TabPanel>
             <TabPanel value={value} index={3}>
                 <Typography sx={{color: 'white'}}>
-                    Item Supposed to be Funding
+                Item Supposed to be my Dash-Messages
+                </Typography> 
+            </TabPanel>
+            <TabPanel value={value} index={4}>
+                <Typography sx={{color: 'white'}}>
+                Item Supposed to be my Dash-Schedule
                 </Typography> 
             </TabPanel>
         </Box>

@@ -1,7 +1,13 @@
 // import logo from './logo.svg';
 // import { useState, useEffect } from 'react'
 import Layout from './components/Layout'
-import Home from './components/homepage/Home'
+// import Home from './components/annonHomepage/Home'
+import Dashboard from './components/dashboard/Dashboard';
+import DashHome from './components/dashboard/dashboard-subpaths/DashHome';
+import DashTasks from './components/dashboard/dashboard-subpaths/DashTasks';
+import DashTeam from './components/dashboard/dashboard-subpaths/DashTeam';
+import DashMessages from './components/dashboard/dashboard-subpaths/DashMessages';
+import DashSchedule from './components/dashboard/dashboard-subpaths/DashSchedule';
 import Teams from './components/teams/Teams'
 import Projects from './components/projects/Projects'
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -10,7 +16,6 @@ import { theme } from './theme'
 
 
 function App() {
-
   // const [data, setData] = useState(null);
 
   // useEffect(() => {
@@ -19,12 +24,19 @@ function App() {
   //     .then((data) => setData(data.message))
   // })
 
-
   return (
     <ThemeProvider theme={theme}>
       <Routes>
-          <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
+          <Route path="" element={<Layout />}>
+              {/* loggedIn ? Dashboard(*either Dev or Investor) : Home (*Generic/Annonymous/No-Account) */}
+              
+              <Route path="/" element={<Dashboard />} >
+                {/* <Route path="dash-home" element={<DashHome />} /> */}
+                  {/* <Route path="dash-tasks" element={<DashTasks />} />
+                  <Route path="dash-team" element={<DashTeam />} />
+                  <Route path="dash-messages" element={<DashMessages />} />
+                  <Route path="dash-schedule" element={<DashSchedule />} /> */}
+              </Route>
               <Route path="/teams" element={<Teams />} />
               <Route path="/projects" element={<Projects />} />
               {/* Catch all - replace with 404 component if you want */}
