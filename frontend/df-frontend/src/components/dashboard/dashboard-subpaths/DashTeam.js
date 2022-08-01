@@ -1,8 +1,13 @@
 import React from 'react'
+import { Typography } from '@mui/material'
+import { theme } from '../../../theme'
+
 
 function DashTeam() {
     return (
-        <div>DashTeam</div>
+        <Typography sx={{color: theme.palette.primary.main}}>
+            DashTeam
+        </Typography>
     )
 }
 

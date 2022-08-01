@@ -1,8 +1,12 @@
 import React from 'react'
+import { Typography } from '@mui/material'
+import { theme } from '../../../theme'
 
 function DashSchedule() {
     return (
-        <div>DashSchedule</div>
+        <Typography sx={{color: theme.palette.primary.main}}>
+            DashSchedule
+        </Typography>
     )
 }
 

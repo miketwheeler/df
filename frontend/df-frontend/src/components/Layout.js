@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 // import Appbar from './Appbar'
 // import NavDrawer from './NavDrawer';
 // import TestNavDrawer from './TestNavDrawer'
-import NavDrawer from './NavDrawer'
+// import NavDrawer from './NavDrawer'
 
 const Layout = () => {
     return (
@@ -11,7 +11,7 @@ const Layout = () => {
             {/* <Appbar /> */}
             {/* <NavDrawer /> */}
             {/* <TestNavDrawer /> */}
-            <NavDrawer />
+            {/* <NavDrawer /> */}
             {/* <Header /> */}
             <main className="App">
                 <Outlet />

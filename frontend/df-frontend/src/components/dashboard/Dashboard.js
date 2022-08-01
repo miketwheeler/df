@@ -12,7 +12,7 @@ import Tooltip from '@mui/material/Tooltip';
 
 
 function TabPanel(props) {
-    const theme = useTheme();
+    // const theme = useTheme();
     const { children, value, index, ...other } = props;
 
     return (
@@ -33,7 +33,7 @@ function TabPanel(props) {
 }
 
 
-function Header({extraStyles, leftShift}) {
+function Dashboard({extraStyles, leftShift}) {
     const theme = useTheme();
     const ffam = theme.typography.fontFamily;
     
@@ -49,7 +49,7 @@ function Header({extraStyles, leftShift}) {
                 <Tabs 
                     value={value} 
                     onChange={handleChange} 
-                    textColor='inherit'
+                    // textColor='inherit'
                     indicatorColor='secondary'
                     scrollButtons="auto"
                     variant='scrollable'
@@ -124,5 +124,5 @@ function Header({extraStyles, leftShift}) {
 //     )
 // }
 
-export default Header;
+export default Dashboard;
 

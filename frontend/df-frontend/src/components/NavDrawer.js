@@ -19,7 +19,10 @@ import GridViewIcon from '@mui/icons-material/GridView';
 import GroupsIcon from '@mui/icons-material/Groups';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
-import { Outlet } from 'react-router-dom';
+import { Route, Routes, Link, Outlet } from 'react-router-dom';
+// import Dashboard from '../components/dashboard/Dashboard'
+// import Dashboard from '../components/dashboard/TestDash'
+import Dashboard from '../components/dashboard/DashTestTwo'
 
 
 
@@ -28,6 +31,8 @@ const pagesTabLabels = ['Dashboard', 'Members Hall', 'Project Hub', 'Funding Tre
 const acctSpecLabels = ['Messages', 'Documents', 'News'];
 const pagesIcons = [<GridViewIcon />, <GroupsIcon />, <CategoryIcon />, <AttachMoneyIcon />] 
 const acctSpecIcons = [<MailIcon />, <HistoryEduIcon />, <NewspaperIcon />]
+
+const navRoutes = ["dash", "member-hall", "project-hub", "funding-tree", "my-messages", "my-documents", "news"]
 
 
 const openedMixin = (theme) => ({
@@ -78,13 +83,12 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 
 
-
 export default function NavDrawer() {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState(0);
-    // const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const baseLtColor =  theme.palette.primary.main;
+
+    const baseLightColor =  theme.palette.primary.main;
     const tabStyles = {
         color: theme.palette.primary.main,
         textTransform: 'none',
@@ -92,10 +96,7 @@ export default function NavDrawer() {
         ml: '4px',
         minWidth: "fit-content",
         width: open ? drawerWidth : 0,
-        // justifyContent: open ? "initial" : "center",
-        // px: 'auto',
-        // display: 'flex',
-        // textAlign: open ? 'initial' : 'center',
+        // justifyContent: open ? "initial" : "center", px: 'auto', display: 'flex', textAlign: open ? 'initial' : 'center',
     }
 
     const handleChange = (event, newValue) => {
@@ -128,13 +129,13 @@ export default function NavDrawer() {
                             aria-label="open drawer"
                             onClick={handleDrawerOpen}
                             edge="start"
-                            sx={{ my: '.4rem', mx: 'auto', color: baseLtColor, ...(open && { display: 'none' }) }}
+                            sx={{ my: '.4rem', mx: 'auto', color: baseLightColor, ...(open && { display: 'none' }) }}
                             >
                             <MenuIcon />
                         </IconButton>
                         :
                         <IconButton onClick={handleDrawerClose}>
-                            <CloseIcon sx={{ color: baseLtColor, my: '.4rem', mx: 'auto' }} />
+                            <CloseIcon sx={{ color: baseLightColor, my: '.4rem', mx: 'auto' }} />
                         </IconButton>
                     }
                 <Divider />
@@ -155,6 +156,8 @@ export default function NavDrawer() {
                                 icon={ pagesIcons[i] } 
                                 iconPosition="start" 
                                 sx={tabStyles}
+                                component={Link}
+                                to={navRoutes[i]}
                                 />
                         ))
                     }
@@ -166,6 +169,8 @@ export default function NavDrawer() {
                                 icon={ acctSpecIcons[i] } 
                                 iconPosition="start" 
                                 sx={tabStyles}
+                                component={Link}
+                                to={navRoutes[i]}
                                 />
                         ))
                     }
@@ -177,8 +182,8 @@ export default function NavDrawer() {
                 <DrawerHeader />
 
                 {/* Imported Header for the Homepage for now - need to swap this whole section on master tab *(far-left) selection */}
-                {/* <DashboardSectionTabs /> */}
-                {/* <Outlet /> */}
+                {/* <Dashboard /> */}
+                <Outlet />
 
                 {/* Placeholder for now - will not be necessary in the future */}
                 {/* <Box component="div" sx={{ p:3 }}>
