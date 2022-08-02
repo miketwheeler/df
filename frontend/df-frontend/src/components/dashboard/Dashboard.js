@@ -1,128 +1,98 @@
 import * as React from 'react';
-import { Link } from "react-router-dom"
+import { useState } from 'react'
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { useTheme } from '@mui/material/styles'
 import AppBar from '@mui/material/AppBar'
-import Typography from '@mui/material/Typography';
-
 import Tooltip from '@mui/material/Tooltip';
+import { Outlet, Link, useNavigate } from 'react-router-dom'
 
 
 
-function TabPanel(props) {
-    // const theme = useTheme();
-    const { children, value, index, ...other } = props;
-
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
-        >
-            {value === index && (
-            <Box sx={{ px: 3, py: 8}}>
-                <Typography>{children}</Typography>
-            </Box>
-            )}
-        </div>
-    );
-}
-
-
-function Dashboard({extraStyles, leftShift}) {
+function Dashboard(roleType) {
     const theme = useTheme();
     const ffam = theme.typography.fontFamily;
+    let navigate = useNavigate();
     
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
+        event.preventDefault();
         setValue(newValue);
     };
+    const roleRoutes = 
+    {
+        dev: {
+            routes: ["", "dash-tasks", "dash-team", "dash-messages", "dash-schedule"],
+            label: ["Home", "Tasks", "Messages", "Schedule"],
+            tips: ["Dashboard/Home", "Dashboard/Tasks", "Dashboard/Team", "Dashboard/Messages", "Dashboard/Schedule"]
+        },
+        inv: {
+            routes: ["", "dash-messages", "dash-schedule"],
+            label: ["Home", "Messages", "Schedule"],
+            tips: ["Dashboard/Home", "Dashboard/Messages", "Dashboard/Schedule"]
+        }
+    }
 
     return (
-        <Box sx={{ width: '100%', bgcolor: 'background.paper', ...extraStyles }}>
+        <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
             <AppBar position="static" sx={{ m: 0, p: 0 }}>
                 <Tabs 
                     value={value} 
                     onChange={handleChange} 
-                    // textColor='inherit'
+                    textColor='inherit'
                     indicatorColor='secondary'
                     scrollButtons="auto"
                     variant='scrollable'
-                    // allowScrollButtonsMobile
+                    aria-label="dashboard section tabs"
+                    allowScrollButtonsMobile
                     sx={{ mt: .6, mx: 'auto', borderBottom: `2px solid ${theme.palette.secondary}` }}
                     >
 
+
+                    {
+                        // roleType === "dev"
+                        // ? 
+                        roleRoutes.dev.routes.map((value, i) => (
+                            <Tooltip title={roleRoutes.dev.tips[i]}>
+                                <Tab 
+                                    label={roleRoutes.dev.label[i]} 
+                                    to={`${value}`} 
+                                    onClick={()=> navigate(value)} 
+                                    component={Link} 
+                                    sx={{ fontFamily: ffam, textTransform: 'none'}} />
+                            </Tooltip>
+                        ))
+                        // : null
+                    }
+
                     {/* Hot Swapping for page-specific tabbing -> ie. Messages, Project Tracking, Current Work, etc... */}
                     {/* Dynamically Load these Tabs ? (*tried on main nav with some issues though was mess with custom vertical/disappearing tab) */}
-                    <Tooltip title="Dashboard/Home">
-                        <Tab label="Home" sx={{ fontFamily: ffam, textTransform: 'none'}} />
+                    {/* <Tooltip title="Dashboard/Home">
+                        <Tab label="Home" to="" onClick={()=> navigate("")} component={Link} sx={{ fontFamily: ffam, textTransform: 'none'}} />
                     </Tooltip>
                     <Tooltip title="Dashboard/Tasks">
-                        <Tab label="Tasks" sx={{ fontFamily: ffam, textTransform: 'none'}} />
+                        <Tab label="Tasks" to="dash-tasks" onClick={()=> navigate("dash-tasks")} component={Link} sx={{ fontFamily: ffam, textTransform: 'none'}} />
                     </Tooltip>
                     <Tooltip title="Dashboard/Team">
-                        <Tab label="Team" sx={{ fontFamily: ffam, textTransform: 'none'}} />
+                        <Tab label="Team" to="dash-team" onClick={()=> navigate("dash-team")} component={Link} sx={{ fontFamily: ffam, textTransform: 'none'}} />
                     </Tooltip>
                     <Tooltip title="Dashboard/Messages">
-                        <Tab label="Messges" sx={{ fontFamily: ffam, textTransform: 'none'}} />
+                        <Tab label="Messages" to="dash-messages" onClick={()=> navigate("dash-messages")} component={Link} sx={{ fontFamily: ffam, textTransform: 'none'}} />
                     </Tooltip>
                     <Tooltip title="Dashboard/Schedule">
-                        <Tab label="Schedule" sx={{ fontFamily: ffam, textTransform: 'none'}} />
-                    </Tooltip>
+                        <Tab label="Schedule" to="dash-schedule" onClick={()=> navigate("dash-schedule")} component={Link} sx={{ fontFamily: ffam, textTransform: 'none'}} />
+                    </Tooltip> */}
                 </Tabs>
             </AppBar>
 
-            {/* Dynamically load these - i.e. for each in this passed list build the panel according to each route */}
-            <TabPanel value={value} index={0}>
-                <Typography sx={{color: 'white'}}>
-                    Item Supposed to be Dash-Home
-                </Typography> 
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                <Typography sx={{color: 'white'}}>
-                    Item Supposed to be Dash-Tasks
-                </Typography> 
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                <Typography sx={{color: 'white'}}>
-                Item Supposed to be my Dash-Team
-                </Typography> 
-            </TabPanel>
-            <TabPanel value={value} index={3}>
-                <Typography sx={{color: 'white'}}>
-                Item Supposed to be my Dash-Messages
-                </Typography> 
-            </TabPanel>
-            <TabPanel value={value} index={4}>
-                <Typography sx={{color: 'white'}}>
-                Item Supposed to be my Dash-Schedule
-                </Typography> 
-            </TabPanel>
+            {/* The respective tab/route selected is rendered */}
+            <Outlet />
+            
         </Box>
     );
 }
-
-// const Header = () => {
-//     return (
-//         <header>
-//             <Typography variant="h6">Secondary Appbar</Typography>
-//             <nav>
-//                 <Typography>
-//                     <ul>
-//                         <li><Link to="/">Home</Link></li>
-//                         <li><Link to="projects">Projects</Link></li>
-//                         <li><Link to="teams">Teams</Link></li>
-//                     </ul>
-//                 </Typography>
-//             </nav>
-//         </header>
-//     )
-// }
 
 export default Dashboard;
 

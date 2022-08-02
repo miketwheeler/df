@@ -12,17 +12,15 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import MailIcon from '@mui/icons-material/Mail';
-// import DashboardSectionTabs from './dashboard/Dashboard'
 import CategoryIcon from '@mui/icons-material/Category';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import GridViewIcon from '@mui/icons-material/GridView';
 import GroupsIcon from '@mui/icons-material/Groups';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
-import { Route, Routes, Link, Outlet } from 'react-router-dom';
-// import Dashboard from '../components/dashboard/Dashboard'
+import { Link, Outlet } from 'react-router-dom';
 // import Dashboard from '../components/dashboard/TestDash'
-import Dashboard from '../components/dashboard/DashTestTwo'
+// import Dashboard from './dashboard/Dashboard'
 
 
 
@@ -32,7 +30,7 @@ const acctSpecLabels = ['Messages', 'Documents', 'News'];
 const pagesIcons = [<GridViewIcon />, <GroupsIcon />, <CategoryIcon />, <AttachMoneyIcon />] 
 const acctSpecIcons = [<MailIcon />, <HistoryEduIcon />, <NewspaperIcon />]
 
-const navRoutes = ["dash", "member-hall", "project-hub", "funding-tree", "my-messages", "my-documents", "news"]
+const navRoutes = ["dashboard", "member-hall", "project-hub", "funding-tree", "my-messages", "my-documents", "news"]
 
 
 const openedMixin = (theme) => ({
@@ -111,6 +109,8 @@ export default function NavDrawer() {
         setOpen(false);
     };
 
+    const roleProp = 'dev';
+
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -139,10 +139,10 @@ export default function NavDrawer() {
                         </IconButton>
                     }
                 <Divider />
+                
                 {/* Primary Navigation */}
                 <Tabs
                     orientation="vertical" 
-                    // scrollable 
                     value={value} 
                     onChange={handleChange} 
                     aria-label="vertical pages directory"
@@ -155,9 +155,9 @@ export default function NavDrawer() {
                                 label={ open ? <Typography sx={{ m: '0 auto 0 1rem' }}>{ text }</Typography> : null } 
                                 icon={ pagesIcons[i] } 
                                 iconPosition="start" 
-                                sx={tabStyles}
-                                component={Link}
-                                to={navRoutes[i]}
+                                sx={ tabStyles }
+                                component={ Link }
+                                to={ navRoutes[i] }
                                 />
                         ))
                     }
@@ -168,40 +168,22 @@ export default function NavDrawer() {
                                 label={ open ? <Typography sx={{ m: '0 auto 0 1rem' }}>{ text }</Typography> : null } 
                                 icon={ acctSpecIcons[i] } 
                                 iconPosition="start" 
-                                sx={tabStyles}
-                                component={Link}
-                                to={navRoutes[i]}
+                                sx={ tabStyles }
+                                component={ Link }
+                                to={ navRoutes[i] }
                                 />
                         ))
                     }
                 </Tabs>
             </Drawer>
             
-            {/* Content in box below and to the right of the nav and  */}
             <Box component="main" sx={{ flexGrow: 1}}>
+                {/* Space Content in box below and to the right of the nav and right of Drawer */}
                 <DrawerHeader />
 
-                {/* Imported Header for the Homepage for now - need to swap this whole section on master tab *(far-left) selection */}
-                {/* <Dashboard /> */}
-                <Outlet />
+                {/* Outlet is for each Primary-Nav Link  --> as listed inputs */}
+                <Outlet roleType={roleProp} />
 
-                {/* Placeholder for now - will not be necessary in the future */}
-                {/* <Box component="div" sx={{ p:3 }}>
-                    <Typography paragraph sx={{color: 'white'}}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-                        enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                        imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-                        Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-                        Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                        adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-                        nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-                        leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-                        feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-                        consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                        sapien faucibus et molestie ac.
-                    </Typography>
-                </Box> */}
             </Box>
         </Box>
     );

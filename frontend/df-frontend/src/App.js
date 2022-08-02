@@ -18,7 +18,7 @@ import { theme } from './theme'
 import NavDrawer from './components/NavDrawer';
 
 // import TestDash from './components/dashboard/TestDash'
-import DashTestTwo from './components/dashboard/DashTestTwo'
+import Dashboard from './components/dashboard/Dashboard'
 
 
 function App() {
@@ -36,8 +36,9 @@ function App() {
           <Route element={<Layout />}>
               {/* loggedIn ? Dashboard(*either Dev or Investor) : Home (*Generic/Annonymous/No-Account) */}
               <Route path="" element={<NavDrawer/>} >
-                  <Route path='dash' element={<DashTestTwo />}>
-                      <Route index path="dash-home" element={<DashHome />} />
+                  <Route path="dashboard" element={<Dashboard />}>
+                      <Route index element={<DashHome to="dashboard" replace/>} />
+                      {/* <Route path="" element={<DashHome />} /> */}
                       <Route path="dash-tasks" element={<DashTasks />} />
                       <Route path="dash-team" element={<DashTeam />} />
                       <Route path="dash-messages" element={<DashMessages />} />
