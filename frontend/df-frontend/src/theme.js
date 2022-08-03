@@ -17,6 +17,12 @@ export const theme = createTheme({
         secondary: {
             main: '#1976d2',
         },
+        cards: {
+            background: '#2f2f2f',
+            border: '1px solid transparent',
+            borderRadius: '5px',
+
+        }
     },
     typography: {
         fontFamily: 'Play',

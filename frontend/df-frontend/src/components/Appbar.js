@@ -14,6 +14,7 @@ import Notifications from '@mui/icons-material/Notifications'
 import Container from '@mui/material/Container'
 import MailIcon from '@mui/icons-material/Mail';
 import IconButton from '@mui/material/IconButton';
+import ava from '../static/images/avatar/2.png'
 
 
 
@@ -21,11 +22,8 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 
 function TestAppBar() {
-
     const theme = useTheme();
-
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-
     
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
@@ -60,7 +58,7 @@ function TestAppBar() {
                             <Box sx={{ flexGrow: 0 }}>
                                 <Tooltip title="Open settings">
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                        <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                        <Avatar alt="Mikey Sharp" src={ava} />
                                     </IconButton>
                                 </Tooltip>
                                 <Menu

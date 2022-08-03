@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -7,15 +7,17 @@ import { useTheme } from '@mui/material/styles'
 import AppBar from '@mui/material/AppBar'
 import Tooltip from '@mui/material/Tooltip';
 import { Outlet, Link, useNavigate } from 'react-router-dom'
+import UserContext from '../../userContext';
 
 
-
-function Dashboard(roleType) {
+function Dashboard(props) {
     const theme = useTheme();
     const ffam = theme.typography.fontFamily;
     let navigate = useNavigate();
     
     const [value, setValue] = useState(0);
+
+    const userType = useContext(UserContext);
 
     const handleChange = (event, newValue) => {
         event.preventDefault();
@@ -24,7 +26,7 @@ function Dashboard(roleType) {
     const roleRoutes = 
     {
         dev: {
-            routes: ["", "dash-tasks", "dash-team", "dash-messages", "dash-schedule"],
+            routes: ["", "dash-tasks", "dash-messages", "dash-schedule"],
             label: ["Home", "Tasks", "Messages", "Schedule"],
             tips: ["Dashboard/Home", "Dashboard/Tasks", "Dashboard/Team", "Dashboard/Messages", "Dashboard/Schedule"]
         },
@@ -49,11 +51,9 @@ function Dashboard(roleType) {
                     allowScrollButtonsMobile
                     sx={{ mt: .6, mx: 'auto', borderBottom: `2px solid ${theme.palette.secondary}` }}
                     >
-
-
                     {
-                        // roleType === "dev"
-                        // ? 
+                        userType === "dev-user"
+                        ? 
                         roleRoutes.dev.routes.map((value, i) => (
                             <Tooltip title={roleRoutes.dev.tips[i]}>
                                 <Tab 
@@ -64,7 +64,17 @@ function Dashboard(roleType) {
                                     sx={{ fontFamily: ffam, textTransform: 'none'}} />
                             </Tooltip>
                         ))
-                        // : null
+                        : 
+                        roleRoutes.inv.routes.map((value, i) => (
+                            <Tooltip title={roleRoutes.inv.tips[i]}>
+                                <Tab 
+                                    label={roleRoutes.inv.label[i]} 
+                                    to={`${value}`} 
+                                    onClick={()=> navigate(value)} 
+                                    component={Link} 
+                                    sx={{ fontFamily: ffam, textTransform: 'none'}} />
+                            </Tooltip>
+                        ))
                     }
 
                     {/* Hot Swapping for page-specific tabbing -> ie. Messages, Project Tracking, Current Work, etc... */}
@@ -83,10 +93,10 @@ function Dashboard(roleType) {
                     </Tooltip>
                     <Tooltip title="Dashboard/Schedule">
                         <Tab label="Schedule" to="dash-schedule" onClick={()=> navigate("dash-schedule")} component={Link} sx={{ fontFamily: ffam, textTransform: 'none'}} />
-                    </Tooltip> */}
+                </Tooltip> */}
+
                 </Tabs>
             </AppBar>
-
             {/* The respective tab/route selected is rendered */}
             <Outlet />
             
