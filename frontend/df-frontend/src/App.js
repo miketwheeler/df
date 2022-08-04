@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useLocation } from 'react'
+// import { useState, useEffect, useMemo, useLocation } from 'react'
 import Layout from './components/Layout'
 import NavDrawer from './components/NavDrawer';
 import DashHome from './components/dashboard/dashboard-subpaths/DashHome';
@@ -29,11 +29,7 @@ function App() {
   // currently context for the primary NAV (and test DataPayload before final server/api integration)
   const userType = "dev-user"
   // const userType = "inv-user"
-  
-  // The current tab state
-  const [currentTab, setCurrentTab] = useState("");
 
-  // const location = useLocation();
 
   return (
     <ThemeProvider theme={theme}>
@@ -57,7 +53,7 @@ function App() {
 
                     </Route>
                     {/* Catch all - replace with 404 component if you want */}
-                    {/* <Route path="*" element={<Navigate to="dash" replace />} /> */}
+                    <Route path="*" element={<Navigate to="dashboard" replace />} />
                 </Route>
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Route>

@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { useState, useContext } from 'react'
+import { useState, useContext, useMemo } from 'react'
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { useTheme } from '@mui/material/styles'
 import AppBar from '@mui/material/AppBar'
 import Tooltip from '@mui/material/Tooltip';
-import { Outlet, Link, useNavigate } from 'react-router-dom'
+import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom'
 import UserContext from '../../userContext';
 
 
@@ -16,6 +16,8 @@ function Dashboard(props) {
     let navigate = useNavigate();
     
     const [value, setValue] = useState(0);
+    const location = useLocation();
+    const [pathValue, setPathValue] = useState("");
 
     const userType = useContext(UserContext);
 
@@ -23,8 +25,8 @@ function Dashboard(props) {
         event.preventDefault();
         setValue(newValue);
     };
-    const roleRoutes = 
-    {
+
+    const roleRoutes = {
         dev: {
             routes: ["", "dash-tasks", "dash-messages", "dash-schedule"],
             label: ["Home", "Tasks", "Messages", "Schedule"],
@@ -36,6 +38,19 @@ function Dashboard(props) {
             tips: ["Dashboard/Home", "Dashboard/Messages", "Dashboard/Schedule"]
         }
     }
+
+    const activeUserRoutes = [...roleRoutes[userType.slice(0, 3)].routes]
+
+    useMemo(() => {
+        let pathExtract = [...location.pathname.split('/')];
+        Object.values(pathExtract).length <= 2 ? setPathValue("") : setPathValue(pathExtract[2]);
+        // console.log(`pathExtract: ${Object.values(pathExtract)[2]}`)
+        // console.log(`location.pathname: ${location.pathname}`)
+        // console.log(`pathValue: ${pathValue}`)
+        let pathToValue = activeUserRoutes.indexOf(pathValue)
+        setValue(pathToValue !== value ? pathToValue : value);
+    }, [location.pathname, pathValue, value])
+
 
     return (
         <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
@@ -59,7 +74,7 @@ function Dashboard(props) {
                                 <Tab 
                                     label={roleRoutes.dev.label[i]} 
                                     to={`${value}`} 
-                                    onClick={()=> navigate(value)} 
+                                    onClick={()=> navigate(value, {replace: true})} 
                                     component={Link} 
                                     sx={{ fontFamily: ffam, textTransform: 'none'}} />
                             </Tooltip>
@@ -70,7 +85,7 @@ function Dashboard(props) {
                                 <Tab 
                                     label={roleRoutes.inv.label[i]} 
                                     to={`${value}`} 
-                                    onClick={()=> navigate(value)} 
+                                    onClick={()=> navigate(value, {replace: true})} 
                                     component={Link} 
                                     sx={{ fontFamily: ffam, textTransform: 'none'}} />
                             </Tooltip>

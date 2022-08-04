@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useMemo } from 'react'
 import { styled, useTheme } from '@mui/material/styles';
 import AppBar from './AppBar';
 import Box from '@mui/material/Box';
@@ -18,7 +19,7 @@ import GridViewIcon from '@mui/icons-material/GridView';
 import GroupsIcon from '@mui/icons-material/Groups';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 // import Dashboard from '../components/dashboard/TestDash'
 // import Dashboard from './dashboard/Dashboard'
 
@@ -83,8 +84,11 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function NavDrawer() {
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
-    const [value, setValue] = React.useState(0);
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState(0);
+    
+    const location = useLocation();
+    const [pathValue, setPathValue] = useState("dashboard");
 
     const baseLightColor =  theme.palette.primary.main;
     const tabStyles = {
@@ -94,7 +98,6 @@ export default function NavDrawer() {
         ml: '4px',
         minWidth: "fit-content",
         width: open ? drawerWidth : 0,
-        // justifyContent: open ? "initial" : "center", px: 'auto', display: 'flex', textAlign: open ? 'initial' : 'center',
     }
 
     const handleChange = (event, newValue) => {
@@ -109,8 +112,23 @@ export default function NavDrawer() {
         setOpen(false);
     };
 
-    const roleProp = 'dev';
+    useMemo(() => {
+        setPathValue(location.pathname.split('/')[1]);
+        let pathToValue = navRoutes.indexOf(pathValue)
+        setValue(pathToValue !== value ? pathToValue : value);
+    }, [location.pathname, value, pathValue])
 
+    // useMemo(() => {
+    //     console.log(`value: ${value} ; pathValue: ${pathValue}`)
+    //     let pathToValue = navRoutes.indexOf(pathValue)
+    //     setValue(pathToValue !== value ? pathToValue : value); 
+    //     console.log(`pathToValue: ${pathToValue}`)
+    // }, [value, pathValue])
+
+    // ///////////////////////////////////////////
+    // passed (*for now to indicate the user type)
+    const roleProp = 'dev';
+    // ///////////////////////////////////////////
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -152,12 +170,14 @@ export default function NavDrawer() {
                     {
                         pagesTabLabels.map((text, i) => (
                             <Tab
+                                id={ text }
                                 label={ open ? <Typography sx={{ m: '0 auto 0 1rem' }}>{ text }</Typography> : null } 
                                 icon={ pagesIcons[i] } 
                                 iconPosition="start" 
                                 sx={ tabStyles }
                                 component={ Link }
                                 to={ navRoutes[i] }
+                                // onClick={() => handleChange(this.id)}
                                 />
                         ))
                     }
@@ -165,6 +185,7 @@ export default function NavDrawer() {
                     {
                         acctSpecLabels.map((text, i) => (
                             <Tab
+                            id={text}
                                 label={ open ? <Typography sx={{ m: '0 auto 0 1rem' }}>{ text }</Typography> : null } 
                                 icon={ acctSpecIcons[i] } 
                                 iconPosition="start" 
