@@ -20,8 +20,6 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-// import Dashboard from '../components/dashboard/TestDash'
-// import Dashboard from './dashboard/Dashboard'
 
 
 
@@ -30,7 +28,6 @@ const pagesTabLabels = ['Dashboard', 'Members Hall', 'Project Hub', 'Funding Tre
 const acctSpecLabels = ['Messages', 'Documents', 'News'];
 const pagesIcons = [<GridViewIcon />, <GroupsIcon />, <CategoryIcon />, <AttachMoneyIcon />] 
 const acctSpecIcons = [<MailIcon />, <HistoryEduIcon />, <NewspaperIcon />]
-
 const navRoutes = ["dashboard", "member-hall", "project-hub", "funding-tree", "my-messages", "my-documents", "news"]
 
 
@@ -81,7 +78,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 
-
 export default function NavDrawer() {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
@@ -118,17 +114,11 @@ export default function NavDrawer() {
         setValue(pathToValue !== value ? pathToValue : value);
     }, [location.pathname, value, pathValue])
 
-    // useMemo(() => {
-    //     console.log(`value: ${value} ; pathValue: ${pathValue}`)
-    //     let pathToValue = navRoutes.indexOf(pathValue)
-    //     setValue(pathToValue !== value ? pathToValue : value); 
-    //     console.log(`pathToValue: ${pathToValue}`)
-    // }, [value, pathValue])
-
     // ///////////////////////////////////////////
     // passed (*for now to indicate the user type)
     const roleProp = 'dev';
     // ///////////////////////////////////////////
+
 
     return (
         <Box sx={{ display: 'flex' }}>

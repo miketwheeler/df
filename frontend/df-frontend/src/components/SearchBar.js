@@ -1,13 +1,22 @@
 import * as React from 'react';
+import { useState } from "react";
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import { theme } from '../theme'
+import FilterListIcon from '@mui/icons-material/FilterList';
+import IconButton from '@mui/material/IconButton';
+import MenuItem from '@mui/material/MenuItem';
 
+// import { theme } from '../theme'
+
+
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -52,6 +61,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function SearchBar({title}) {
 
+    const [anchorElUser, setAnchorElUser] = useState(null);
+    
+    const handleOpenUserMenu = (event) => {
+        setAnchorElUser(event.currentTarget);
+    };
+
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -65,6 +84,34 @@ export default function SearchBar({title}) {
                         {title}
                     </Typography>
                     <Box flexGrow={1} />
+                    <Box sx={{ flexGrow: 0 }}>
+                        <Tooltip title="Filter">
+                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                <FilterListIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <Menu
+                            sx={{ mt: '45px' }}
+                            id="menu-appbar"
+                            // anchorEl={anchorElUser}
+                            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                            keepMounted
+                            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                            // open={Boolean(anchorElUser)}
+                            // onClose={handleCloseUserMenu}
+                            >
+                            {
+                                settings.map((setting) => (
+                                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                        <Typography textAlign="center" sx={{color: 'white'}}>{setting}</Typography>
+                                    </MenuItem>
+                                ))
+                            }
+                        </Menu>
+                    </Box>
+                    {/* <MenuItem >
+                        <FilterListIcon />
+                    </MenuItem> */}
                     <Search>
                         <SearchIconWrapper>
                             <SearchIcon />

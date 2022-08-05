@@ -39,14 +39,13 @@ function Dashboard(props) {
         }
     }
 
+    // const activeUserRoutes = [...roleRoutes[userType.slice(0, 3)].routes]
     const activeUserRoutes = [...roleRoutes[userType.slice(0, 3)].routes]
 
     useMemo(() => {
         let pathExtract = [...location.pathname.split('/')];
-        Object.values(pathExtract).length <= 2 ? setPathValue("") : setPathValue(pathExtract[2]);
-        // console.log(`pathExtract: ${Object.values(pathExtract)[2]}`)
-        // console.log(`location.pathname: ${location.pathname}`)
-        // console.log(`pathValue: ${pathValue}`)
+        // Object.values(pathExtract).length <= 2 ? setPathValue("") : setPathValue(pathExtract[2]);
+        pathExtract.length <= 2 ? setPathValue("") : setPathValue(pathExtract[2]);
         let pathToValue = activeUserRoutes.indexOf(pathValue)
         setValue(pathToValue !== value ? pathToValue : value);
     }, [location.pathname, pathValue, value])

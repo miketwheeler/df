@@ -8,13 +8,9 @@ const barTitle="Member Hall"
 const MemberHall = () => {
   return (
     <Box sx={{ width: '100%', bgcolor: 'background.paper', color: 'primary.main' }}>
-      {/* <AppBar position="static" sx={{ display: 'flex', alignItems: 'center' }}>
-        <h4>
-          Member Hall
-        </h4>
-        
-      </AppBar> */}
+      
       <SearchBar title={barTitle} />
+      
       <Grid container spacing={2} sx={{display: 'flex',height: '100%', p: 2}}>
         <Grid item xs={8}>
           Grid Item Lefty
