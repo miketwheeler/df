@@ -75,7 +75,8 @@ function Dashboard(props) {
                                     to={`${value}`} 
                                     onClick={()=> navigate(value, {replace: true})} 
                                     component={Link} 
-                                    sx={{ fontFamily: ffam, textTransform: 'none'}} />
+                                    sx={{ fontFamily: ffam, textTransform: 'none'}} 
+                                    />
                             </Tooltip>
                         ))
                         : 
@@ -86,7 +87,8 @@ function Dashboard(props) {
                                     to={`${value}`} 
                                     onClick={()=> navigate(value, {replace: true})} 
                                     component={Link} 
-                                    sx={{ fontFamily: ffam, textTransform: 'none'}} />
+                                    sx={{ fontFamily: ffam, textTransform: 'none'}} 
+                                    />
                             </Tooltip>
                         ))
                     }

@@ -21,7 +21,6 @@ export const theme = createTheme({
             background: '#2f2f2f',
             border: '1px solid transparent',
             borderRadius: '5px',
-
         }
     },
     typography: {

@@ -10,8 +10,9 @@ code {
 }
 
 html {
-  --scrollbarBG: #616161ee;
-  --thumbBG: theme.palette.secondary;
+  --scrollbarBG: #f1f1f1;
+  --thumbBG: #666666;
+  /* --thumbBG: rgba(0, 0, 0, 0.54); */
 } 
 
 body {
