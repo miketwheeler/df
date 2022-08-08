@@ -14,20 +14,20 @@ import { theme } from '../../theme'
 import Ava from '../../static/images/avatar/2.png'
 
 
+
 const cardComponent = {
     height: 'fit-content', 
-    minHeight: '140px', 
+    minHeight: '200px', 
     p: 2, m: 2, 
     color: 'primary.main',
-    minWidth: '400px',
     '&:hover': {
         boxShadow: '.5px .5px 3px 1px #1976d2'
     }
 }
 
 
-function MyCard(props) {
 
+function HighlightCard(props) {
     return (
         <Paper sx={cardComponent} elevation={6} key={props.id}>
             <Grid container>
@@ -118,6 +118,7 @@ function MyCard(props) {
             </Grid>
         </Paper>
     )
+
 }
 
-export default MyCard;
+export default HighlightCard
