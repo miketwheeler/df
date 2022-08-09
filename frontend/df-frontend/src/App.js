@@ -14,7 +14,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './theme'
 import { UserProvider } from './userContext';
-
+import { Provider } from 'react-redux';
+import store from './store'
 
 function App() {
   // const [data, setData] = useState(null);
@@ -32,34 +33,33 @@ function App() {
 
 
   return (
-    <ThemeProvider theme={theme}>
-      <UserProvider value={userType}>
-        <Routes>
-            <Route element={<Layout />}>
-                {/* loggedIn ? Dashboard(*either Dev/Investor/Anon) : Home (*Generic/No-Account) */}
-                <Route path="" element={<NavDrawer/>} >
-                    <Route path="dashboard" element={<Dashboard />}>
-                        <Route index element={<DashHome to="dashboard" replace/>} />
-                        {/* <Route path="" element={<DashHome />} /> */}
-                        <Route path="dash-tasks" element={<DashTasks />} />
-                        <Route path="dash-team" element={<DashTeam />} />
-                        <Route path="dash-messages" element={<DashMessages />} />
-                        <Route path="dash-schedule" element={<DashSchedule />} />
-                    </Route>
-
-                    <Route index path="member-hall" element={<MemberHall />} />
-
-                    <Route path="project-hub" element={<ProjectHub />}>
-
-                    </Route>
-                    {/* Catch all - replace with 404 component if you want */}
-                    <Route path="*" element={<Navigate to="dashboard" replace />} />
-                </Route>
-                <Route path="*" element={<Navigate to="/" replace />} />
-            </Route>
-        </Routes>
-      </UserProvider>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <UserProvider value={userType}>
+          <Routes>
+              <Route element={<Layout />}>
+                  {/* loggedIn ? Dashboard(*either Dev/Investor/Anon) : Home (*Generic/No-Account) */}
+                  <Route path="" element={<NavDrawer/>} >
+                      <Route path="dashboard" element={<Dashboard />}>
+                          <Route index element={<DashHome to="dashboard" replace/>} />
+                          {/* <Route path="" element={<DashHome />} /> */}
+                          <Route path="dash-tasks" element={<DashTasks />} />
+                          <Route path="dash-team" element={<DashTeam />} />
+                          <Route path="dash-messages" element={<DashMessages />} />
+                          <Route path="dash-schedule" element={<DashSchedule />} />
+                      </Route>
+                      <Route index path="member-hall" element={<MemberHall />} />
+                      <Route path="project-hub" element={<ProjectHub />}>
+                      </Route>
+                      {/* Catch all - replace with 404 component if you want */}
+                      <Route path="*" element={<Navigate to="dashboard" replace />} />
+                  </Route>
+                  <Route path="*" element={<Navigate to="/" replace />} />
+              </Route>
+          </Routes>
+        </UserProvider>
+      </ThemeProvider>
+    </Provider>
   );
 }
 

@@ -39,7 +39,6 @@ function Dashboard(props) {
         }
     }
 
-    // const activeUserRoutes = [...roleRoutes[userType.slice(0, 3)].routes]
     const activeUserRoutes = [...roleRoutes[userType.slice(0, 3)].routes]
 
     useMemo(() => {

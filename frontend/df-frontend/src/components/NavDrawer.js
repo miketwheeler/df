@@ -24,8 +24,8 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 
 
 const drawerWidth = 240;
-const pagesTabLabels = ['Dashboard', 'Members Hall', 'Project Hub', 'Funding Tree']
-const acctSpecLabels = ['Messages', 'Documents', 'News'];
+const pagesTabLabels = ['dashboard', 'member hall', 'project hub', 'funding tree']
+const acctSpecLabels = ['messages', 'documents', 'news'];
 const pagesIcons = [<GridViewIcon />, <GroupsIcon />, <CategoryIcon />, <AttachMoneyIcon />] 
 const acctSpecIcons = [<MailIcon />, <HistoryEduIcon />, <NewspaperIcon />]
 const navRoutes = ["dashboard", "member-hall", "project-hub", "funding-tree", "my-messages", "my-documents", "news"]
@@ -159,7 +159,9 @@ export default function NavDrawer() {
                     >
                     {
                         pagesTabLabels.map((text, i) => (
-                            <Tab
+                            text !== 'Funding Tree'
+                            ?
+                            <Tab 
                                 id={ text }
                                 label={ open ? <Typography sx={{ m: '0 auto 0 1rem' }}>{ text }</Typography> : null } 
                                 icon={ pagesIcons[i] } 
@@ -167,6 +169,18 @@ export default function NavDrawer() {
                                 sx={ tabStyles }
                                 component={ Link }
                                 to={ navRoutes[i] }
+                                // onClick={() => handleChange(this.id)}
+                                />
+                            :
+                            <Tab 
+                                id={ text }
+                                label={ open ? <Typography sx={{ m: '0 auto 0 1rem' }}>{ text }</Typography> : null } 
+                                icon={ pagesIcons[i] } 
+                                iconPosition="start" 
+                                sx={ tabStyles }
+                                disabled
+                                // component={ Link }
+                                // to={ navRoutes[i] }
                                 // onClick={() => handleChange(this.id)}
                                 />
                         ))
@@ -181,7 +195,7 @@ export default function NavDrawer() {
                                 iconPosition="start" 
                                 sx={ tabStyles }
                                 component={ Link }
-                                to={ navRoutes[i] }
+                                to={ navRoutes[i+3] }
                                 />
                         ))
                     }

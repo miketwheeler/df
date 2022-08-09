@@ -8,7 +8,7 @@ import LeftColumn from './member-hall-components/LeftColumn';
 
 
 
-const barTitle="Member Hall"
+const barTitle="member hall"
 
 
 const MemberHall = () => {
@@ -19,13 +19,19 @@ const MemberHall = () => {
         <SearchBar title={barTitle} />
       
         <Grid container spacing={3} sx={{display: 'flex',height: '100%', p: 2}}>
-            <Grid item display={{xs: 'none', md: 'none', lg: 'flex'}} lg={2}>
+            {/* <Grid item display={{xs: 'none', md: 'none', lg: 'flex'}} lg={2}> */}
+            <Grid item xs={12} md={2}>
                 <LeftColumn />
             </Grid>
             <Grid item sm={12} md={8} lg={6} xl={5}>
-                <Typography variant='h5' sx={{px: 3}}>
-                    Say hello, your new team awaits
-                </Typography>
+                <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between'}}>
+                    <Typography variant='h5' sx={{px: 3}}>
+                        reach out, be genuine, be humble
+                    </Typography>
+                    <Typography sx={{px: 3, opacity: .6, fontSize: '1em', mt: 'auto'}}>
+                        select
+                    </Typography>
+                </Box>
                 {
                     data.map((user, i) => (
                         user ? <MyCard {...user} /> : null
@@ -35,7 +41,7 @@ const MemberHall = () => {
             </Grid>
             <Grid item sm={12} md={4} lg={4} xl={5}>
                 <Typography variant='h6' sx={{px: 3}}>
-                    Grid Item Righty all the Right stuff
+                    section for clicked mini-profile expanded content & related messaging/notifications
                 </Typography>
             </Grid>
         </Grid>

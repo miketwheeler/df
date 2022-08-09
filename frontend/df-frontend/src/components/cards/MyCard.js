@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Grid';
-import { Typography, Stack, Box, Divider, Rating } from '@mui/material';
+import { Typography, Stack, Box, Divider, Rating, Checkbox } from '@mui/material';
 import { 
     Star,
     FaceRetouchingOff, 
@@ -12,6 +12,8 @@ import {
 } from '@mui/icons-material'
 import { theme } from '../../theme'
 import Ava from '../../static/images/avatar/2.png'
+import { CurrentUserSelectedProvider } from '../../userCurrentSelectedContext';
+import { CurrentProfileSelectedProvider } from '../../userCurrentProfileSelectedContext';
 
 
 const cardComponent = {
@@ -25,11 +27,25 @@ const cardComponent = {
     }
 }
 
+const handleCardChecked= (id) => {
+    
+}
+
+const handleProfileSelected = (id) => {
+
+}
+
 
 function MyCard(props) {
 
+    const [userChecked, setUserChecked] = useState([]);
+    const [miniProfileSelected, setMiniProfileSelected] = useState([]);
+
+
     return (
-        <Paper sx={cardComponent} elevation={6} key={props.id}>
+        <CurrentUserSelectedProvider value={ userChecked !== null ? userChecked : null }>
+        <CurrentProfileSelectedProvider value={ miniProfileSelected !== null ? miniProfileSelected : null }>
+        <Paper sx={cardComponent} elevation={6} key={props.id} >
             <Grid container>
                 <Grid item xs={8}>
                     <Stack spacing={1}>
@@ -84,9 +100,6 @@ function MyCard(props) {
                                     />
                             </div>
                             <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'nowrap', height: '20px'}}>
-                                {/* <Typography sx={{fontSize: '.8em', flexWrap: 'nowrap'}}>
-                                    skill &nbsp;
-                                </Typography> */}
                                 <WorkspacePremium sx={{fontSize: 'inherit'}} />
                                 <Typography sx={{fontSize: '.8em'}}>
                                     x{props.skill_level}
@@ -100,6 +113,17 @@ function MyCard(props) {
                 </Grid>
                 <Grid item xs={4} sx={{display: 'flex', alignContent: 'center', p: 0, m: 0}}>
                     <Box sx={{flexGrow: 1, justifyContent: 'center', px: 'auto'}}>
+                        <Checkbox 
+                            label="select" 
+                            onClick={handleCardChecked(props.id)}
+                            sx={{
+                                color: 'primary.main', 
+                                m: 0, 
+                                p:0, 
+                                float: 'right', 
+                                '&.Mui-checked': {color: 'secondary.main'} 
+                                }} 
+                                />
                         <img 
                             src={Ava} 
                             style={{
@@ -117,6 +141,8 @@ function MyCard(props) {
                 </Grid>
             </Grid>
         </Paper>
+        </CurrentProfileSelectedProvider>
+        </CurrentUserSelectedProvider>
     )
 }
 
