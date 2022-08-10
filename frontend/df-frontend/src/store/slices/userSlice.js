@@ -1,23 +1,32 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+
+const initialUser = localStorage.getItem('user')
+    ? JSON.parse(localStorage.getItem('user'))
+    : null
+
+
 // Slice
 const slice = createSlice({
     name: 'user',
     initialState: {
-        user: null,
+        user: initialUser,
     },
     reducers: {
         loginSuccess: (state, action) => {
             state.user = action.payload;
+            localStorage.setItem('user', JSON.stringify(action.payload))
         },
         logoutSuccess: (state, action) =>  {
             state.user = null;
+            localStorage.removeItem('user')
         },
     },
 });
+
 export default slice.reducer
 // Actions
-const { loginSuccess, logoutSuccess } = slice.actions
+const { loginSuccess, logoutSuccess } = slice.actions;
 export const login = ({ username, password }) => async dispatch => {
     try {
         // const res = await api.post('/api/auth/login/', { username, password })
@@ -25,7 +34,7 @@ export const login = ({ username, password }) => async dispatch => {
     } catch (e) {
         return console.error(e.message);
     }
-}
+};
 export const logout = () => async dispatch => {
     try {
         // const res = await api.post('/api/auth/logout/')
@@ -33,4 +42,4 @@ export const logout = () => async dispatch => {
     } catch (e) {
         return console.error(e.message);
     }
-}
+};

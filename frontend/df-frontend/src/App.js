@@ -26,7 +26,7 @@ function App() {
   //     .then((data) => setData(data.message))
   // })
 
-  // CHANGE THIS LATER FOR CURRENT LOGGED IN USERTYPE - ADD OTHER USER DATA(UN, SESSIONID... OTHERS)
+  // CHANGE THIS LATER FOR CURRENT LOGGED IN USERTYPE - ADD OTHER USER DATA(UN, SESSIONID, LOCALSTORAGE... OTHERS)
   // currently context for the primary NAV (and test DataPayload before final server/api integration)
   const userType = "dev-user"
   // const userType = "inv-user"

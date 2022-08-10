@@ -26,7 +26,7 @@ const MemberHall = () => {
             <Grid item sm={12} md={8} lg={6} xl={5}>
                 <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between'}}>
                     <Typography variant='h5' sx={{px: 3}}>
-                        reach out, be genuine, be humble
+                        be humble, reach out
                     </Typography>
                     <Typography sx={{px: 3, opacity: .6, fontSize: '1em', mt: 'auto'}}>
                         select

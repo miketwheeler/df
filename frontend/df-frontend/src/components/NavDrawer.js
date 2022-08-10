@@ -159,7 +159,7 @@ export default function NavDrawer() {
                     >
                     {
                         pagesTabLabels.map((text, i) => (
-                            text !== 'Funding Tree'
+                            text !== 'funding tree'
                             ?
                             <Tab 
                                 id={ text }
@@ -189,7 +189,7 @@ export default function NavDrawer() {
                     {
                         acctSpecLabels.map((text, i) => (
                             <Tab
-                            id={text}
+                                id={text}
                                 label={ open ? <Typography sx={{ m: '0 auto 0 1rem' }}>{ text }</Typography> : null } 
                                 icon={ acctSpecIcons[i] } 
                                 iconPosition="start" 
