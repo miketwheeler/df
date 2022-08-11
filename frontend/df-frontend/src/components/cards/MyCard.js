@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Grid';
-import { Typography, Stack, Box, Divider, Rating, Checkbox } from '@mui/material';
+import { Typography, Stack, Box, Divider, Rating, Checkbox, Button, CardActionArea } from '@mui/material';
 import { 
     Star,
     FaceRetouchingOff, 
@@ -12,41 +12,44 @@ import {
 } from '@mui/icons-material'
 import { theme } from '../../theme'
 import Ava from '../../static/images/avatar/2.png'
-import { CurrentUserSelectedProvider } from '../../userCurrentSelectedContext';
-import { CurrentProfileSelectedProvider } from '../../userCurrentProfileSelectedContext';
+import { useSelector, useDispatch } from 'react-redux'
+import { memberAdd, memberRemove } from '../../slices/memberhallSlices/memberIdListSlice';
+import { memberSelect } from '../../slices/memberhallSlices/memberCardSelectSlice';
 
 
 const cardComponent = {
     height: 'fit-content', 
     minHeight: '140px', 
-    p: 2, m: 2, 
+    p: 2,
     color: 'primary.main',
     minWidth: '400px',
+    border: 'none',
     '&:hover': {
         boxShadow: '.5px .5px 3px 1px #1976d2'
-    }
-}
-
-const handleCardChecked= (id) => {
-    
-}
-
-const handleProfileSelected = (id) => {
+    },
+    '&:active': {
+        boxShadow: '.5px .5px 3px 1px #1976d2'
+    },
 
 }
-
 
 function MyCard(props) {
+    const membersCheckBoxSelected = useSelector((state) => state.memberIdListReducer.memberIdList);
+    const memberCardSelected = useSelector((state) => state.memberCardSelectedReducer.memberSelected);
+    const dispatch = useDispatch();
 
-    const [userChecked, setUserChecked] = useState([]);
-    const [miniProfileSelected, setMiniProfileSelected] = useState([]);
+    function handleCardChecked(cardId) {
+        membersCheckBoxSelected.includes(cardId) ? dispatch(memberRemove(cardId)) : dispatch(memberAdd(cardId))
+    }
 
+    const handleProfileSelected = (cardId) => {
+        if(memberCardSelected === cardId) dispatch(memberSelect(cardId))
+    }
 
     return (
-        <CurrentUserSelectedProvider value={ userChecked !== null ? userChecked : null }>
-        <CurrentProfileSelectedProvider value={ miniProfileSelected !== null ? miniProfileSelected : null }>
-        <Paper sx={cardComponent} elevation={6} key={props.id} >
-            <Grid container>
+        <CardActionArea sx={{ m: 2}} onClick={() => handleProfileSelected(props.id)}>
+        <Paper sx={cardComponent} elevation={6} key={props.id} id={`card-${props.id}`} >
+            <Grid container >
                 <Grid item xs={8}>
                     <Stack spacing={1}>
                         <Box sx={{flexGrow: 1, flexWrap: 'nowrap', justifyContent: 'space-between' }}>
@@ -113,17 +116,22 @@ function MyCard(props) {
                 </Grid>
                 <Grid item xs={4} sx={{display: 'flex', alignContent: 'center', p: 0, m: 0}}>
                     <Box sx={{flexGrow: 1, justifyContent: 'center', px: 'auto'}}>
+
                         <Checkbox 
-                            label="select" 
-                            onClick={handleCardChecked(props.id)}
+                            label="select"
+                            key={`${props.id}`}
+                            id={`cards-checkbox-${props.id}`}
+                            onClick={() => handleCardChecked(props.id)}
                             sx={{
+                                zIndex: 300,
                                 color: 'primary.main', 
                                 m: 0, 
                                 p:0, 
                                 float: 'right', 
                                 '&.Mui-checked': {color: 'secondary.main'} 
-                                }} 
-                                />
+                            }} 
+                            />
+
                         <img 
                             src={Ava} 
                             style={{
@@ -141,8 +149,7 @@ function MyCard(props) {
                 </Grid>
             </Grid>
         </Paper>
-        </CurrentProfileSelectedProvider>
-        </CurrentUserSelectedProvider>
+        </CardActionArea>
     )
 }
 

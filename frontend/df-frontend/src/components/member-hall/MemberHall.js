@@ -10,14 +10,12 @@ import LeftColumn from './member-hall-components/LeftColumn';
 
 const barTitle="member hall"
 
-
 const MemberHall = () => {
 
-  return (
+    return (
     <Box sx={{ width: '100%', bgcolor: 'background.paper', color: 'primary.main' }}>
-      
+
         <SearchBar title={barTitle} />
-      
         <Grid container spacing={3} sx={{display: 'flex',height: '100%', p: 2}}>
             {/* <Grid item display={{xs: 'none', md: 'none', lg: 'flex'}} lg={2}> */}
             <Grid item xs={12} md={2}>

@@ -15,7 +15,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './theme'
 import { UserProvider } from './userContext';
 import { Provider } from 'react-redux';
-import store from './store'
+import store from './store/store'
 
 function App() {
   // const [data, setData] = useState(null);
