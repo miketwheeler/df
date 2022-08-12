@@ -25,11 +25,11 @@ function LeftColumn(props) {
 
 
     return (
-        <Box sx={{flexGrow: 1}}>
+        <Box sx={{flexGrow: 0}}>
             <Grid container sx={{height: 'fit-content'}} spacing={2}>
                 <Grid item xs={12}>
                     <Typography variant="h6" sx={{px: 3}}>
-                        my current project
+                        my project
                     </Typography>
                     <HighlightCard {...highlightProject()} />
                 </Grid>
