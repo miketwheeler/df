@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Grid';
 import { Typography, Stack, Box, Divider, Rating, CardActionArea,Switch, styled } from '@mui/material';
@@ -16,12 +16,10 @@ const cardComponent = {
     height: 'fit-content', 
     minHeight: '140px', 
     p: 2,
-    // mx: 2,
     color: 'primary.main',
-    minWidth: '400px',
     border: 'none',
     '&:hover': { boxShadow: '.5px .5px 3px 1px #1976d2' },
-    '&:active': { boxShadow: '.5px .5px 3px 1px #1976d2' },
+    '&.Mui-active': { boxShadow: '.5px .5px 3px 1px #1976d2' },
 }
 
 // Android 12 type switch - most borrowed from the MUI component docs, modified
@@ -49,6 +47,9 @@ const SpecialSwitch = styled(Switch)(({ theme }) => ({
     '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: theme.palette.secondary.main, },
 }));
 
+
+
+
 function MyCard(props) {
 
     // gets / sets the state for the current member-card selected *(exploded view) or the current list of members to message
@@ -56,24 +57,29 @@ function MyCard(props) {
     const memberCardSelected = useSelector((state) => state.memberCardSelectedReducer.memberSelected);
     const dispatch = useDispatch();
 
+
     // On selected - adds this member to the list to message plural or singular
-    function handleCardChecked(cardId) {
-        membersCheckBoxSelected.includes(cardId) ? dispatch(memberRemove(cardId)) : dispatch(memberAdd(cardId))
+    function handleCardChecked(switchId) {
+        membersCheckBoxSelected.includes(switchId) ? dispatch(memberRemove(switchId)) : dispatch(memberAdd(switchId))
     }
 
-    // If the current card is selected, ignore, else replace current exploded card with new selection
+    // If the current card is selected, ignore, else replace current exploded card with new selection, highlight selected
     const handleProfileSelected = (cardId) => {
         if(memberCardSelected !== cardId) {
-            dispatch(memberSelect(cardId))
-        } 
-        // console.log(`The card with id ${cardId} was clicked!`)
-    }
+            document.getElementById(`card-${cardId}`).classList.add("Mui-active");
 
+            if(memberCardSelected !== -1) {
+                document.getElementById(`card-${memberCardSelected}`).classList.remove("Mui-active");
+            }
+
+            dispatch(memberSelect(cardId))
+        }
+    }
 
     return (
         // Indiv member card selectable and a switch to cluster-message mult members @ once
         <CardActionArea 
-            sx={{ my: 2, mx:4 }} 
+            sx={{my: 2}}
             elevation={6} 
             id={'clickable-area-member-card'} 
             onClick={() => handleProfileSelected(props.id)}
@@ -83,7 +89,7 @@ function MyCard(props) {
                     <Grid item xs={8}>
                         <Stack spacing={1} sx={{height: '100%'}}>
                             {/* Displays the firstname, username, devType, & availablity of this user*/}
-                            <Box sx={{flexGrow: 1, flexWrap: 'nowrap', justifyContent: 'space-between' }}>
+                            <Box sx={{flexWrap: 'nowrap', justifyContent: 'space-between' }}>
                                 <div style={{display: 'flex', flexDirection: 'row', alignContent: 'center', justifyContent: 'center'}}>
                                     <Typography variant="subtitle1">
                                         {props.first_name} ~ {props.user_name} 
@@ -159,6 +165,8 @@ function MyCard(props) {
                                     id={`switch-${props.id}`}
                                     onClick={(event) => { event.stopPropagation(); handleCardChecked(props.id)}}
                                     onMouseDown={(event) => event.stopPropagation()}
+                                    onMouseOver={(event) => event.stopPropagation()}
+                                    onLoad
                                     />
                             </Box>
 

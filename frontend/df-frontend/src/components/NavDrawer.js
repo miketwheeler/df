@@ -202,7 +202,7 @@ export default function NavDrawer() {
                 </Tabs>
             </Drawer>
             
-            <Box component="main" sx={{ flexGrow: 1}}>
+            <Box component="main" sx={{ flexGrow: 0}}>
                 {/* Space Content in box below and to the right of the nav and right of Drawer */}
                 <DrawerHeader />
 

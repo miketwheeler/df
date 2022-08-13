@@ -2,28 +2,13 @@ import React from 'react'
 import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Grid';
 import { Typography, Stack, Box, Divider, Chip } from '@mui/material';
-// import { 
-//     Star,
-//     FaceRetouchingOff, 
-//     FaceRetouchingNatural,
-//     Favorite,
-//     FavoriteBorder,
-//     WorkspacePremium,
-//     GroupAdd,
-//     // SensorOccupied,
-
-// } from '@mui/icons-material'
-// import { theme } from '../../theme'
-// import Ava from '../../static/images/avatar/2.png'
-
 
 
 const cardComponent = {
     height: 'fit-content', 
     minHeight: '200px', 
-    p: 2, m: 2, 
+    p: 2, 
     color: 'primary.main',
-    minWidth: '268px'
 }
 
 
@@ -51,13 +36,33 @@ function HighlightCard(props) {
                         </Box>
                         <Divider orientation="horizontal" flexItem />
                         <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                            <Typography variant='h8'>active: {props.start_date}-{props.end_date}</Typography>
-                            <Typography variant='h8'>current milestone: {props.milestone}</Typography>
-                            <Typography variant='h8'>funded: {props.funded.toString()}</Typography>
-                            <Typography variant='h8'>deployed: {props.deployed.toString()}</Typography>
+                            <Typography variant='h8' sx={{wrap: 'nowrap'}}>
+                                <Typography sx={{opacity: .6}}>
+                                    active: 
+                                </Typography>
+                                {props.start_date}-{props.end_date}
+                            </Typography>
+                            <Typography variant='h8' sx={{display: 'flex', flexDirection: 'row', wrap: 'none'}}>
+                                <Typography sx={{opacity: .6}}>
+                                    current milestone: &nbsp;
+                                </Typography>
+                                {props.milestone} of 5
+                            </Typography>
+                            <Typography variant='h8'sx={{display: 'flex', flexDirection: 'row', wrap: 'none'}}>
+                                <Typography sx={{opacity: .6}}>
+                                    funded: &nbsp;
+                                </Typography>
+                                {props.funded.toString()}
+                            </Typography>
+                            <Typography variant='h8'sx={{display: 'flex', flexDirection: 'row', wrap: 'none'}}>
+                                <Typography sx={{opacity: .6}}>
+                                    deployed: &nbsp;
+                                </Typography>
+                                {props.deployed.toString()}
+                            </Typography>
                         </Box>
                         <Box sx={{flexGrow: 1}}>
-                            <Stack spacing={.5} sx={{my: 2, mx: 4}}>
+                            <Stack spacing={.5} sx={{my: 2, mx: 'auto'}}>
                                 {/* need to track @ redux - state for contacted members: currently props.dummyData for now */}
                                 <Chip label={`total contacted: ${props.current_team_count}`} variant="outlined" sx={{color: 'inherit'}} />
                                 <Chip label={`denied contacts: ${props.total_team_count}`} variant="outlined" sx={{color: 'inherit'}} />

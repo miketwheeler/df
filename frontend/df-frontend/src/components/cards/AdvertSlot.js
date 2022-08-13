@@ -16,13 +16,11 @@ import Ava from '../../static/images/avatar/2.png'
 
 const component = { 
     height: '500px', 
-    // display: 'flex',
-    // flexDirection: 'column',
     background: '#7d7d7d7d',
-    width: '90%',
+    width: '96%',
     color: 'black',
-    padding: 2,
-    margin: 'auto',
+    p: 2,
+    m: 'auto',
     // margin: '10px 10px 10px 10px',
     '&:hover': {
         boxShadow: '.5px .5px 3px 1px #1976d2'
@@ -33,9 +31,9 @@ const component = {
 
 function AdvertSlot(props) {
     return (
-        <div style={component}>
+        <Box sx={component}>
             <h5 style={{margin: 2}}>Advertisement</h5>
-        </div>
+        </Box>
     )
 
 }

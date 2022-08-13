@@ -5,45 +5,43 @@ import SearchBar from '../SearchBar'
 import MyCard from '../cards/MyCard';
 import { user_data as data } from '../../data/data_data';
 import LeftColumn from './member-hall-components/LeftColumn';
+import CenterColumn from './member-hall-components/CenterColumn'
 import RightColumn from './member-hall-components/RightColumn';
 
 // import ExplodedCard from '../cards/ExplodedCard';
 
 const barTitle="member hall"
 
+const containerStyles = {
+    w: '100%',
+    bgcolor: 'background.paper',
+    color: 'primary.main'
+}
+
+const gridContainerStyles = {
+    height: '100%',
+    display: 'flex',
+    pl: 3
+}
+
+
 const MemberHall = () => {
-
     return (
-    <Box sx={{ width: '100%', bgcolor: 'background.paper', color: 'primary.main' }}>
-
-        <SearchBar title={barTitle} />
-        <Grid container spacing={3} sx={{display: 'flex',height: '100%', p: 2}}>
-            {/* <Grid item display={{xs: 'none', md: 'none', lg: 'flex'}} lg={2}> */}
-            <Grid item xs={12} md={2}>
-                <LeftColumn />
+        <Box sx={containerStyles}>
+            <SearchBar title={barTitle} />
+            <Grid container spacing={3} sx={gridContainerStyles}>
+                <Grid item xs={12} md={3}>
+                    <LeftColumn />
+                </Grid>
+                <Grid item xs={12} md={5} lg={4}>
+                    <CenterColumn />
+                </Grid>
+                <Grid item xs={12} md={4} lg={5}>
+                    <RightColumn />
+                </Grid>
             </Grid>
-            <Grid item sm={12} md={8} lg={6} xl={5}>
-                <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between'}}>
-                    <Typography variant='h5' sx={{px: 3}}>
-                        outreach
-                    </Typography>
-                    <Typography sx={{px: 3, opacity: .6, fontSize: '1em', mt: 'auto'}}>
-                        select
-                    </Typography>
-                </Box>
-                {
-                    data.map((user, i) => (
-                        user ? <MyCard {...user} /> : null
-                    ))
-                }
-                <MyCard />
-            </Grid>
-            <Grid item sm={12} md={2} lg={4} xl={5} spacing={2}>
-                <RightColumn />
-            </Grid>
-        </Grid>
-    </Box>
-  )
+        </Box>
+    )
 }
 
 export default MemberHall;

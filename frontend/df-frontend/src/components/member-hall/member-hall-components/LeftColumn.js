@@ -9,6 +9,11 @@ import HighlightCard from '../../cards/HighlightCard';
 
 let highlighted = []
 
+const containerStyles = {
+    flexGrow: 1, 
+    p: 2,
+}
+
 
 function LeftColumn(props) {
     
@@ -25,16 +30,17 @@ function LeftColumn(props) {
 
 
     return (
-        <Box sx={{flexGrow: 0}}>
-            <Grid container sx={{height: 'fit-content'}} spacing={2}>
+        <Box sx={containerStyles}>
+            <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Typography variant="h6" sx={{px: 3}}>
+                    <Typography variant="h6">
                         my project
                     </Typography>
+                </Grid>
+                <Grid item xs={12}>
                     <HighlightCard {...highlightProject()} />
                 </Grid>
                 <Grid item xs={12}>
-                    {/* <Typography variant="h6" sx={{height: 'fit-content'}}> Highlight </Typography> */}
                     <AdvertSlot />
                 </Grid>
                 <Grid item xs={12}>
