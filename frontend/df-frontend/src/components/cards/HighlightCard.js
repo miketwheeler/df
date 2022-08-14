@@ -5,10 +5,13 @@ import { Typography, Stack, Box, Divider, Chip } from '@mui/material';
 
 
 const cardComponent = {
-    height: 'fit-content', 
+    // height: 'fit-content', 
     minHeight: '200px', 
     p: 2, 
     color: 'primary.main',
+    // position: 'fixed',
+    // display: 'block'
+    // transition: 
 }
 
 
@@ -77,11 +80,11 @@ function HighlightCard(props) {
                             justifyContent: 'flex-end',
                             }}
                             >
-                            <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'nowrap', height: '20px'}}>
+                            <div style={{display: 'flex', flexDirection: 'row', height: '20px'}}>
                                 <Typography sx={{fontSize: '.8em', flexWrap: 'nowrap', opacity: '.6', mr: .6}}>
                                     enrollment slots available
                                 </Typography>
-                                <Typography sx={{fontSize: '.8em'}}>
+                                <Typography sx={{fontSize: '.8em', flexWrap: 'nowrap'}}>
                                     {
                                         teamSlotsAvailable !== 0
                                         ?

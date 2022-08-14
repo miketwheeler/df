@@ -51,7 +51,7 @@ function Dashboard(props) {
 
 
     return (
-        <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+        <Box sx={{ width: "100%", bgcolor: 'background.paper' }}>
             <AppBar position="static" sx={{ m: 0, p: 0 }}>
                 <Tabs 
                     value={value} 
@@ -91,27 +91,9 @@ function Dashboard(props) {
                             </Tooltip>
                         ))
                     }
-
-                    {/* Hot Swapping for page-specific tabbing -> ie. Messages, Project Tracking, Current Work, etc... */}
-                    {/* Dynamically Load these Tabs ? (*tried on main nav with some issues though was mess with custom vertical/disappearing tab) */}
-                    {/* <Tooltip title="Dashboard/Home">
-                        <Tab label="Home" to="" onClick={()=> navigate("")} component={Link} sx={{ fontFamily: ffam, textTransform: 'none'}} />
-                    </Tooltip>
-                    <Tooltip title="Dashboard/Tasks">
-                        <Tab label="Tasks" to="dash-tasks" onClick={()=> navigate("dash-tasks")} component={Link} sx={{ fontFamily: ffam, textTransform: 'none'}} />
-                    </Tooltip>
-                    <Tooltip title="Dashboard/Team">
-                        <Tab label="Team" to="dash-team" onClick={()=> navigate("dash-team")} component={Link} sx={{ fontFamily: ffam, textTransform: 'none'}} />
-                    </Tooltip>
-                    <Tooltip title="Dashboard/Messages">
-                        <Tab label="Messages" to="dash-messages" onClick={()=> navigate("dash-messages")} component={Link} sx={{ fontFamily: ffam, textTransform: 'none'}} />
-                    </Tooltip>
-                    <Tooltip title="Dashboard/Schedule">
-                        <Tab label="Schedule" to="dash-schedule" onClick={()=> navigate("dash-schedule")} component={Link} sx={{ fontFamily: ffam, textTransform: 'none'}} />
-                </Tooltip> */}
-
                 </Tabs>
             </AppBar>
+
             {/* The respective tab/route selected is rendered */}
             <Outlet />
             

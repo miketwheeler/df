@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react'
 import Grid from '@mui/material/Grid';
-import { Typography, Box, Skeleton } from '@mui/material';
+import { Typography, Box, Skeleton, Fade } from '@mui/material';
 import AdvertSlot from '../../cards/AdvertSlot';
-import ExplodedCard from '../../cards/ExplodedCard'
+import ExplodedCard from '../../cards/ExplodedCard';
+import MessageBox from '../../cards/MessageBox';
 import { useSelector } from 'react-redux'
 
 // import axios from 'axios'
@@ -12,7 +13,9 @@ import { user_data } from '../../../data/data_data'
 const containerStyles = {
     flexGrow: 1,
     py: 2,
-    mr: 3
+    mr: 3,
+    position: 'sticky',
+    top: 60,
 }
 
 function RightColumn() {
@@ -22,7 +25,7 @@ function RightColumn() {
     let useMemberData; 
 
     useMemo(() => {
-        useMemberData = user_data[memberCardSelected -1]
+        useMemberData = user_data[memberCardSelected - 1]
     }, [memberCardSelected])
 
 
@@ -41,6 +44,7 @@ function RightColumn() {
                         memberCardSelected !== -1
                         ?
                         <ExplodedCard {...useMemberData} />
+                        // <ExplodedCard />
                         :
                         <Box sx={{flexGrow: 1, py: 3, alignContent: 'center'}}>
                             <Skeleton variant="rectangular" animation="wave" height={420} width={'100%'} sx={{borderRadius: 2}} />
@@ -48,10 +52,10 @@ function RightColumn() {
                     }    
                 </Grid>
                 <Grid item xs={12}>
-                    <AdvertSlot />
+                    <MessageBox />
                 </Grid>
                 <Grid item xs={12}>
-                    
+                    <AdvertSlot />
                 </Grid>
             </Grid>
         </Box>

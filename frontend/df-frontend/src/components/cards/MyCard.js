@@ -12,14 +12,24 @@ import { memberSelect } from '../../slices/memberhallSlices/memberCardSelectSlic
 
 
 // styles applied to the entire card container
+// const cardComponent = {
+//     height: 'fit-content', 
+//     minHeight: '140px', 
+//     p: 2,
+//     color: 'primary.main',
+//     border: 'none',
+//     '&:hover': { boxShadow: '.5px .5px 3px 1px #1976d2' },
+//     '&.Mui-active': { boxShadow: '.5px .5px 3px 1px #1976d2' },
+// }
+
 const cardComponent = {
     height: 'fit-content', 
     minHeight: '140px', 
     p: 2,
     color: 'primary.main',
     border: 'none',
-    '&:hover': { boxShadow: '.5px .5px 3px 1px #1976d2' },
-    '&.Mui-active': { boxShadow: '.5px .5px 3px 1px #1976d2' },
+    '&:hover': { boxShadow: '.5px .5px 3px 1px rgba(25,118,210, 1)' },
+    '&.Mui-active': { boxShadow: '.5px .5px 3px 1px rgba(25,118,210, .8)' },
 }
 
 // Android 12 type switch - most borrowed from the MUI component docs, modified
@@ -165,8 +175,8 @@ function MyCard(props) {
                                     id={`switch-${props.id}`}
                                     onClick={(event) => { event.stopPropagation(); handleCardChecked(props.id)}}
                                     onMouseDown={(event) => event.stopPropagation()}
-                                    onMouseOver={(event) => event.stopPropagation()}
-                                    onLoad
+                                    // onMouseOver={(event) => event.stopPropagation()}
+                                    // onLoad
                                     />
                             </Box>
 

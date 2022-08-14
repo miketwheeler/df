@@ -72,7 +72,7 @@ export default function SearchBar({title}) {
     };
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, position: 'sticky', top: 64, zIndex: 200 }}>
             <AppBar position="static">
                 <Toolbar sx={{justifyContent: 'center'}}>
                     <Typography
