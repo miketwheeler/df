@@ -53,7 +53,6 @@ export const theme = createTheme({
         button: {
             fontFamily: 'Play',
             fontWeight: 500,
-            
         },
         overline: {
             fontFamily: 'Orbitron',

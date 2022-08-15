@@ -23,18 +23,20 @@ const cardComponent = {
     height: 'fit-content', 
     minHeight: '140px', 
     p: 2,
-    my: 2,
-    color: 'primary.main',
+    // my: 2,
+    mb: 2,
+    // color: 'primary.main',
     minWidth: '300px',
-    border: 'none',
+    // border: '1px solid',
+    backgroundColor: 'primary.main',
     display: 'block',
 }
 
 const buttonStyles = {
-    color: 'primary.main',
-    '& label': {
-        color: 'primary.main'
-    },
+    // color: 'primary.main',
+    // '& label': {
+    //     color: 'primary.main'
+    // },
     '& label.Mui-focused': {
         color: 'secondary.main',
     },
@@ -42,12 +44,12 @@ const buttonStyles = {
         borderBottomColor: 'secondary.main',
     },
     '& .MuiOutlinedInput-root': {
-        '& .MuiInputBase-inputMultiline': {
-            color: 'primary.main',
-        },
-        '& fieldset': {
-            borderColor: 'primary.main',
-        },
+        // '& .MuiInputBase-inputMultiline': {
+        //     color: 'primary.main',
+        // },
+        // '& fieldset': {
+        //     borderColor: 'primary.main',
+        // },
         '&:hover fieldset': {
             borderColor: 'secondary.main',
         },
@@ -63,18 +65,18 @@ const validateSchema = yup.object({
         .required(`don't be blank`)
 })
 
-
 const MessageBox = () => {
 
     const formik = useFormik({
         initialValues: {
-            message: ''
+            quickMessage: ''
         },
         validationSchema: validateSchema,
-        onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 1))
+        onSubmit: (value) => {
+            alert(JSON.stringify(value, null, 1))
         }
     })
+
 
     return (
         <Paper sx={cardComponent} elevation={18}>
@@ -82,11 +84,11 @@ const MessageBox = () => {
                 <form onSubmit={formik.handleSubmit}>
                     <Stack spacing={2} pb={2}>
                         <Typography variant="subtitle1">
-                            dispatch message
+                            dispatch group message
                         </Typography>
                         <TextField 
                             fullWidth 
-                            id='quick-message' 
+                            id='quickMessage' 
                             name='quick-message' 
                             label=' message'
                             multiline
@@ -103,7 +105,10 @@ const MessageBox = () => {
                             color='primary' 
                             vaiant='contained' 
                             type='submit' 
-                            sx={{ textTransform: 'none', backgroundColor: '#1976d2' }}
+                            sx={{ 
+                                textTransform: 'none', 
+                                backgroundColor: 'secondary.main', 
+                            }}
                             >
                             send it
                         </Button> 

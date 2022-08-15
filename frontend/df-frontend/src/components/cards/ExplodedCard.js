@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Typography, Stack, Box, Divider, Rating, Fade, Paper, Grid} from '@mui/material';
 import { 
     Star,
@@ -8,10 +8,35 @@ import {
     FavoriteBorder,
     WorkspacePremium,
 } from '@mui/icons-material'
+import { border, styled } from '@mui/system'
+import { css, keyframes } from '@emotion/react'
 import { theme } from '../../theme'
 import Ava from '../../static/images/avatar/2.png'
 import useWebAnimations from '@wellyshen/use-web-animations'
 
+
+
+
+const borderPulsate = keyframes`
+    from, 20%, 53%, to {
+        boxShadow : .5px .5px 3px 1px rgba(25,118,210, 0)
+    }
+    40%, 43% {
+        boxShadow : '.5px .5px 3px 1px rgba(25,118,210, .4)'
+    }
+    70% {
+        boxShadow : '.5px .5px 3px 1px rgba(25,118,210, .7)'
+    }
+    80% {
+        boxShadow : '.5px .5px 3px 1px rgba(25,118,210, .4)'
+    }
+    85% {
+        boxShadow : '.5px .5px 3px 1px rgba(25,118,210, .2)'
+    }
+    90% {
+        boxShadow : '.5px .5px 3px 1px rgba(25,118,210, .1)'
+    }
+`
 
 // styles applied to the entire card container
 const cardComponent = {
@@ -24,31 +49,59 @@ const cardComponent = {
     border: 'none',
     display: 'block',
     // position: 'sticky',
+    // boxShadow: { transition: `${borderPulsate} 1s infinite ease` },
 }
+
+// const MyPaper = styled(Paper)(({theme}) => ({
+//     display: 'flex',
+//     height: 'fit-content', 
+//     minHeight: '140px', 
+//     padding: 20,
+//     marginTop: 12,
+//     color: theme.palette.primary.main,
+//     minWidth: '300px',
+//     border: '1px',
+//     zIndex: '400',
+//     alignItems: 'center',
+//     justifyContent: 'flex-end',
+//     // padding: theme.spacing(0, 1),
+//     boxShadow: { animation: `${borderPulsate} 1s infinite ease` ,
+//     // ...other
+// }));
 
 
 const ExplodedCard = (props) => {
 
-    const { ref } = useWebAnimations({
-        playbackRate: 1,
-        autoplay: true,
-        keyframes: { 
-            boxShadow: [
-                '.5px .5px 3px 1px rgba(25,118,210, 0)', 
-                '.5px .5px 3px 1px rgba(25,118,210, 4)', 
-                '.5px .5px 3px 1px rgba(25,118,210, .7)', 
-                '.5px .5px 3px 1px rgba(25,118,210, .4)', 
-                '.5px .5px 3px 1px rgba(25,118,210, .2)', 
-                '.5px .5px 3px 1px rgba(25,118,210, .1)',
-            ] 
-        },
-        animationOptions: { duration: 1000, fill: 'auto' },
-    })
+    const [currCardKeyValue, setCurrCardKeyValue] = useState();
 
+    const { ref, animate } = useWebAnimations();
+
+    let curId = props.id
+    let docId = document.getElementById(`${curId}`)
+
+    useEffect(() => {
+        if(currCardKeyValue !== docId) {
+            animate({
+                keyframes: { 
+                    boxShadow: [
+                        '.5px .5px 3px 1px rgba(25,118,210, 0)', 
+                        '.5px .5px 3px 1px rgba(25,118,210, 4)', 
+                        '.5px .5px 3px 1px rgba(25,118,210, .7)', 
+                        '.5px .5px 3px 1px rgba(25,118,210, .4)', 
+                        '.5px .5px 3px 1px rgba(25,118,210, .2)', 
+                        '.5px .5px 3px 1px rgba(25,118,210, .1)',
+                    ] 
+                },
+                animationOptions: { duration: 1000, fill: 'auto' },
+            })
+        }
+    }, [animate, curId, docId, currCardKeyValue]);
+
+    setCurrCardKeyValue(props.id)
     console.log(`props.id: ${props.id}`)
 
     return (
-        <Paper sx={cardComponent} elevation={18} className="target" key={props.id} id={`exploded-card-${props.id}`} ref={ref}>
+        <Paper sx={cardComponent} elevation={18} className="target" key={props.id} id={`${props.id}`} ref={ref}>
             <Fade in={true}>
                 <Grid container>
                     <Grid item xs={12}>

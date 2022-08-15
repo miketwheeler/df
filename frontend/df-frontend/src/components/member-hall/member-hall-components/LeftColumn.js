@@ -11,7 +11,7 @@ let highlighted = []
 
 const containerStyles = {
     flexGrow: 1, 
-    p: 2,
+    py: 2,
     position: 'sticky',
     top: 60,
 }
