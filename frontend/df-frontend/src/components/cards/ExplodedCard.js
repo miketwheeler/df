@@ -1,5 +1,6 @@
 import React from 'react'
-import { Typography, Stack, Box, Divider, Fade, Paper, Grid} from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2'
+import { Typography, Stack, Box, Divider, Fade, Paper} from '@mui/material';
 import { 
     FaceRetouchingOff, 
     FaceRetouchingNatural,
@@ -13,7 +14,6 @@ import { StarRatingComponent } from '../text-components/StarRatingComponent';
 const cardComponent = {
     height: 'fit-content', 
     minHeight: '140px', 
-    p: 2,
     my: 2,
     color: 'primary.main',
     minWidth: '300px',
@@ -28,8 +28,8 @@ const ExplodedCard = (props, keyProp) => {
     return (
         <Paper sx={cardComponent} elevation={18} key={props.id} id={`card-${props.id}`} >
             <Fade in={true} timeout={600}>
-                <Grid container>
-                    <Grid item xs={12}>
+                <Grid container >
+                    <Grid xs={12} sx={{mx: 1}}>
                         <Stack spacing={1} sx={{height: '100%'}} >
                             {/* Displays the firstname, username, devType, & availablity of this user*/}
                             <Box sx={{flexGrow: 1, flexWrap: 'nowrap', justifyContent: 'space-between' }}>
@@ -58,8 +58,8 @@ const ExplodedCard = (props, keyProp) => {
                             </Box>
                             <Divider orientation="horizontal" flexItem />
                             {/* Profile synop from this user */}
-                            <Grid container>
-                                <Grid item xs={5}>
+                            <Grid container sx={{m: 0, p: 0}}>
+                                <Grid xs={5}>
                                     <Stack spacing={1}>
                                         <HeadingThenData headingVal={`specializes in: `} dataVal1={props.dev_type} />
                                         <HeadingThenData headingVal={`enrolled since: `} dataVal1={props.enroll_date} />
@@ -67,15 +67,15 @@ const ExplodedCard = (props, keyProp) => {
                                         <HeadingThenData headingVal={`region: `} dataVal1={props.state} />
                                     </Stack>
                                 </Grid>
-                                <Grid item xs={7} sx={{display: 'flex', alignContent: 'center', p: 0, m: 0}}>
-                                    <Box sx={{flexGrow: 0, justifyContent: 'center', px: 'auto', mb: 'auto', ml: 2}}>
+                                <Grid xs={7} sx={{display: 'flex', alignContent: 'center', p: 0, m: 0}}>
+                                    <Box sx={{flexGrow: 0, justifyContent: 'center', p: 1}}>
                                         {/* Placeholder - get image from user inLR */}
                                         <img 
                                             src={Ava} 
                                             style={{
-                                                display: 'flex',
-                                                maxHeight: '230px', 
-                                                maxWidth:'230px',
+                                                // display: 'flex',
+                                                maxHeight: '220px', 
+                                                maxWidth:'220px',
                                                 height: '100%',
                                                 width: '100%',
                                                 margin: 'auto',
@@ -85,7 +85,7 @@ const ExplodedCard = (props, keyProp) => {
                                             />
                                     </Box>
                                 </Grid>
-                                <Grid item xs={12}>
+                                <Grid xs={12}>
                                     <Box 
                                         sx={{
                                             flexGrow: 1, 
@@ -102,7 +102,7 @@ const ExplodedCard = (props, keyProp) => {
                                     </Box>
                                     <Divider sx={{my: 2}} orientation="horizontal" flexItem />
                                 </Grid>
-                                <Grid item xs={12}>
+                                <Grid xs={12}>
                                     <Stack spacing={1}>
                                         <Typography paragraph>
                                             <HeadingThenData headingVal={`about: `} dataVal1={props.description} />

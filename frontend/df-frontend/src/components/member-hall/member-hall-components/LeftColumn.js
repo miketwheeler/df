@@ -1,6 +1,6 @@
 import React from 'react'
 // import Paper from '@mui/material/Paper'
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Unstable_Grid2';
 import { Typography, Box } from '@mui/material';
 import AdvertSlot from '../../cards/AdvertSlot';
 import { project_data as pData } from '../../../data/data_data';
@@ -11,7 +11,6 @@ let highlighted = []
 
 const containerStyles = {
     flexGrow: 1, 
-    py: 2,
     position: 'sticky',
     top: 130,
 }
@@ -33,19 +32,19 @@ function LeftColumn(props) {
 
     return (
         <Box sx={containerStyles}>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
+            <Grid container rowSpacing={2} columnSpacing={{xs: 1}}>
+                <Grid xs={12}>
                     <Typography variant="h6">
                         my project
                     </Typography>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid xs={12}>
                     <HighlightCard {...highlightProject()} />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid xs={12}>
                     <AdvertSlot />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid xs={12}>
                     
                 </Grid>
             </Grid>

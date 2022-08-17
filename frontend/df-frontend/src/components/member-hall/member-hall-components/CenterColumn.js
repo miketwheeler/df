@@ -1,8 +1,14 @@
 import React from 'react'
-import { Grid, Typography,  Box, } from '@mui/material';
+import { Typography,  Box, } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2'
 import { user_data as data } from '../../../data/data_data';
 import MyCard from '../../cards/MyCard';
 
+
+const containerStyles = {
+    flexGrow: 1, 
+    py: 1,
+}
 
 const textBoxStyle = {
     width: '100%',
@@ -14,7 +20,6 @@ const textBoxStyle = {
 
 const subheadingText = {
     float: 'right',
-    // px: 3, 
     opacity: .6, 
     fontSize: '1em', 
     mt: 'auto',
@@ -24,21 +29,25 @@ const subheadingText = {
 function LeftColumn(props) {
 
     return (
-        <Box sx={{flexGrow: 1, px: 2, py: 4}}>
+        <Box sx={containerStyles}>
             <Grid container spacing={2}>
-                <Box sx={textBoxStyle}>
-                    <Typography variant='h5' >
-                        outreach
-                    </Typography>
-                    <Typography sx={subheadingText}>
-                        select
-                    </Typography>
-                </Box>
-                {
-                    data.map((user, i) => (
-                        user ? <MyCard {...user} /> : null
-                    ))
-                }
+                <Grid xs={12}>
+                    <Box sx={textBoxStyle}>
+                        <Typography variant='h5'>
+                            outreach
+                        </Typography>
+                        <Typography sx={subheadingText}>
+                            select
+                        </Typography>
+                    </Box>
+                </Grid>
+                <Grid xs={12}>
+                    {
+                        data.map((user, i) => (
+                            user ? <MyCard key={i} {...user} /> : null
+                        ))
+                    }
+                </Grid>
             </Grid>
         </Box>
     )

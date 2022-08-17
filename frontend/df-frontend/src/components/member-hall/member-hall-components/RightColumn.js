@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
-import Grid from '@mui/material/Grid';
-import { Typography, Box, Skeleton, Fade } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
+import { Typography, Box, Skeleton } from '@mui/material';
 import AdvertSlot from '../../cards/AdvertSlot';
 import ExplodedCard from '../../cards/ExplodedCard';
 import MessageBox from '../../cards/MessageBox';
@@ -11,9 +11,6 @@ import { user_data } from '../../../data/data_data'
 
 
 const containerStyles = {
-    flexGrow: 1,
-    py: 2,
-    mr: 3,
     position: 'sticky',
     top: 130,
 }
@@ -31,8 +28,8 @@ function RightColumn() {
 
     return (
         <Box sx={containerStyles}>
-            <Grid container sx={{height: 'fit-content'}} spacing={2}>
-                <Grid item xs={12}>
+            <Grid container spacing={2}>
+                <Grid xs={12}>
                     <Typography variant="h6">
                         {
                             memberCardSelected !== -1
@@ -51,10 +48,10 @@ function RightColumn() {
                         </Box>
                     }    
                 </Grid>
-                <Grid item xs={12}>
+                <Grid xs={12}>
                     <MessageBox />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid xs={12}>
                     <AdvertSlot />
                 </Grid>
             </Grid>

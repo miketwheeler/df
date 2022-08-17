@@ -17,6 +17,7 @@ html {
 
 body {
   margin: 0;
+  padding-right: 30;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;

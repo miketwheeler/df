@@ -1,14 +1,5 @@
-import React, { useMemo, useRef, useState, useCallback, useEffect } from 'react'
-import { Typography, Stack, Box, Paper, Grid, TextField, Button, Chip, Slide} from '@mui/material';
-import { 
-    Star,
-    FaceRetouchingOff, 
-    FaceRetouchingNatural,
-    Favorite,
-    FavoriteBorder,
-    WorkspacePremium,
-} from '@mui/icons-material'
-import { theme } from '../../theme'
+import React, { useRef } from 'react'
+import { Typography, Stack, Box, Paper, TextField, Button, Chip, Slide} from '@mui/material';
 
 import { useFormik } from 'formik';
 import * as yup from 'yup'
@@ -23,15 +14,14 @@ const cardComponent = {
     height: 'fit-content', 
     minHeight: '140px', 
     p: 2,
-    // my: 2,
     mb: 2,
-    // color: 'primary.main',
-    minWidth: '300px',
-    // border: '1px solid',
+    width: '100%',
+    // mr: 3,
+    // minWidth: '300px',
     backgroundColor: 'primary.main',
     display: 'block',
 }
-
+// 
 const buttonStyles = {
     // color: 'primary.main',
     // '& label': {
@@ -67,14 +57,7 @@ const validateSchema = yup.object({
 
 const MessageBox = () => {
     const containerRef = useRef(null);
-
     const contactsList = useSelector((state) => state.memberIdListReducer.memberIdList)
-    // const [chipData, setChipData] = useState(numContacts);
-
-    // useEffect(() => {
-    //     if (chipData !== numContacts) 
-    //         setChipData(numContacts)
-    // }, [chipData, numContacts])
 
     const formik = useFormik({
         initialValues: {
@@ -86,11 +69,9 @@ const MessageBox = () => {
         }
     })
 
-    // console.log(numContacts)
-
     return (
-        <Paper sx={cardComponent} elevation={18}>
-            <Box sx={{flexGrow: 1, justifyContent: 'center'}}>
+        <Box sx={{flexGrow: 1, justifyContent: 'center'}}>
+            <Paper sx={cardComponent} elevation={18}>
                 <form onSubmit={formik.onSubmit}>
                     <Stack spacing={2} pb={2}>
                         <Typography variant="subtitle1">
@@ -119,7 +100,7 @@ const MessageBox = () => {
                             sx={buttonStyles}
                             />
                     </Stack> 
-                    <Box sx={{ flexGrow: 1, w: '100%', flexDirection: 'row' }}> 
+                    <Box sx={{ flexGrow: 1, width: '100%', flexDirection: 'row' }}> 
                         <Button 
                             color='primary' 
                             vaiant='contained' 
@@ -127,15 +108,15 @@ const MessageBox = () => {
                             sx={{ 
                                 textTransform: 'none', 
                                 backgroundColor: 'secondary.main', 
-                                '&:hover': { opacity: .5}
+                                '&:hover': { opacity: .5 }
                             }}
                             >
                             send it
                         </Button> 
                     </Box>
                 </form>
-            </Box>
         </Paper>
+        </Box>
     )
 }
 
