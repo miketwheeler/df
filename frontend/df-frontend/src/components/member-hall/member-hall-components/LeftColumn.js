@@ -13,7 +13,7 @@ const containerStyles = {
     flexGrow: 1, 
     py: 2,
     position: 'sticky',
-    top: 60,
+    top: 130,
 }
 
 

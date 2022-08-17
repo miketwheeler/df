@@ -1,5 +1,5 @@
-import React, { useMemo, useRef, useState, useCallback, createRef } from 'react'
-import { Typography, Stack, Box, Paper, Grid, TextField, Button} from '@mui/material';
+import React, { useMemo, useRef, useState, useCallback, useEffect } from 'react'
+import { Typography, Stack, Box, Paper, Grid, TextField, Button, Chip, Slide} from '@mui/material';
 import { 
     Star,
     FaceRetouchingOff, 
@@ -66,10 +66,19 @@ const validateSchema = yup.object({
 })
 
 const MessageBox = () => {
+    const containerRef = useRef(null);
+
+    const contactsList = useSelector((state) => state.memberIdListReducer.memberIdList)
+    // const [chipData, setChipData] = useState(numContacts);
+
+    // useEffect(() => {
+    //     if (chipData !== numContacts) 
+    //         setChipData(numContacts)
+    // }, [chipData, numContacts])
 
     const formik = useFormik({
         initialValues: {
-            quickMessage: ''
+            
         },
         validationSchema: validateSchema,
         onSubmit: (value) => {
@@ -77,20 +86,30 @@ const MessageBox = () => {
         }
     })
 
+    // console.log(numContacts)
 
     return (
         <Paper sx={cardComponent} elevation={18}>
             <Box sx={{flexGrow: 1, justifyContent: 'center'}}>
-                <form onSubmit={formik.handleSubmit}>
+                <form onSubmit={formik.onSubmit}>
                     <Stack spacing={2} pb={2}>
                         <Typography variant="subtitle1">
-                            dispatch group message
+                            dispatch to group
                         </Typography>
+                        <Box sx={{flexGrow: 1}}>
+                            {
+                                contactsList.map((id) => 
+                                    <Slide direction='left' in={id} mountOnEnter unmountOnExit container={containerRef.current}>
+                                        <Chip label={`${user_data[id].user_name}`} sx={{m: .25}} />
+                                    </Slide>
+                                )
+                            }
+                        </Box>
                         <TextField 
                             fullWidth 
                             id='quickMessage' 
                             name='quick-message' 
-                            label=' message'
+                            label='message'
                             multiline
                             required
                             value={formik.values.message}
@@ -108,6 +127,7 @@ const MessageBox = () => {
                             sx={{ 
                                 textTransform: 'none', 
                                 backgroundColor: 'secondary.main', 
+                                '&:hover': { opacity: .5}
                             }}
                             >
                             send it

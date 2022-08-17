@@ -43,10 +43,10 @@ function Dashboard(props) {
 
     useMemo(() => {
         let pathExtract = [...location.pathname.split('/')];
-        // Object.values(pathExtract).length <= 2 ? setPathValue("") : setPathValue(pathExtract[2]);
-        pathExtract.length <= 2 ? setPathValue("") : setPathValue(pathExtract[2]);
+        pathExtract.length <= 2 ? setPathValue("") : setPathValue(pathExtract[2]); 
         let pathToValue = activeUserRoutes.indexOf(pathValue)
         setValue(pathToValue !== value ? pathToValue : value);
+        
     }, [location.pathname, pathValue, value])
 
 

@@ -1,26 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Grid';
-import { Typography, Stack, Box, Divider, Rating, CardActionArea,Switch, styled } from '@mui/material';
-import { Star, FaceRetouchingOff, FaceRetouchingNatural, WorkspacePremium } from '@mui/icons-material'
+import { Typography, Stack, Box, Divider, CardActionArea,Switch, styled } from '@mui/material';
+import { FaceRetouchingOff, FaceRetouchingNatural } from '@mui/icons-material'
 import Ava from '../../static/images/avatar/2.png'
 
 // from the redux store
 import { useSelector, useDispatch } from 'react-redux'
 import { memberAdd, memberRemove } from '../../slices/memberhallSlices/memberIdListSlice';
 import { memberSelect } from '../../slices/memberhallSlices/memberCardSelectSlice';
+import { SkillLevel } from '../text-components/SkillLevel';
+import { StarRatingComponent } from '../text-components/StarRatingComponent';
 
 
-// styles applied to the entire card container
-// const cardComponent = {
-//     height: 'fit-content', 
-//     minHeight: '140px', 
-//     p: 2,
-//     color: 'primary.main',
-//     border: 'none',
-//     '&:hover': { boxShadow: '.5px .5px 3px 1px #1976d2' },
-//     '&.Mui-active': { boxShadow: '.5px .5px 3px 1px #1976d2' },
-// }
 
 const cardComponent = {
     height: 'fit-content', 
@@ -59,14 +51,11 @@ const SpecialSwitch = styled(Switch)(({ theme }) => ({
 
 
 
-
 function MyCard(props) {
-
     // gets / sets the state for the current member-card selected *(exploded view) or the current list of members to message
     const membersCheckBoxSelected = useSelector((state) => state.memberIdListReducer.memberIdList);
     const memberCardSelected = useSelector((state) => state.memberCardSelectedReducer.memberSelected);
     const dispatch = useDispatch();
-
 
     // On selected - adds this member to the list to message plural or singular
     function handleCardChecked(switchId) {
@@ -81,7 +70,6 @@ function MyCard(props) {
             if(memberCardSelected !== -1) {
                 document.getElementById(`card-${memberCardSelected}`).classList.remove("Mui-active");
             }
-
             dispatch(memberSelect(cardId))
         }
     }
@@ -104,19 +92,21 @@ function MyCard(props) {
                                     <Typography variant="subtitle1">
                                         {props.first_name} ~ {props.user_name} 
                                     </Typography>
-                                    <Typography variant="subtitle2" sx={{ml: 'auto', my: 'auto', opacity: '.6'}}>
+                                    {/* <Typography variant="subtitle2" sx={{ml: 'auto', my: 'auto', opacity: '.6'}}>
                                         {props.dev_type}
-                                    </Typography>
-                                    {
-                                        props.availability === true 
-                                        ? <FaceRetouchingNatural sx={{height: 20, color: 'green', my: 'auto', mx: 1,}} /> 
-                                        : <FaceRetouchingOff sx={{height: 20, my: 'auto', mx: 1, opacity: .3}} />
-                                    }
+                                    </Typography> */}
+                                    <Box sx={{ml: 'auto', my: 'auto'}}>
+                                        {
+                                            props.availability === true 
+                                            ? <FaceRetouchingNatural sx={{height: 20, color: 'green', my: 'auto', ml: .1}} /> 
+                                            : <FaceRetouchingOff sx={{height: 20, my: 'auto', ml: .1, opacity: .3}} />
+                                        }
+                                    </Box>
                                 </div>
                             </Box>
                             <Divider orientation="horizontal" flexItem />
                             {/* Profile synop from this user */}
-                            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                            {/* <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                                 <Typography 
                                     paragraph 
                                     sx={{
@@ -129,6 +119,9 @@ function MyCard(props) {
                                     }}>
                                     {props.description}
                                 </Typography>
+                            </Box> */}
+                            <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                                <Typography variant='subtitle1'>{props.dev_type[0]}</Typography>
                             </Box>
                             {/* Gap placeholder */}
                             <Box sx={{flexGrow: 1, my: 2, flexDirection: 'column', height: 'auto'}} />
@@ -142,26 +135,10 @@ function MyCard(props) {
                                 justifyContent: 'space-between',
                                 }}
                                 >
-                                <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'nowrap', height: '20px'}}>
-                                    <Typography sx={{fontSize: '.8em', opacity: '.6'}}>rated &nbsp;</Typography>
-                                    <Rating
-                                        name="retrieved-imutable-rating"
-                                        size="small"
-                                        value={props.rating}
-                                        readOnly
-                                        sx={{color: 'primary.main', '& .MuiRating-iconEmpty': {color: 'inherit', opacity: .12}}}
-                                        emptyIcon={<Star fontSize='inherit' fontColor="#525252" />}
-                                        />
-                                </div>
-                                <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'nowrap', height: '20px'}}>
-                                    <WorkspacePremium sx={{fontSize: 'inherit'}} />
-                                    <Typography sx={{fontSize: '.8em'}}>
-                                        x{props.skill_level}
-                                    </Typography>
-                                    <Typography sx={{fontSize: '.8em', flexWrap: 'nowrap', opacity: '.6'}}>
-                                        &nbsp;skill level
-                                    </Typography>
-                                </div>
+                                <StarRatingComponent rating={props.rating} />
+                                
+                                <SkillLevel skill_level={props.skill_level} />
+                                
                             </Box>
                         </Stack>
                     </Grid>

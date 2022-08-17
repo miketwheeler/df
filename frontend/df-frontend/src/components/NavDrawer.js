@@ -127,6 +127,7 @@ export default function NavDrawer() {
             {/* Imported Customized Appbar */}
             <AppBar />
 
+            {/* The main Navigation Drawer - passed data from above, links based */}
             <Drawer variant="permanent" open={open}>
                 <DrawerHeader />
                     {
@@ -169,7 +170,6 @@ export default function NavDrawer() {
                                 sx={ tabStyles }
                                 component={ Link }
                                 to={ navRoutes[i] }
-                                // onClick={() => handleChange(this.id)}
                                 />
                             :
                             <Tab 
@@ -179,9 +179,6 @@ export default function NavDrawer() {
                                 iconPosition="start" 
                                 sx={ tabStyles }
                                 disabled
-                                // component={ Link }
-                                // to={ navRoutes[i] }
-                                // onClick={() => handleChange(this.id)}
                                 />
                         ))
                     }
@@ -203,6 +200,7 @@ export default function NavDrawer() {
             </Drawer>
             
             <Box component="main" sx={{ flexGrow: 1}}>
+
                 {/* Space Content in box below and to the right of the nav and right of Drawer */}
                 <DrawerHeader />
 

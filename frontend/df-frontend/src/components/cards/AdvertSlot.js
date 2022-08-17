@@ -15,7 +15,8 @@ import Ava from '../../static/images/avatar/2.png'
 
 
 const component = { 
-    height: '500px', 
+    height: 'auto',
+    minHeight: '280px', 
     background: '#7d7d7d7d',
     width: '96%',
     color: 'black',
@@ -32,7 +33,7 @@ const component = {
 function AdvertSlot(props) {
     return (
         <Box sx={component}>
-            <h5 style={{margin: 2}}>Advertisement</h5>
+            <Typography variant="h8">Advertisement</Typography>
         </Box>
     )
 

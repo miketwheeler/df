@@ -15,7 +15,7 @@ const containerStyles = {
     py: 2,
     mr: 3,
     position: 'sticky',
-    top: 60,
+    top: 130,
 }
 
 function RightColumn() {
@@ -43,7 +43,7 @@ function RightColumn() {
                     {
                         memberCardSelected !== -1
                         ?
-                        <ExplodedCard {...useMemberData} />
+                        <ExplodedCard {...useMemberData} startAnim={true} />
                         // <ExplodedCard />
                         :
                         <Box sx={{flexGrow: 1, py: 3, alignContent: 'center'}}>

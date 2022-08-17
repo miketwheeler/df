@@ -37,9 +37,7 @@ const MemberHall = () => {
                     <CenterColumn />
                 </Grid>
                 <Grid item xs={12} md={4} lg={5}>
-                    <Box sx={{flexGrow: 1, position: 'sticky', top: 60}}>
-                        <RightColumn />
-                    </Box>
+                    <RightColumn />
                 </Grid>
             </Grid>
         </Box>

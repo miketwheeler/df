@@ -1,42 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { Typography, Stack, Box, Divider, Rating, Fade, Paper, Grid} from '@mui/material';
+import React from 'react'
+import { Typography, Stack, Box, Divider, Fade, Paper, Grid} from '@mui/material';
 import { 
-    Star,
     FaceRetouchingOff, 
     FaceRetouchingNatural,
-    Favorite,
-    FavoriteBorder,
-    WorkspacePremium,
 } from '@mui/icons-material'
-import { border, styled } from '@mui/system'
-import { css, keyframes } from '@emotion/react'
-import { theme } from '../../theme'
 import Ava from '../../static/images/avatar/2.png'
-import useWebAnimations from '@wellyshen/use-web-animations'
-
-
-
-
-const borderPulsate = keyframes`
-    from, 20%, 53%, to {
-        boxShadow : .5px .5px 3px 1px rgba(25,118,210, 0)
-    }
-    40%, 43% {
-        boxShadow : '.5px .5px 3px 1px rgba(25,118,210, .4)'
-    }
-    70% {
-        boxShadow : '.5px .5px 3px 1px rgba(25,118,210, .7)'
-    }
-    80% {
-        boxShadow : '.5px .5px 3px 1px rgba(25,118,210, .4)'
-    }
-    85% {
-        boxShadow : '.5px .5px 3px 1px rgba(25,118,210, .2)'
-    }
-    90% {
-        boxShadow : '.5px .5px 3px 1px rgba(25,118,210, .1)'
-    }
-`
+import { HeadingThenData } from '../text-components/HeadingThenData';
+import { SkillLevel } from '../text-components/SkillLevel';
+import { StarRatingComponent } from '../text-components/StarRatingComponent';
 
 // styles applied to the entire card container
 const cardComponent = {
@@ -48,61 +19,15 @@ const cardComponent = {
     minWidth: '300px',
     border: 'none',
     display: 'block',
-    // position: 'sticky',
-    // boxShadow: { transition: `${borderPulsate} 1s infinite ease` },
 }
 
-// const MyPaper = styled(Paper)(({theme}) => ({
-//     display: 'flex',
-//     height: 'fit-content', 
-//     minHeight: '140px', 
-//     padding: 20,
-//     marginTop: 12,
-//     color: theme.palette.primary.main,
-//     minWidth: '300px',
-//     border: '1px',
-//     zIndex: '400',
-//     alignItems: 'center',
-//     justifyContent: 'flex-end',
-//     // padding: theme.spacing(0, 1),
-//     boxShadow: { animation: `${borderPulsate} 1s infinite ease` ,
-//     // ...other
-// }));
 
+const ExplodedCard = (props, keyProp) => {
 
-const ExplodedCard = (props) => {
-
-    const [currCardKeyValue, setCurrCardKeyValue] = useState();
-
-    const { ref, animate } = useWebAnimations();
-
-    let curId = props.id
-    let docId = document.getElementById(`${curId}`)
-
-    useEffect(() => {
-        if(currCardKeyValue !== docId) {
-            animate({
-                keyframes: { 
-                    boxShadow: [
-                        '.5px .5px 3px 1px rgba(25,118,210, 0)', 
-                        '.5px .5px 3px 1px rgba(25,118,210, 4)', 
-                        '.5px .5px 3px 1px rgba(25,118,210, .7)', 
-                        '.5px .5px 3px 1px rgba(25,118,210, .4)', 
-                        '.5px .5px 3px 1px rgba(25,118,210, .2)', 
-                        '.5px .5px 3px 1px rgba(25,118,210, .1)',
-                    ] 
-                },
-                animationOptions: { duration: 1000, fill: 'auto' },
-            })
-        }
-    }, [animate, curId, docId, currCardKeyValue]);
-
-    setCurrCardKeyValue(props.id)
-    console.log(`props.id: ${props.id}`)
 
     return (
-        <Paper sx={cardComponent} elevation={18} className="target" key={props.id} id={`${props.id}`} ref={ref}>
-            <Fade in={true}>
+        <Paper sx={cardComponent} elevation={18} key={props.id} id={`card-${props.id}`} >
+            <Fade in={true} timeout={600}>
                 <Grid container>
                     <Grid item xs={12}>
                         <Stack spacing={1} sx={{height: '100%'}} >
@@ -112,38 +37,37 @@ const ExplodedCard = (props) => {
                                     <Typography variant="subtitle1">
                                         {props.first_name} ~ {props.user_name} 
                                     </Typography>
-                                    <Typography variant="subtitle2" sx={{ml: 'auto', my: 'auto', opacity: '.6'}}>
-                                        available
-                                    </Typography>
                                     {
                                         props.availability === true 
-                                        ? <FaceRetouchingNatural sx={{height: 20, color: 'green', my: 'auto', mx: 1,}} /> 
-                                        : <FaceRetouchingOff sx={{height: 20, my: 'auto', mx: 1, opacity: .3}} />
+                                        ?
+                                        <>
+                                            <Typography variant="subtitle2" sx={{ml: 'auto', my: 'auto', opacity: '.6'}}>
+                                                available
+                                            </Typography>
+                                            <FaceRetouchingNatural sx={{height: 20, color: 'green', my: 'auto', ml: .1}} /> 
+                                        </>
+                                        : 
+                                        <>
+                                            <Typography variant="subtitle2" sx={{ml: 'auto', my: 'auto', opacity: '.6'}}>
+                                                N/A
+                                            </Typography>
+                                            <FaceRetouchingOff sx={{height: 20, my: 'auto', opacity: .3, ml: .1}} />
+                                        </>
                                     }
                                 </div>
                             </Box>
                             <Divider orientation="horizontal" flexItem />
                             {/* Profile synop from this user */}
                             <Grid container>
-                                <Grid item xs={8}>
+                                <Grid item xs={5}>
                                     <Stack spacing={1}>
-                                        <Typography variant="subtitle2" sx={{opacity: '.6'}}>
-                                            specializes in: &nbsp; {props.dev_type}
-                                        </Typography>
-                                        <Typography variant="subtitle2" sx={{opacity: '.6'}}>
-                                            enrolled since: &nbsp; {props.enroll_date}
-                                        </Typography>
-                                        <Typography variant="subtitle2" sx={{opacity: '.6'}}>
-                                            teams on: &nbsp; {props.teams}
-                                        </Typography>
-                                        <Typography variant="subtitle2" sx={{opacity: '.6'}}>
-                                            region: &nbsp; {props.state}
-                                        </Typography>
-                                        
+                                        <HeadingThenData headingVal={`specializes in: `} dataVal1={props.dev_type} />
+                                        <HeadingThenData headingVal={`enrolled since: `} dataVal1={props.enroll_date} />
+                                        <HeadingThenData headingVal={`teams on: `} dataVal1={props.teams} />
+                                        <HeadingThenData headingVal={`region: `} dataVal1={props.state} />
                                     </Stack>
                                 </Grid>
-
-                                <Grid item xs={4} sx={{display: 'flex', alignContent: 'center', p: 0, m: 0}}>
+                                <Grid item xs={7} sx={{display: 'flex', alignContent: 'center', p: 0, m: 0}}>
                                     <Box sx={{flexGrow: 0, justifyContent: 'center', px: 'auto', mb: 'auto', ml: 2}}>
                                         {/* Placeholder - get image from user inLR */}
                                         <img 
@@ -162,53 +86,29 @@ const ExplodedCard = (props) => {
                                     </Box>
                                 </Grid>
                                 <Grid item xs={12}>
-
-                                    <Box sx={{
-                                        flexGrow: 1, 
-                                        display: 'flex',
-                                        alignContent: 'flex-end',
-                                        flexDirection: 'row', 
-                                        flexWrap: 'noWrap', 
-                                        justifyContent: 'space-between',
-                                        my: 2,
+                                    <Box 
+                                        sx={{
+                                            flexGrow: 1, 
+                                            display: 'flex',
+                                            alignContent: 'flex-end',
+                                            flexDirection: 'row', 
+                                            flexWrap: 'noWrap', 
+                                            justifyContent: 'space-between',
+                                            my: 2,
                                         }}
                                         >
-                                        <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'nowrap', height: '20px'}}>
-                                            <Typography sx={{fontSize: '.8em', opacity: '.6'}}>rated &nbsp;</Typography>
-                                            <Rating
-                                                name="retrieved-imutable-rating"
-                                                size="small"
-                                                value={props.rating}
-                                                readOnly
-                                                sx={{color: 'primary.main', '& .MuiRating-iconEmpty': {color: 'inherit', opacity: .12}}}
-                                                emptyIcon={<Star fontSize='inherit' fontColor="#525252" />}
-                                                />
-                                        </div>
-                                        <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'nowrap', height: '20px'}}>
-                                            <WorkspacePremium sx={{fontSize: 'inherit'}} />
-                                            <Typography sx={{fontSize: '.8em'}}>
-                                                x{props.skill_level}
-                                            </Typography>
-                                            <Typography sx={{fontSize: '.8em', flexWrap: 'nowrap', opacity: '.6'}}>
-                                                &nbsp;skill level
-                                            </Typography>
-                                        </div>
+                                        <StarRatingComponent rating={props.rating} />
+                                        <SkillLevel skill_level={props.skill_level} />
                                     </Box>
-
                                     <Divider sx={{my: 2}} orientation="horizontal" flexItem />
-
                                 </Grid>
-
                                 <Grid item xs={12}>
                                     <Stack spacing={1}>
                                         <Typography paragraph>
-                                            <Typography sx={{opacity: .6}}>
-                                                about: 
-                                            </Typography>
-                                            {props.description}
+                                            <HeadingThenData headingVal={`about: `} dataVal1={props.description} />
                                         </Typography>
                                         <Typography paragraph>
-                                            <Typography sx={{opacity: .6}}>
+                                            <Typography variant='subtitle2' sx={{opacity: .6}}>
                                                 skills: 
                                             </Typography>
                                             {
@@ -220,14 +120,11 @@ const ExplodedCard = (props) => {
 
                             </Grid>
                             
-                            {/* Gap placeholder */}
-                            <Box sx={{flexGrow: 1, my: 2, flexDirection: 'column', height: 'auto'}} />
-                            {/* Rating and Current Skill Level of this user */}
-                            
+                            {/* Gap placeholder  -- Put a Heart Icon for favoriting ? Put a connections # ? */}
+                            {/* <Box sx={{flexGrow: 1, my: 2, fslexDirection: 'column', height: 'auto'}} /> */}
+
                         </Stack>
-                    </Grid>
-                    {/* Right column - displays profile img and selection to cluster message */}
-                    
+                    </Grid>                    
                 </Grid>
             </Fade>
         </Paper>
