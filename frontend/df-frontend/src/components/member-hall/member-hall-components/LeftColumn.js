@@ -10,7 +10,7 @@ import HighlightCard from '../../cards/HighlightCard';
 let highlighted = []
 
 const containerStyles = {
-    flexGrow: 1, 
+    // flexGrow: 1, 
     position: 'sticky',
     top: 130,
 }
@@ -41,7 +41,7 @@ function LeftColumn(props) {
                 <Grid xs={12}>
                     <HighlightCard {...highlightProject()} />
                 </Grid>
-                <Grid xs={12}>
+                <Grid display={{xs: 'none', sm: 'flex'}} sm={12}>
                     <AdvertSlot />
                 </Grid>
                 <Grid xs={12}>

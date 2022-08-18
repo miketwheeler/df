@@ -60,9 +60,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchBar({title}) {
-
     const [anchorElUser, setAnchorElUser] = useState(null);
-    
+    const [searchBarTopVal, setSearchBarTopVal] = useState(64)
+
+    let topVal = document.getElementById("top-appbar");
+
+    console.log(`topVal-searchbar: ${topVal}`)
+    // React.useMemo(() => {
+    //     setSearchBarTopVal(topVal);
+    // }, [topVal])
+
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
@@ -72,7 +79,7 @@ export default function SearchBar({title}) {
     };
 
     return (
-        <Box sx={{ flexGrow: 1, position: 'sticky', top: 64, zIndex: 200 }}>
+        <Box sx={{ flexGrow: 1, position: 'sticky', top:searchBarTopVal, zIndex: 200 }}>
             <AppBar position="static">
                 <Toolbar sx={{justifyContent: 'center'}}>
                     <Typography

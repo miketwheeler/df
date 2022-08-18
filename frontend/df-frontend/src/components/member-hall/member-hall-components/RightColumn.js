@@ -30,7 +30,7 @@ function RightColumn() {
         <Box sx={containerStyles}>
             <Grid container spacing={2}>
                 <Grid xs={12}>
-                    <Typography variant="h6">
+                    <Typography variant="h6" sx={{mt: .3}}>
                         {
                             memberCardSelected !== -1
                             ? 'member detail'

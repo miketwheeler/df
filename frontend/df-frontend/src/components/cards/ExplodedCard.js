@@ -10,11 +10,12 @@ import { HeadingThenData } from '../text-components/HeadingThenData';
 import { SkillLevel } from '../text-components/SkillLevel';
 import { StarRatingComponent } from '../text-components/StarRatingComponent';
 
+
 // styles applied to the entire card container
 const cardComponent = {
     height: 'fit-content', 
     minHeight: '140px', 
-    my: 2,
+    my: 2.6,
     color: 'primary.main',
     minWidth: '300px',
     border: 'none',
@@ -22,8 +23,7 @@ const cardComponent = {
 }
 
 
-const ExplodedCard = (props, keyProp) => {
-
+const ExplodedCard = (props) => {
 
     return (
         <Paper sx={cardComponent} elevation={18} key={props.id} id={`card-${props.id}`} >

@@ -123,10 +123,8 @@ export default function NavDrawer() {
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            
             {/* Imported Customized Appbar */}
-            <AppBar />
-
+            <AppBar id='top-appbar' />
             {/* The main Navigation Drawer - passed data from above, links based */}
             <Drawer variant="permanent" open={open}>
                 <DrawerHeader />

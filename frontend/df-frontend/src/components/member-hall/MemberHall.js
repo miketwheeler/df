@@ -28,7 +28,7 @@ const gridContainerStyles = {
 }
 
 
-const MemberHall = () => {
+const MemberHall = (props) => {
     return (
         <Box sx={containerStyles}>
             <SearchBar title={barTitle} />

@@ -7,7 +7,8 @@ import MyCard from '../../cards/MyCard';
 
 const containerStyles = {
     flexGrow: 1, 
-    py: 1,
+    py: 1.25,
+    
 }
 
 const textBoxStyle = {
@@ -33,7 +34,7 @@ function LeftColumn(props) {
             <Grid container spacing={2}>
                 <Grid xs={12}>
                     <Box sx={textBoxStyle}>
-                        <Typography variant='h5'>
+                        <Typography variant='h6'>
                             outreach
                         </Typography>
                         <Typography sx={subheadingText}>

@@ -60,9 +60,7 @@ const MessageBox = () => {
     const contactsList = useSelector((state) => state.memberIdListReducer.memberIdList)
 
     const formik = useFormik({
-        initialValues: {
-            
-        },
+        initialValues: {},
         validationSchema: validateSchema,
         onSubmit: (value) => {
             alert(JSON.stringify(value, null, 1))
@@ -81,7 +79,7 @@ const MessageBox = () => {
                             {
                                 contactsList.map((id) => 
                                     <Slide direction='left' in={id} mountOnEnter unmountOnExit container={containerRef.current}>
-                                        <Chip label={`${user_data[id].user_name}`} sx={{m: .25}} />
+                                        <Chip label={`${user_data[id-1].user_name}`} sx={{m: .25}} />
                                     </Slide>
                                 )
                             }
