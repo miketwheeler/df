@@ -1,11 +1,11 @@
 // import { useState, useEffect, useMemo, useLocation } from 'react'
 import Layout from './components/Layout'
 import NavDrawer from './components/NavDrawer';
-import DashHome from './components/dashboard/dashboard-subpaths/DashHome';
-import DashTasks from './components/dashboard/dashboard-subpaths/DashTasks';
-import DashTeam from './components/dashboard/dashboard-subpaths/DashTeam';
-import DashMessages from './components/dashboard/dashboard-subpaths/DashMessages';
-import DashSchedule from './components/dashboard/dashboard-subpaths/DashSchedule';
+import DashHome from './components/dashboard/dashboard-subpaths/dash-home/DashHome';
+import DashTasks from './components/dashboard/dashboard-subpaths/dash-tasks/DashTasks';
+// import DashTeam from './components/dashboard/dashboard-subpaths/dash-team/DashTeam';
+import DashMessages from './components/dashboard/dashboard-subpaths/dash-messages/DashMessages';
+import DashSchedule from './components/dashboard/dashboard-subpaths/dash-schedule/DashSchedule';
 import MemberHall from './components/member-hall/MemberHall'
 import ProjectHub from './components/project-hub/ProjectHub'
 // import TestDash from './components/dashboard/TestDash'
@@ -17,7 +17,7 @@ import { UserProvider } from './userContext';
 import { Provider } from 'react-redux';
 // **
 import { persistor, store } from './store/store'
-import { PersistGate } from 'redux-persist/integration/react'
+// import { PersistGate } from 'redux-persist/integration/react'
 
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
   // CHANGE THIS LATER FOR CURRENT LOGGED IN USERTYPE - ADD OTHER USER DATA(UN, SESSIONID, LOCALSTORAGE... OTHERS)
   // currently context for the primary NAV (and test DataPayload before final server/api integration)
   const userType = "dev-user"
-  // const userType = "inv-user"
+  // const userType = "invalidated-user"
 
 
   return (
@@ -48,7 +48,7 @@ function App() {
                             <Route index element={<DashHome to="dashboard" replace/>} />
                             {/* <Route path="" element={<DashHome />} /> */}
                             <Route path="dash-tasks" element={<DashTasks />} />
-                            <Route path="dash-team" element={<DashTeam />} />
+                            {/* <Route path="dash-team" element={<DashTeam />} /> */}
                             <Route path="dash-messages" element={<DashMessages />} />
                             <Route path="dash-schedule" element={<DashSchedule />} />
                         </Route>

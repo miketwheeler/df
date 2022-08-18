@@ -5,10 +5,10 @@ import {
     FaceRetouchingOff, 
     FaceRetouchingNatural,
 } from '@mui/icons-material'
-import Ava from '../../static/images/avatar/2.png'
-import { HeadingThenData } from '../text-components/HeadingThenData';
-import { SkillLevel } from '../text-components/SkillLevel';
-import { StarRatingComponent } from '../text-components/StarRatingComponent';
+import Ava from '../../../static/images/avatar/2.png'
+import { HeadingThenData } from '../../text-components/HeadingThenData';
+import { SkillLevel } from '../../text-components/SkillLevel';
+import { StarRatingComponent } from '../../text-components/StarRatingComponent';
 
 
 // styles applied to the entire card container

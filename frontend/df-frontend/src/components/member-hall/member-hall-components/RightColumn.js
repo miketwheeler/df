@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react'
 import Grid from '@mui/material/Unstable_Grid2';
 import { Typography, Box, Skeleton } from '@mui/material';
-import AdvertSlot from '../../cards/AdvertSlot';
-import ExplodedCard from '../../cards/ExplodedCard';
-import MessageBox from '../../cards/MessageBox';
+import AdvertSlot from '../../cards/member-hall-cards/AdvertSlot';
+import ExplodedCard from '../../cards/member-hall-cards/ExplodedCard';
+import MessageBox from '../../cards/member-hall-cards/MessageBox';
 import { useSelector } from 'react-redux'
 
 // import axios from 'axios'

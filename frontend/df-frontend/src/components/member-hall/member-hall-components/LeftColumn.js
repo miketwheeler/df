@@ -1,16 +1,14 @@
 import React from 'react'
-// import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Unstable_Grid2';
 import { Typography, Box } from '@mui/material';
-import AdvertSlot from '../../cards/AdvertSlot';
+import AdvertSlot from '../../cards/member-hall-cards/AdvertSlot';
+import HighlightCard from '../../cards/member-hall-cards/HighlightCard';
 import { project_data as pData } from '../../../data/data_data';
-import HighlightCard from '../../cards/HighlightCard';
 
 
 let highlighted = []
 
 const containerStyles = {
-    // flexGrow: 1, 
     position: 'sticky',
     top: 130,
 }

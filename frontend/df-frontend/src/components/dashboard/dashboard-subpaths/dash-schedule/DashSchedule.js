@@ -1,15 +1,15 @@
 import React from 'react'
 import { Typography, Box } from '@mui/material'
-import { theme } from '../../../theme'
+import { theme } from '../../../../theme'
 
-function DashTasks() {
+function DashSchedule() {
     return (
         <Box component="main" sx={{ flexGrow: 1, height: 100, display: 'flex'}}>
             <Typography sx={{color: theme.palette.primary.main}}>
-                DashTasks
+                DashSchedule
             </Typography>
         </Box>
     )
 }
 
-export default DashTasks;
+export default DashSchedule;

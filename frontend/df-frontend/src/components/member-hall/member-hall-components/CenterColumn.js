@@ -1,8 +1,8 @@
 import React from 'react'
 import { Typography,  Box, } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2'
+import MyCard from '../../cards/member-hall-cards/MiniProfileSlide';
 import { user_data as data } from '../../../data/data_data';
-import MyCard from '../../cards/MyCard';
 
 
 const containerStyles = {

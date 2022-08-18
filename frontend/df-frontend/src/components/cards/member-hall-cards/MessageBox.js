@@ -4,9 +4,8 @@ import { Typography, Stack, Box, Paper, TextField, Button, Chip, Slide} from '@m
 import { useFormik } from 'formik';
 import * as yup from 'yup'
 
-
 import { useSelector } from 'react-redux'
-import { user_data } from '../../data/data_data'
+import { user_data } from '../../../data/data_data'
 
 
 

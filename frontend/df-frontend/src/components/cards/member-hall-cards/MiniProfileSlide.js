@@ -3,14 +3,14 @@ import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Unstable_Grid2';
 import { Typography, Stack, Box, Divider, CardActionArea,Switch, styled } from '@mui/material';
 import { FaceRetouchingOff, FaceRetouchingNatural } from '@mui/icons-material'
-import Ava from '../../static/images/avatar/2.png'
+import Ava from '../../../static/images/avatar/2.png'
 
 // from the redux store
 import { useSelector, useDispatch } from 'react-redux'
-import { memberAdd, memberRemove } from '../../slices/memberhallSlices/memberIdListSlice';
-import { memberSelect } from '../../slices/memberhallSlices/memberCardSelectSlice';
-import { SkillLevel } from '../text-components/SkillLevel';
-import { StarRatingComponent } from '../text-components/StarRatingComponent';
+import { memberAdd, memberRemove } from '../../../slices/memberhallSlices/memberIdListSlice';
+import { memberSelect } from '../../../slices/memberhallSlices/memberCardSelectSlice';
+import { SkillLevel } from '../../text-components/SkillLevel';
+import { StarRatingComponent } from '../../text-components/StarRatingComponent';
 
 
 const containerStyles = {
