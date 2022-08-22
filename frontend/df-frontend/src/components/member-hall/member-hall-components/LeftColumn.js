@@ -22,7 +22,6 @@ function LeftColumn(props) {
                 highlighted.push(pData[i])
                 break;
             }
-            console.log(`found highlighted: ${highlighted}`)
         }
         return highlighted[0]
     }
@@ -30,7 +29,7 @@ function LeftColumn(props) {
 
     return (
         <Box sx={containerStyles}>
-            <Grid container rowSpacing={2} columnSpacing={{xs: 1}}>
+            <Grid container spacing={2}>
                 <Grid xs={12}>
                     <Typography variant="h6">
                         my project

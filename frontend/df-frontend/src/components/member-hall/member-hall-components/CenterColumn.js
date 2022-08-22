@@ -8,7 +8,6 @@ import { user_data as data } from '../../../data/data_data';
 const containerStyles = {
     flexGrow: 1, 
     py: 1.25,
-    
 }
 
 const textBoxStyle = {

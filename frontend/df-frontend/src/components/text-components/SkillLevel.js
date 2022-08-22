@@ -12,7 +12,7 @@ export const SkillLevel = ({...props}) => {
                 x{props.skill_level}
             </Typography>
             <Typography sx={{fontSize: '.8em', flexWrap: 'nowrap', opacity: '.6'}}>
-                &nbsp;skill level
+                &nbsp;skills
             </Typography>
         </div>
     )
