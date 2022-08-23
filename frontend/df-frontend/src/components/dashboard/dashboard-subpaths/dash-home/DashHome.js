@@ -29,7 +29,6 @@ const gridContainerStyles = {
 
 
 const DashHome = () => {
-
     const leftColumnObj = {
         colId: 'dashboard-home-left-column',
         headingVals: { headingLeft: "my profile", headingRight: null},
@@ -38,25 +37,33 @@ const DashHome = () => {
         colSticky: true,
         components: [<UserProfileQuick />, <LatestNotifications />]
     }
+    const centerColumnObj = {
+        colId: 'dashboard-home-left-column',
+        headingVals: { headingLeft: "latest in project", headingRight: null},
+        rows: 2,
+        topCoord: 130, // replace with passed prop - distance from top *if needed
+        colSticky: true,
+        components: [null, null]
+    }
     
     return (
         <Box component="main" sx={containerStyles}>
             <Grid container spacing={2} sx={gridContainerStyles}>
                 <Grid xs={12} md={3}>
-                    <GenericColumn
-                        {...leftColumnObj}
-                        />
-                    {/* <UserProfileQuick />
-                    <LatestNotifications /> */}
+                    <GenericColumn {...leftColumnObj} />
                 </Grid>
                 <Grid xs={12} md={6}>
+                    <GenericColumn {...centerColumnObj} />
                     <CentralContent />
                 </Grid>
                 <Grid xs={12} md={3}>
                     {/* <UserProfileQuick /> */}
                 </Grid>
-            
-            
+            </Grid>
+            <Grid container spacing={2} sx={gridContainerStyles}>
+                <Grid xs={12}>
+                    
+                </Grid>
             </Grid>
         </Box>
     )

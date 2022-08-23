@@ -15,9 +15,9 @@ import { StarRatingComponent } from '../../text-components/StarRatingComponent';
 const cardComponent = {
     height: 'fit-content', 
     minHeight: '140px', 
-    my: 2.6,
+    // my: 2.6,
     color: 'primary.main',
-    minWidth: '300px',
+    // minWidth: '300px',
     border: 'none',
     display: 'block',
 }
@@ -33,7 +33,7 @@ const LatestNotifications = (props) => {
                 <Grid container >
                     <Grid xs={12} sx={{mx: 1}}>
                         <Stack spacing={1} sx={{height: '100%'}} >
-                            
+                            LatestNotifications
                         </Stack>
                     </Grid>                    
                 </Grid>

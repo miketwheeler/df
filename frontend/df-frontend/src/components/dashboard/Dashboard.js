@@ -70,6 +70,7 @@ function Dashboard(props) {
                         roleRoutes.dev.routes.map((value, i) => (
                             <Tooltip title={roleRoutes.dev.tips[i]}>
                                 <Tab 
+                                    key={roleRoutes.dev.routes.indexOf(value)}
                                     label={roleRoutes.dev.label[i]} 
                                     to={`${value}`} 
                                     onClick={()=> navigate(value, {replace: true})} 
@@ -82,6 +83,7 @@ function Dashboard(props) {
                         roleRoutes.inv.routes.map((value, i) => (
                             <Tooltip title={roleRoutes.inv.tips[i]}>
                                 <Tab 
+                                    key={roleRoutes.inv.routes.indexOf(value) * -1}
                                     label={roleRoutes.inv.label[i]} 
                                     to={`${value}`} 
                                     onClick={()=> navigate(value, {replace: true})} 

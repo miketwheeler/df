@@ -5,6 +5,8 @@ import AdvertSlot from '../cards/member-hall-cards/AdvertSlot';
 import HighlightCard from '../cards/member-hall-cards/HighlightCard';
 import { project_data as pData } from '../../data/data_data';
 import { useSelector } from 'react-redux'
+// import UserProfileQuick from '../cards/dashboard-cards/UserProfileQuick';
+// import LatestNotifications from '../cards/dashboard-cards/LatestNotifications';
 
 import { user_data } from '../../data/data_data'
 
@@ -36,59 +38,51 @@ const subheadingText = {
 }
 
 
-function GenericColumn(props) {
-
-    const columnRegion = props.colRegion;
-    const contStyles = props.colStyle;
-    const columnHeading = props.colHeading;
-    const columnSlots = props.colSlots;
-    const topVal = props.colTop;
-    
-    // const columnSpecs = {
-    //     colId: "messages-left-column"
-    //     headingVals: { headingLeft: "LeFtHeAdEr", headingRight: null },
-    //     rows: 2,
-    //     topCoord: 130, (*or pass the values of appbars & other to this column)
-    //     colSticky: false,
-    //     givenWidths: [12, null, 6],
-    //     components: [null, null, null]
-    // }
-
+function GenericColumn({...props}) {
     function setHeadings() {
-        <>
-            <Typography variant="h6">
-                {props.headingVals.headingLeft}
-            </Typography>
-            {
-                props.headingVals.headingRight 
-                ? 
-                    <Typography sx={subheadingText}>
-                        {props.headingVals.headingRight}
-                    </Typography>
-                : null
-            }
-        </>
+        return(
+            <Box sx={{ mt: 2 }}>
+                <Typography variant="h6">
+                    {props.headingVals.headingLeft}
+                </Typography>
+                {
+                    props.headingVals.headingRight 
+                    ? 
+                        <Typography sx={subheadingText}>
+                            {props.headingVals.headingRight}
+                        </Typography>
+                    : null
+                }
+            </Box>
+        )
     }
     
     // extract each passed component value to display Grid Item by index
     function rollOutGrid() {
-        for(let i in columnSlots) {
-            i 
-            ?
-            
-            :
-            <Grid display={{xs: 'none', sm: 'flex'}} sm={12}>
-                <AdvertSlot />
-            </Grid>
-        }
+        return (
+            props.components.map((item, i) => 
+                item !== null
+                ? 
+                <Grid xs={12} sx={{px: 0}}>
+                    { props.components[i] }
+                </Grid>
+                :
+                <Grid display={{xs: 'none', sm: 'flex'}} sm={12}>
+                    <AdvertSlot />
+                </Grid>
+            )
+        )
     }
 
     return (
         <Box id={props.colId} sx={props.colSticky ? stickyLRContainerStyles : centerContainerStyles}>
-            <Stack spacing={2}>
-                {
-                    rollOutGrid()
-                }
+            
+            { setHeadings() }
+            
+            <Stack spacing={2} sx={{mt: 2}}>
+                
+                { rollOutGrid() }
+            
             </Stack>
         </Box>
     )

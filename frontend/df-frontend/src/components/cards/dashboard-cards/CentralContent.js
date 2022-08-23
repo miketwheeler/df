@@ -33,7 +33,7 @@ const LatestNotifications = (props) => {
                 <Grid container >
                     <Grid xs={12} sx={{mx: 1}}>
                         <Stack spacing={1} sx={{height: '100%'}} >
-                            
+                            Center Content
                         </Stack>
                     </Grid>                    
                 </Grid>
