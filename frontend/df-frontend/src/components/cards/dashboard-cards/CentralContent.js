@@ -14,8 +14,8 @@ import { StarRatingComponent } from '../../text-components/StarRatingComponent';
 // styles applied to the entire card container
 const cardComponent = {
     height: 'fit-content', 
-    minHeight: '140px', 
-    my: 2.6,
+    minHeight: '540px', 
+    // my: 2.6,
     color: 'primary.main',
     minWidth: '300px',
     border: 'none',

@@ -33,6 +33,7 @@ const navRoutes = ["dashboard", "member-hall", "project-hub", "funding-tree", "m
 
 const openedMixin = (theme) => ({
     width: drawerWidth,
+    margin: '0px',
     transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
@@ -90,8 +91,8 @@ export default function NavDrawer() {
     const tabStyles = {
         color: theme.palette.primary.main,
         textTransform: 'none',
-        minHeight: 48, 
-        ml: '4px',
+        height: 48, 
+        mx: 'auto',
         minWidth: "fit-content",
         width: open ? drawerWidth : 0,
     }
