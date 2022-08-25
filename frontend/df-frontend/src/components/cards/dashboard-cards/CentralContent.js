@@ -17,7 +17,7 @@ const cardComponent = {
     minHeight: '540px', 
     // my: 2.6,
     color: 'primary.main',
-    minWidth: '300px',
+    // minWidth: '300px',
     border: 'none',
     display: 'block',
 }

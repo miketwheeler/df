@@ -20,8 +20,10 @@ import ava from '../static/images/avatar/2.png'
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
+const titleStyles = { textDecoration: 'none', letterSpacing: '.1rem', color: 'inherit', fontWeight: 700 }
 
-function TestAppBar() {
+
+function MainAppBar() {
     const theme = useTheme();
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     
@@ -34,7 +36,7 @@ function TestAppBar() {
     };
     
     return (
-        <AppBar position="fixed" sx={{ zIndex: theme.zIndex.drawer + 1 }}>
+        <AppBar position="fixed" sx={{ zIndex: theme.zIndex.drawer + 1 }} id="top-appbar">
             <Container maxWidth="xl">
                 <Toolbar >
                     <Typography 
@@ -42,23 +44,23 @@ function TestAppBar() {
                         noWrap 
                         component="a" 
                         href='/' 
-                        sx={{ textDecoration: 'none', letterSpacing: '.1rem', color: 'inherit', fontWeight: 700 }}
+                        sx={titleStyles}
                         >
                         dev foyer
                     </Typography>
                     <Box sx={{ flexGrow: 1 }}/>
                     <Box sx={{ flexGrow: 0 }}>
                         <Stack spacing={4} direction="row" sx={{ color: 'action.active', alignItems: 'center' }}>
-                            <Badge color="secondary" badgeContent={1} showZero sx={{ display: { xs: 'none', sm: 'block' } }}>
+                            <Badge color="secondary" badgeContent={1} showZero sx={{ display: { xs: 'none', sm: 'block' }, top: 8}}>
                                 <MailIcon />
                             </Badge>
-                            <Badge color="secondary" badgeContent={0} sx={{ display: { xs: 'none', sm: 'block' } }}>
+                            <Badge color="secondary" badgeContent={0} sx={{ display: { xs: 'none', sm: 'block' }, top: 8 }}>
                                 <Notifications />
                             </Badge>
                             <Box sx={{ flexGrow: 0 }}>
                                 <Tooltip title="Open settings">
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                        <Avatar alt="Mikey Sharp" src={ava} />
+                                        <Avatar alt="Mikey Sharp" src={ava} sx={{height: 36, width: 36}} />
                                     </IconButton>
                                 </Tooltip>
                                 <Menu
@@ -88,4 +90,4 @@ function TestAppBar() {
     )
 }
 
-export default TestAppBar
+export default MainAppBar

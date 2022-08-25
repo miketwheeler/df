@@ -52,7 +52,7 @@ function Dashboard(props) {
 
     return (
         <Box sx={{ width: "100%", bgcolor: 'background.paper' }}>
-            <AppBar position="static" sx={{ m: 0, p: 0 }}>
+            <AppBar position="static" sx={{ m: 0, p: 0, height: 53 }}>
                 <Tabs 
                     value={value} 
                     onChange={handleChange} 
@@ -62,7 +62,7 @@ function Dashboard(props) {
                     variant='scrollable'
                     aria-label="dashboard section tabs"
                     allowScrollButtonsMobile
-                    sx={{ mt: .6, mx: 'auto', borderBottom: `2px solid ${theme.palette.secondary}` }}
+                    sx={{ mt: .7, mx: 'auto', borderBottom: `2px solid ${theme.palette.secondary}` }}
                     >
                     {
                         userType === "dev-user"

@@ -65,10 +65,10 @@ export default function SearchBar({title}) {
 
     let topVal = document.getElementById("top-appbar");
 
-    console.log(`topVal-searchbar: ${topVal}`)
-    // React.useMemo(() => {
-    //     setSearchBarTopVal(topVal);
-    // }, [topVal])
+    // console.log(`topVal-searchbar: ${topVal}`)
+    React.useMemo(() => {
+        setSearchBarTopVal(topVal);
+    }, [topVal])
 
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
@@ -79,9 +79,9 @@ export default function SearchBar({title}) {
     };
 
     return (
-        <Box sx={{ flexGrow: 1, position: 'sticky', top:searchBarTopVal, zIndex: 200 }}>
-            <AppBar position="static">
-                <Toolbar sx={{justifyContent: 'center'}}>
+        <Box sx={{ flexGrow: 1, zIndex: 200 }}>
+            <AppBar position="static" sx={{ m: 0, p: 0 }}>
+                <Toolbar sx={{justifyContent: 'center', minHeight: 53 }}>
                     <Typography
                         variant="h6"
                         noWrap

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useMemo } from 'react'
 import { styled, useTheme } from '@mui/material/styles';
-import AppBar from './AppBar';
+import MainAppBar from './MainAppBar';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import Tabs from '@mui/material/Tabs';
@@ -47,6 +47,7 @@ const closedMixin = (theme) => ({
         duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: 'hidden',
+    minWidth: 64.01,
     width: `calc(${theme.spacing(7)} + 1px)`,
     [theme.breakpoints.up('sm')]: {
         width: `calc(${theme.spacing(8)} + 1px)`,
@@ -91,10 +92,13 @@ export default function NavDrawer() {
     const tabStyles = {
         color: theme.palette.primary.main,
         textTransform: 'none',
-        height: 48, 
-        mx: 'auto',
+        height: 52, 
+        ml: .5,
+        mr: 'auto',
+        minHeight: 55.98,
         minWidth: "fit-content",
-        width: open ? drawerWidth : 0,
+        width: closedMixin.width
+        // width: open ? drawerWidth : 0,
     }
 
     const handleChange = (event, newValue) => {
@@ -125,7 +129,7 @@ export default function NavDrawer() {
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             {/* Imported Customized Appbar */}
-            <AppBar id='top-appbar' />
+            <MainAppBar />
             {/* The main Navigation Drawer - passed data from above, links based */}
             <Drawer variant="permanent" open={open}>
                 <DrawerHeader />
@@ -156,6 +160,7 @@ export default function NavDrawer() {
                     aria-label="vertical pages directory"
                     indicatorColor='secondary'
                     textColor="secondary"
+                    // sx={{my: 0, py: 0}}
                     >
                     {
                         pagesTabLabels.map((text, i) => (
