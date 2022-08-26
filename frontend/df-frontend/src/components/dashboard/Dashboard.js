@@ -1,13 +1,14 @@
 import * as React from 'react';
+import { useTheme } from '@mui/material/styles';
 import { useState, useContext, useMemo } from 'react'
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { useTheme } from '@mui/material/styles'
 import AppBar from '@mui/material/AppBar'
 import Tooltip from '@mui/material/Tooltip';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom'
 import UserContext from '../../userContext';
+
 
 
 function Dashboard(props) {
@@ -52,7 +53,7 @@ function Dashboard(props) {
 
     return (
         <Box sx={{ width: "100%", bgcolor: 'background.paper' }}>
-            <AppBar position="static" sx={{ m: 0, p: 0, height: 53 }}>
+            <AppBar position="sticky" sx={{ m: 0, p: 0, height: 53, top: 64, zIndex: 100 }}>
                 <Tabs 
                     value={value} 
                     onChange={handleChange} 
@@ -96,9 +97,10 @@ function Dashboard(props) {
                 </Tabs>
             </AppBar>
 
-            {/* The respective tab/route selected is rendered */}
-            <Outlet />
-            
+            <Box component='body' sx={{ flexGrow: 1 }}>
+                {/* The respective tab/route selected is rendered */}
+                <Outlet />
+            </Box>
         </Box>
     );
 }

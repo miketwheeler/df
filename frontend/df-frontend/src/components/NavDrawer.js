@@ -203,14 +203,12 @@ export default function NavDrawer() {
                 </Tabs>
             </Drawer>
             
-            <Box component="main" sx={{ flexGrow: 1}}>
-
+            
+            <Box component="main" sx={{ flexGrow: 1 }}>
                 {/* Space Content in box below and to the right of the nav and right of Drawer */}
                 <DrawerHeader />
-
                 {/* Outlet is for each Primary-Nav Link  --> as listed inputs */}
                 <Outlet roleType={roleProp} />
-
             </Box>
         </Box>
     );

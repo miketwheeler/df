@@ -12,8 +12,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
+import { StickyNote2Outlined } from '@mui/icons-material';
 
-// import { theme } from '../theme'
+import { theme } from '../theme'
 
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -59,7 +60,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function SearchBar({title}) {
+
+function SearchBar(props) {
     const [anchorElUser, setAnchorElUser] = useState(null);
     const [searchBarTopVal, setSearchBarTopVal] = useState(64)
 
@@ -79,57 +81,67 @@ export default function SearchBar({title}) {
     };
 
     return (
-        <Box sx={{ flexGrow: 1, zIndex: 200 }}>
-            <AppBar position="static" sx={{ m: 0, p: 0 }}>
-                <Toolbar sx={{justifyContent: 'center', minHeight: 53 }}>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
+        <AppBar position="sticky" sx={{ top: 64 }}>
+            <Toolbar 
+                variant='dense' 
+                sx={{ 
+                    px: 2, 
+                    height: 53, 
+                    backgroundColor: theme.palette.primary.main, 
+                    color: 'black',
+                    position: 'sticky',
+                    top: 64
+                }} 
+                disableGutters={true}>
+                <Typography
+                    variant="h6"
+                    noWrap
+                    component="div"
+                    sx={{ display: { xs: 'none', sm: 'block' } }}
+                    >
+                    {props.title}
+                </Typography>
+                <Box flexGrow={1} />
+                <Box sx={{ flexGrow: 0 }}>
+                    <Tooltip title="Filter">
+                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                            <FilterListIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Menu
+                        sx={{ mt: '45px' }}
+                        id="menu-appbar"
+                        // anchorEl={anchorElUser}
+                        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                        keepMounted
+                        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                        // open={Boolean(anchorElUser)}
+                        // onClose={handleCloseUserMenu}
                         >
-                        {title}
-                    </Typography>
-                    <Box flexGrow={1} />
-                    <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Filter">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <FilterListIcon />
-                            </IconButton>
-                        </Tooltip>
-                        <Menu
-                            sx={{ mt: '45px' }}
-                            id="menu-appbar"
-                            // anchorEl={anchorElUser}
-                            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                            keepMounted
-                            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-                            // open={Boolean(anchorElUser)}
-                            // onClose={handleCloseUserMenu}
-                            >
-                            {
-                                settings.map((setting) => (
-                                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                        <Typography textAlign="center" sx={{color: 'white'}}>{setting}</Typography>
-                                    </MenuItem>
-                                ))
-                            }
-                        </Menu>
-                    </Box>
-                    {/* <MenuItem >
-                        <FilterListIcon />
-                    </MenuItem> */}
-                    <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </Search>
-                </Toolbar>
-            </AppBar>
-        </Box>
+                        {
+                            settings.map((setting) => (
+                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                    <Typography textAlign="center" sx={{color: 'white'}}>{setting}</Typography>
+                                </MenuItem>
+                            ))
+                        }
+                    </Menu>
+                </Box>
+                {/* <MenuItem >
+                    <FilterListIcon />
+                </MenuItem> */}
+                <Search>
+                    <SearchIconWrapper>
+                        <SearchIcon />
+                    </SearchIconWrapper>
+                    <StyledInputBase
+                        placeholder="Search…"
+                        inputProps={{ 'aria-label': 'search' }}
+                    />
+                </Search>
+            </Toolbar>
+        </AppBar>
     );
 }
+
+export default SearchBar;

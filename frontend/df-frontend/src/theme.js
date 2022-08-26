@@ -57,8 +57,16 @@ export const theme = createTheme({
         overline: {
             fontFamily: 'Orbitron',
         },
-        
     },
+    // '& .MuiToolbar-root': {
+    //     minHeight: 53
+    // },
+    // '& .MuiToolbar-gutters': {
+    //     display: 'none'
+    // },
+    // '& .MuiToolbar-regular': {
+    //     display: 'none'
+    // }
 })
 
 // export const themeOptions = {

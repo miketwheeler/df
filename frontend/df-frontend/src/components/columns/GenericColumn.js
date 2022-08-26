@@ -14,13 +14,11 @@ let highlighted = []
 
 const stickyLRContainerStyles = {
     position: 'sticky',
-    // top: 130,
-    top: 0,
+    top: 130,
 }
 
 const centerContainerStyles = {
     flexGrow: 1, 
-    // py: 1.25,
 }
 
 const textBoxStyle = {
@@ -42,7 +40,7 @@ const subheadingText = {
 function GenericColumn({...props}) {
     function setHeadings() {
         return(
-            <Box sx={{ mt: 2 }}>
+            <Box sx={{ mt: 1 }}>
                 <Typography variant="h6">
                     {props.headingVals.headingLeft}
                 </Typography>
@@ -58,7 +56,7 @@ function GenericColumn({...props}) {
         )
     }
     
-    // extract each passed component value to display Grid Item by index
+    // extract each passed component value to display Grid-Column (by index in passed obj)
     function rollOutGrid() {
         return (
             props.components.map((item, i) => 
@@ -77,8 +75,8 @@ function GenericColumn({...props}) {
 
     return (
         <Box id={props.colId} sx={props.colSticky ? stickyLRContainerStyles : centerContainerStyles}>
-            { setHeadings() }
-            <Stack spacing={2} sx={{mt: 2}}>
+            { props.headingVals ? setHeadings() : null }
+            <Stack spacing={1} sx={{mt: 2}}>
                 { rollOutGrid() }
             </Stack>
         </Box>

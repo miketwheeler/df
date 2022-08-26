@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Unstable_Grid2';
 import { Typography, Stack, Box, Divider, CardActionArea,Switch, styled } from '@mui/material';
@@ -60,6 +60,9 @@ function MyCard(props) {
     const memberCardSelected = useSelector((state) => state.memberCardSelectedReducer.memberSelected);
     const dispatch = useDispatch();
 
+    const [selectedCardOpen, setSelectedCardOpen] = useState(false);
+    const [selectedCardNum, setSelectedCardNum] = useState(-1);
+
     // On selected - adds this member to the list to message plural or singular
     function handleCardChecked(switchId) {
         membersCheckBoxSelected.includes(switchId) ? dispatch(memberRemove(switchId)) : dispatch(memberAdd(switchId))
@@ -69,11 +72,13 @@ function MyCard(props) {
     const handleProfileSelected = (cardId) => {
         if(memberCardSelected !== cardId) {
             document.getElementById(`card-${cardId}`).classList.add("Mui-active");
+            setSelectedCardOpen(true);
+            setSelectedCardNum(cardId);
 
             if(memberCardSelected !== -1) {
                 document.getElementById(`card-${memberCardSelected}`).classList.remove("Mui-active");
             }
-            dispatch(memberSelect(cardId))
+            dispatch(memberSelect(cardId));
         }
     }
 

@@ -15,6 +15,7 @@ const containerStyles = {
     bgcolor: 'background.paper',
     color: 'primary.main',
     height: '100%',
+    top: 64
 }
 
 const gridContainerStyles = {
@@ -33,7 +34,7 @@ const DashHome = () => {
         colId: 'dashboard-home-left-column',
         headingVals: { headingLeft: "my profile", headingRight: null},
         rows: 2,
-        topCoord: 130, // replace with passed prop - distance from top *if needed
+        // topCoord: 120, // replace with passed prop - distance from top *if needed
         colSticky: true,
         components: [<UserProfileQuick />, <LatestNotifications />]
     }
@@ -51,7 +52,7 @@ const DashHome = () => {
         rows: 3,
         // topCoord: 130, // replace with passed prop - distance from top *if needed
         colSticky: false,
-        components: [<CentralContent />, <CentralContent />, null]
+        components: [<CentralContent />, <CentralContent />]
     }
     
     return (
@@ -67,7 +68,7 @@ const DashHome = () => {
                     <GenericColumn {...rightColumnObj} />
                 </Grid>
             </Grid>
-            <Grid container spacing={2} sx={gridContainerStyles}>
+            <Grid container sx={gridContainerStyles}>
                 <Grid xs={12}>
                     
                 </Grid>
