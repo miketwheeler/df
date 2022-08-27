@@ -66,6 +66,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     ({ theme, open }) => ({
         width: drawerWidth,
         flexShrink: 0,
+        flexGrow: 0,
         whiteSpace: 'nowrap',
         boxSizing: 'border-box',
         ...(open && {
@@ -78,6 +79,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
         }),
     }),
 );
+
+
 
 
 export default function NavDrawer() {
@@ -97,8 +100,12 @@ export default function NavDrawer() {
         mr: 'auto',
         minHeight: 55.98,
         minWidth: "fit-content",
-        width: closedMixin.width
+        // width: '100%',
         // width: open ? drawerWidth : 0,
+    }
+    const tabLabelStyles = { 
+        margin: 'auto auto auto 1rem', 
+        position: 'sticky' 
     }
 
     const handleChange = (event, newValue) => {
@@ -115,9 +122,9 @@ export default function NavDrawer() {
 
     useMemo(() => {
         setPathValue(location.pathname.split('/')[1]);
-        let pathToValue = navRoutes.indexOf(pathValue)
+        let pathToValue = navRoutes.indexOf(pathValue);
         setValue(pathToValue !== value ? pathToValue : value);
-    }, [location.pathname, value, pathValue])
+    }, [location.pathname, value, pathValue]);
 
     // ///////////////////////////////////////////
     // passed (*for now to indicate the user type)
@@ -160,7 +167,6 @@ export default function NavDrawer() {
                     aria-label="vertical pages directory"
                     indicatorColor='secondary'
                     textColor="secondary"
-                    // sx={{my: 0, py: 0}}
                     >
                     {
                         pagesTabLabels.map((text, i) => (
@@ -168,7 +174,7 @@ export default function NavDrawer() {
                             ?
                             <Tab 
                                 id={ text }
-                                label={ open ? <Typography sx={{ m: '0 auto 0 1rem' }}>{ text }</Typography> : null } 
+                                label={ open ? <Typography sx={tabLabelStyles}>{ text }</Typography> : null } 
                                 icon={ pagesIcons[i] } 
                                 iconPosition="start" 
                                 sx={ tabStyles }
@@ -178,7 +184,7 @@ export default function NavDrawer() {
                             :
                             <Tab 
                                 id={ text }
-                                label={ open ? <Typography sx={{ m: '0 auto 0 1rem' }}>{ text }</Typography> : null } 
+                                label={ open ? <Typography sx={tabLabelStyles}>{ text }</Typography> : null } 
                                 icon={ pagesIcons[i] } 
                                 iconPosition="start" 
                                 sx={ tabStyles }
@@ -191,7 +197,7 @@ export default function NavDrawer() {
                         acctSpecLabels.map((text, i) => (
                             <Tab
                                 id={text}
-                                label={ open ? <Typography sx={{ m: '0 auto 0 1rem' }}>{ text }</Typography> : null } 
+                                label={ open ? <Typography sx={tabLabelStyles}>{ text }</Typography> : null } 
                                 icon={ acctSpecIcons[i] } 
                                 iconPosition="start" 
                                 sx={ tabStyles }

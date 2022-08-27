@@ -34,7 +34,6 @@ const DashHome = () => {
         colId: 'dashboard-home-left-column',
         headingVals: { headingLeft: "my profile", headingRight: null},
         rows: 2,
-        // topCoord: 120, // replace with passed prop - distance from top *if needed
         colSticky: true,
         components: [<UserProfileQuick />, <LatestNotifications />]
     }
@@ -42,7 +41,6 @@ const DashHome = () => {
         colId: 'dashboard-home-center-column',
         headingVals: { headingLeft: "project updates", headingRight: null},
         rows: 3,
-        // topCoord: 130, // replace with passed prop - distance from top *if needed
         colSticky: false,
         components: [<CentralContent />, <CentralContent />, null]
     }
@@ -50,7 +48,6 @@ const DashHome = () => {
         colId: 'dashboard-home-center-column',
         headingVals: { headingLeft: "project updates", headingRight: null},
         rows: 3,
-        // topCoord: 130, // replace with passed prop - distance from top *if needed
         colSticky: false,
         components: [<CentralContent />, <CentralContent />]
     }
