@@ -21,19 +21,49 @@ const cardComponent = {
     border: 'none',
     display: 'block',
 }
+const contentContStyles = { flexGrow: 1, flexWrap: 'nowrap', justifyContent: 'space-between' }
+const contentInteriorStyles = { display: 'flex', flexDirection: 'row', alignContent: 'center', justifyContent: 'center' }
+const rateSkillBoxStyles = { 
+    flexGrow: 1, 
+    display: 'flex', 
+    alignContent: 'flex-end', 
+    flexDirection: 'row', 
+    flexWrap: 'noWrap', 
+    justifyContent: 'space-between',
+    my: 2,
+}
+const subtitle2Styles = { ml: 'auto', my: 'auto', opacity: '.6' }
+const availabilityIconStyles = { height: 20, color: 'green', my: 'auto', ml: .1 }
+const unavailabilityIconStyles = { height: 20, my: 'auto', opacity: .3, ml: .1 }
+const profilePicStyles = { 
+    maxHeight: '220px', 
+    maxWidth:'220px', 
+    height: '100%', 
+    width: '100%', 
+    margin: 'auto', 
+    objectFit: 'scale-down' 
+}
+
 
 
 const ExplodedCard = (props) => {
+
+    const contentListA = [
+        { head: 'specializes in: ', data: props.dev_type },
+        { head: 'enrolled since: ', data: props.enroll_date },
+        { head: 'teams on: ', data: props.teams },
+        { head: 'region/state: ', data: props.state }
+    ]
 
     return (
         <Paper sx={cardComponent} elevation={18} key={props.id} id={`card-${props.id}`} >
             <Fade in={true} timeout={600}>
                 <Grid container >
                     <Grid xs={12} sx={{mx: 1}}>
-                        <Stack spacing={1} sx={{height: '100%'}} >
+                        <Stack spacing={1}>
                             {/* Displays the firstname, username, devType, & availablity of this user*/}
-                            <Box sx={{flexGrow: 1, flexWrap: 'nowrap', justifyContent: 'space-between' }}>
-                                <div style={{display: 'flex', flexDirection: 'row', alignContent: 'center', justifyContent: 'center'}}>
+                            <Box sx={contentContStyles}>
+                                <div style={contentInteriorStyles}>
                                     <Typography variant="subtitle1">
                                         {props.first_name} ~ {props.user_name} 
                                     </Typography>
@@ -41,17 +71,17 @@ const ExplodedCard = (props) => {
                                         props.availability === true 
                                         ?
                                         <>
-                                            <Typography variant="subtitle2" sx={{ml: 'auto', my: 'auto', opacity: '.6'}}>
+                                            <Typography variant="subtitle2" sx={subtitle2Styles}>
                                                 available
                                             </Typography>
-                                            <FaceRetouchingNatural sx={{height: 20, color: 'green', my: 'auto', ml: .1}} /> 
+                                            <FaceRetouchingNatural sx={availabilityIconStyles} /> 
                                         </>
                                         : 
                                         <>
-                                            <Typography variant="subtitle2" sx={{ml: 'auto', my: 'auto', opacity: '.6'}}>
+                                            <Typography variant="subtitle2" sx={subtitle2Styles}>
                                                 N/A
                                             </Typography>
-                                            <FaceRetouchingOff sx={{height: 20, my: 'auto', opacity: .3, ml: .1}} />
+                                            <FaceRetouchingOff sx={unavailabilityIconStyles} />
                                         </>
                                     }
                                 </div>
@@ -61,10 +91,11 @@ const ExplodedCard = (props) => {
                             <Grid container sx={{m: 0, p: 0}}>
                                 <Grid xs={5}>
                                     <Stack spacing={1}>
-                                        <HeadingThenData headingVal={`specializes in: `} dataVal1={props.dev_type} />
-                                        <HeadingThenData headingVal={`enrolled since: `} dataVal1={props.enroll_date} />
-                                        <HeadingThenData headingVal={`teams on: `} dataVal1={props.teams} />
-                                        <HeadingThenData headingVal={`region: `} dataVal1={props.state} />
+                                        {
+                                            contentListA.map((item, i) => 
+                                                <HeadingThenData id={`head-data-${i}`} headingVal={item.head} dataVal1={item.data} />
+                                            )
+                                        }
                                     </Stack>
                                 </Grid>
                                 <Grid xs={7} sx={{display: 'flex', alignContent: 'center', p: 0, m: 0}}>
@@ -72,31 +103,13 @@ const ExplodedCard = (props) => {
                                         {/* Placeholder - get image from user inLR */}
                                         <img 
                                             src={Ava} 
-                                            style={{
-                                                // display: 'flex',
-                                                maxHeight: '220px', 
-                                                maxWidth:'220px',
-                                                height: '100%',
-                                                width: '100%',
-                                                margin: 'auto',
-                                                objectFit: 'scale-down',
-                                            }} 
+                                            style={profilePicStyles} 
                                             alt="profile-pic" 
                                             />
                                     </Box>
                                 </Grid>
                                 <Grid xs={12}>
-                                    <Box 
-                                        sx={{
-                                            flexGrow: 1, 
-                                            display: 'flex',
-                                            alignContent: 'flex-end',
-                                            flexDirection: 'row', 
-                                            flexWrap: 'noWrap', 
-                                            justifyContent: 'space-between',
-                                            my: 2,
-                                        }}
-                                        >
+                                    <Box sx={rateSkillBoxStyles}>
                                         <StarRatingComponent rating={props.rating} />
                                         <SkillLevel skill_level={props.skill_level} />
                                     </Box>

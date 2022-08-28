@@ -1,6 +1,5 @@
 import React from 'react'
-import { Typography, Box } from '@mui/material'
-import { theme } from '../../../../theme';
+import { Box } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 
 import UserProfileQuick from '../../../cards/dashboard-cards/UserProfileQuick';
@@ -33,23 +32,26 @@ const DashHome = () => {
     const leftColumnObj = {
         colId: 'dashboard-home-left-column',
         headingVals: { headingLeft: "my profile", headingRight: null},
-        rows: 2,
         colSticky: true,
         components: [<UserProfileQuick />, <LatestNotifications />]
     }
     const centerColumnObj = {
         colId: 'dashboard-home-center-column',
         headingVals: { headingLeft: "project updates", headingRight: null},
-        rows: 3,
         colSticky: false,
-        components: [<CentralContent />, <CentralContent />, null]
+        components: [<CentralContent />]
     }
     const rightColumnObj = {
-        colId: 'dashboard-home-center-column',
-        headingVals: { headingLeft: "project updates", headingRight: null},
-        rows: 3,
+        colId: 'dashboard-home-right-column',
+        headingVals: { headingLeft: "far right", headingRight: null},
         colSticky: false,
-        components: [<CentralContent />, <CentralContent />]
+        components: [<CentralContent />]
+    }
+    const secondaryUpper = {
+        colId: 'project-tracker',
+        headingVals: { headingLeft: null, headingRight: null},
+        colSticky: false,
+        components: [<LatestNotifications />]
     }
     
     return (
@@ -64,10 +66,8 @@ const DashHome = () => {
                 <Grid xs={12} md={3}>
                     <GenericColumn {...rightColumnObj} />
                 </Grid>
-            </Grid>
-            <Grid container sx={gridContainerStyles}>
                 <Grid xs={12}>
-                    
+                    <GenericColumn {...secondaryUpper} />
                 </Grid>
             </Grid>
         </Box>

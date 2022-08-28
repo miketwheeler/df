@@ -39,7 +39,7 @@ const MemberHall = (props) => {
                 <Grid xs={12} md={5} lg={4}>
                     <CenterColumn />
                 </Grid>
-                <Grid xs={12} md={4} lg={5}>
+                <Grid display={{ xs: 'none', md: 'block'}} md={4} lg={5}>
                     <RightColumn />
                 </Grid>
             </Grid>

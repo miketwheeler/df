@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography,  Box, } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2'
-import MyCard from '../../cards/member-hall-cards/MiniProfileSlide';
+import MiniProfileSlide from '../../cards/member-hall-cards/MiniProfileSlide';
 import { user_data as data } from '../../../data/data_data';
 
 
@@ -26,7 +26,7 @@ const subheadingText = {
 }
 
 
-function LeftColumn(props) {
+function CenterColumn(props) {
 
     return (
         <Box sx={containerStyles}>
@@ -44,7 +44,7 @@ function LeftColumn(props) {
                 <Grid xs={12}>
                     {
                         data.map((user, i) => (
-                            user ? <MyCard key={i} {...user} /> : null
+                            user ? <MiniProfileSlide key={i} {...user} onClick={'clicked'} /> : null
                         ))
                     }
                 </Grid>
@@ -53,4 +53,4 @@ function LeftColumn(props) {
     )
 }
 
-export default LeftColumn;
+export default CenterColumn;

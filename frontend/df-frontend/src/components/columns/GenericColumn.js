@@ -7,7 +7,6 @@ import { project_data as pData } from '../../data/data_data';
 import { useSelector } from 'react-redux'
 // import UserProfileQuick from '../cards/dashboard-cards/UserProfileQuick';
 // import LatestNotifications from '../cards/dashboard-cards/LatestNotifications';
-
 import { user_data } from '../../data/data_data'
 
 let highlighted = []
