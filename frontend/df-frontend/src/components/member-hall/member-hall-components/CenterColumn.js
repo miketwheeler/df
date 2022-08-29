@@ -44,7 +44,7 @@ function CenterColumn(props) {
                 <Grid xs={12}>
                     {
                         data.map((user, i) => (
-                            user ? <MiniProfileSlide key={i} {...user} onClick={'clicked'} /> : null
+                            user ? <MiniProfileSlide key={i} {...user} /> : null
                         ))
                     }
                 </Grid>

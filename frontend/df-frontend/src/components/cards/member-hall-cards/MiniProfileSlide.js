@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react'
+import { useTheme } from '@mui/material/styles';
+
 import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Unstable_Grid2';
 import { Typography, Stack, Box, Divider, CardActionArea } from '@mui/material';
@@ -21,6 +23,7 @@ const cardComponent = {
     height: 'fit-content', 
     minHeight: '140px', 
     p: 2,
+    maxHeight: '155px',
     color: 'primary.main',
     border: 'none',
     '&:hover': { boxShadow: '.5px .5px 3px 1px rgba(25,118,210, 1)' },
@@ -47,6 +50,7 @@ const profilePicStyles = {
 }
 
 const MyCard = (props) => {
+    const theme = useTheme();
     // gets / sets the state for the current member-card selected *(exploded view) or the current list of members to message
     const membersCheckBoxSelected = useSelector((state) => state.memberIdListReducer.memberIdList);
     const memberCardSelected = useSelector((state) => state.memberCardSelectedReducer.memberSelected);
@@ -64,32 +68,24 @@ const MyCard = (props) => {
     const handleProfileSelected = (cardId) => {
         if(memberCardSelected !== cardId) {
             document.getElementById(`card-${cardId}`).classList.add("Mui-active");
-            // console.log(`selectedCardNum: ${selectedCardNum}`)
-        
+
             if(memberCardSelected !== -1) {
                 document.getElementById(`card-${memberCardSelected}`).classList.remove("Mui-active");
-                
-            }
-            // setSelectedCardOpen(true);
-            setSelectedCardNum(cardId);
+            }            
             dispatch(memberSelect(cardId));
         }
-        
+        setSelectedCardNum(cardId);
     }
 
-    // useMemo(() => {
-    //     if(memberCardSelected !== -1)
-    //         setSelectedCardOpen(true)
-    // }, [memberCardSelected])
     useEffect(() => {
         if(selectedCardNum !== -1)
-            console.log(`I - card number ${selectedCardNum} was ${props.onClick}`)
+            console.log(`- - card number ${selectedCardNum}`)
     }, [selectedCardNum])
     
 
     return (
         <Box sx={containerStyles}>
-            <Grid container sx={{height: 'fit-content'}} spacing={2}>
+            <Grid container spacing={2}>
                 {/* Indiv member card selectable and a switch to cluster-message mult members @ once */}
                 <CardActionArea 
                     elevation={6} 
@@ -100,7 +96,7 @@ const MyCard = (props) => {
                     <Paper sx={cardComponent} elevation={6} key={props.id} id={`card-${props.id}`} >
                         <Grid container>
                             <Grid xs={9}>
-                                <Stack spacing={1} sx={{height: '100%'}}>
+                                <Stack spacing={1}>
                                     {/* Displays the firstname, username, devType, & availablity of this user*/}
                                     <Box sx={{flexWrap: 'nowrap', justifyContent: 'space-between' }}>
                                         <div style={{display: 'flex', flexDirection: 'row', alignContent: 'center', justifyContent: 'center'}}>

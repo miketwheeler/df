@@ -27,27 +27,26 @@ const gridContainerStyles = {
 }
 
 
-
 const DashHome = () => {
-    const leftColumnObj = {
+    const dashLeftColumnObj = {
         colId: 'dashboard-home-left-column',
         headingVals: { headingLeft: "my profile", headingRight: null},
         colSticky: true,
         components: [<UserProfileQuick />, <LatestNotifications />]
     }
-    const centerColumnObj = {
+    const dashCenterColumnObj = {
         colId: 'dashboard-home-center-column',
         headingVals: { headingLeft: "project updates", headingRight: null},
         colSticky: false,
         components: [<CentralContent />]
     }
-    const rightColumnObj = {
+    const dashRightColumnObj = {
         colId: 'dashboard-home-right-column',
         headingVals: { headingLeft: "far right", headingRight: null},
         colSticky: false,
         components: [<CentralContent />]
     }
-    const secondaryUpper = {
+    const dashSecondaryUpper = {
         colId: 'project-tracker',
         headingVals: { headingLeft: null, headingRight: null},
         colSticky: false,
@@ -58,16 +57,16 @@ const DashHome = () => {
         <Box component="main" sx={containerStyles}>
             <Grid container spacing={2} sx={gridContainerStyles}>
                 <Grid xs={12} md={3}>
-                    <GenericColumn {...leftColumnObj} />
+                    <GenericColumn {...dashLeftColumnObj} />
                 </Grid>
                 <Grid xs={12} md={6}>
-                    <GenericColumn {...centerColumnObj} />
+                    <GenericColumn {...dashCenterColumnObj} />
                 </Grid>
                 <Grid xs={12} md={3}>
-                    <GenericColumn {...rightColumnObj} />
+                    <GenericColumn {...dashRightColumnObj} />
                 </Grid>
                 <Grid xs={12}>
-                    <GenericColumn {...secondaryUpper} />
+                    <GenericColumn {...dashSecondaryUpper} />
                 </Grid>
             </Grid>
         </Box>

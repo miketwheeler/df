@@ -16,6 +16,7 @@ const cardComponent = {
     height: 'fit-content', 
     minHeight: '140px', 
     my: 2.6,
+    p: 2,
     color: 'primary.main',
     minWidth: '300px',
     border: 'none',
@@ -59,7 +60,7 @@ const ExplodedCard = (props) => {
         <Paper sx={cardComponent} elevation={18} key={props.id} id={`card-${props.id}`} >
             <Fade in={true} timeout={600}>
                 <Grid container >
-                    <Grid xs={12} sx={{mx: 1}}>
+                    <Grid xs={12}>
                         <Stack spacing={1}>
                             {/* Displays the firstname, username, devType, & availablity of this user*/}
                             <Box sx={contentContStyles}>
@@ -100,7 +101,7 @@ const ExplodedCard = (props) => {
                                 </Grid>
                                 <Grid xs={7} sx={{display: 'flex', alignContent: 'center', p: 0, m: 0}}>
                                     <Box sx={{flexGrow: 0, justifyContent: 'center', p: 1}}>
-                                        {/* Placeholder - get image from user inLR */}
+                                        {/* Placeholder - get image from user irl */}
                                         <img 
                                             src={Ava} 
                                             style={profilePicStyles} 
