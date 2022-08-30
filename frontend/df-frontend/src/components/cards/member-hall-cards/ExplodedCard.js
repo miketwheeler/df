@@ -59,7 +59,7 @@ const ExplodedCard = (props) => {
     return (
         <Paper sx={cardComponent} elevation={18} key={props.id} id={`card-${props.id}`} >
             <Fade in={true} timeout={600}>
-                <Grid container >
+                <Grid container>
                     <Grid xs={12}>
                         <Stack spacing={1}>
                             {/* Displays the firstname, username, devType, & availablity of this user*/}
@@ -145,4 +145,4 @@ const ExplodedCard = (props) => {
     )
 }
 
-export default ExplodedCard
+export default ExplodedCard;

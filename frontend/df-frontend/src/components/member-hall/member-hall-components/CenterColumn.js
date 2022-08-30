@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Typography,  Box, } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2'
 import MiniProfileSlide from '../../cards/member-hall-cards/MiniProfileSlide';
@@ -27,6 +27,8 @@ const subheadingText = {
 
 
 function CenterColumn(props) {
+
+    const [selectedCardOpen, setSelectedCardOpen] = useState(false);
 
     return (
         <Box sx={containerStyles}>
