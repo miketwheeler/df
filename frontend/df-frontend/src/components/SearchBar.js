@@ -12,7 +12,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
-import { StickyNote2Outlined } from '@mui/icons-material';
+// import { StickyNote2Outlined } from '@mui/icons-material';
+import { useWindowResize } from './WindowResized';
 
 import { theme } from '../theme'
 
@@ -81,7 +82,7 @@ function SearchBar(props) {
     };
 
     return (
-        <AppBar position="sticky" sx={{ top: 64 }}>
+        <AppBar position="sticky" sx={{ top: useWindowResize < 900 ? 55 : 64}}>
             <Toolbar 
                 variant='dense' 
                 sx={{ 
@@ -89,8 +90,8 @@ function SearchBar(props) {
                     height: 53, 
                     backgroundColor: theme.palette.primary.main, 
                     color: 'black',
-                    position: 'sticky',
-                    top: 64
+                    // position: 'sticky',
+                    // top: WindowResized.width > 900 ? 64 : 55
                 }} 
                 disableGutters={true}>
                 <Typography

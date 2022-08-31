@@ -13,7 +13,7 @@ let highlighted = []
 
 const stickyLRContainerStyles = {
     position: 'sticky',
-    top: 130,
+    top: 133,
 }
 
 const centerContainerStyles = {
@@ -73,7 +73,7 @@ function GenericColumn({...props}) {
     }
 
     return (
-        <Box id={props.colId} sx={props.colSticky ? stickyLRContainerStyles : centerContainerStyles}>
+        <Box id={props.colId} sx={ props.colSticky ? stickyLRContainerStyles : centerContainerStyles }>
             { props.headingVals ? setHeadings() : null }
             <Stack spacing={1} sx={{mt: 2}}>
                 { rollOutGrid() }

@@ -8,8 +8,17 @@ import AppBar from '@mui/material/AppBar'
 import Tooltip from '@mui/material/Tooltip';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom'
 import UserContext from '../../userContext';
+import { useWindowResize } from '../WindowResized';
 
 
+const tabContainerStyles = {
+    flexGrow: 1,
+    width: "100%",
+    bgcolor: 'background.paper',
+    color: 'primary.main',
+    // height: '100%',
+    // position: 'relative'
+}
 
 function Dashboard(props) {
     const theme = useTheme();
@@ -53,7 +62,7 @@ function Dashboard(props) {
 
     return (
         <Box sx={{ width: "100%", bgcolor: 'background.paper' }}>
-            <AppBar position="sticky" sx={{ m: 0, p: 0, height: 53, top: 64, zIndex: 100 }}>
+            <AppBar position="sticky" sx={{ m: 0, p: 0, height: 53, top: useWindowResize() > 900 ? 64 : 55 , zIndex: 100 }}>
                 <Tabs 
                     value={value} 
                     onChange={handleChange} 
@@ -97,7 +106,7 @@ function Dashboard(props) {
                 </Tabs>
             </AppBar>
 
-            <Box component='body' sx={{ flexGrow: 1 }}>
+            <Box sx={tabContainerStyles} id='outlet-component'>
                 {/* The respective tab/route selected is rendered */}
                 <Outlet />
             </Box>

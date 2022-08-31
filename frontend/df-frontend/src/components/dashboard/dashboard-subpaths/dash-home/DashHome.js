@@ -9,16 +9,18 @@ import GenericColumn from '../../../columns/GenericColumn';
 
 
 const containerStyles = {
-    flexGrow: 1, 
+    flexGrow: 0, 
     width: '100%',
     bgcolor: 'background.paper',
     color: 'primary.main',
-    height: '100%',
-    top: 64
+    // height: '100%',
+    // height: 'fit-content',
+    // top: 64,
+
 }
 
 const gridContainerStyles = {
-    height: '100%',
+    // height: '100%',
     display: 'flex',
     maxWidth: '1840px',
     px: 3,
@@ -32,29 +34,29 @@ const DashHome = () => {
         colId: 'dashboard-home-left-column',
         headingVals: { headingLeft: "my profile", headingRight: null},
         colSticky: true,
-        components: [<UserProfileQuick />, <LatestNotifications />]
+        components: [<UserProfileQuick />, <LatestNotifications />, <LatestNotifications />]
     }
     const dashCenterColumnObj = {
         colId: 'dashboard-home-center-column',
         headingVals: { headingLeft: "project updates", headingRight: null},
         colSticky: false,
-        components: [<CentralContent />]
+        components: [<CentralContent />, <LatestNotifications />, <LatestNotifications />]
     }
     const dashRightColumnObj = {
         colId: 'dashboard-home-right-column',
         headingVals: { headingLeft: "far right", headingRight: null},
         colSticky: false,
-        components: [<CentralContent />]
+        components: [<CentralContent />, <LatestNotifications />]
     }
-    const dashSecondaryUpper = {
-        colId: 'project-tracker',
-        headingVals: { headingLeft: null, headingRight: null},
-        colSticky: false,
-        components: [<LatestNotifications />]
-    }
+    // const dashSecondaryUpper = {
+    //     colId: 'project-tracker',
+    //     headingVals: { headingLeft: null, headingRight: null},
+    //     colSticky: false,
+    //     components: [<LatestNotifications />]
+    // }
     
     return (
-        <Box component="main" sx={containerStyles}>
+        <Box component="main" sx={containerStyles} id='dash-home-container'>
             <Grid container spacing={2} sx={gridContainerStyles}>
                 <Grid xs={12} md={3}>
                     <GenericColumn {...dashLeftColumnObj} />
@@ -64,11 +66,14 @@ const DashHome = () => {
                 </Grid>
                 <Grid xs={12} md={3}>
                     <GenericColumn {...dashRightColumnObj} />
-                </Grid>
-                <Grid xs={12}>
-                    <GenericColumn {...dashSecondaryUpper} />
+                    {/* <GenericColumn {...dashSecondaryUpper} /> */}
                 </Grid>
             </Grid>
+            {/* <Grid container spacing={2} sx={gridContainerStyles}>
+            //     <Grid xs={12}>
+                    
+            //     </Grid>
+            // </Grid> */}
         </Box>
     )
 }
