@@ -40,4 +40,4 @@ const LatestNotifications = (props) => {
     )
 }
 
-export default LatestNotifications
+export default LatestNotifications;

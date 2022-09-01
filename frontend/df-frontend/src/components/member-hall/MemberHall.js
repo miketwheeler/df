@@ -30,7 +30,7 @@ const gridContainerStyles = {
 
 const MemberHall = (props) => {
     return (
-        <Box sx={containerStyles}>
+        <Box component="div" sx={containerStyles}>
             <SearchBar title={barTitle} />
             <Grid container spacing={2} sx={gridContainerStyles}>
                 <Grid xs={12} md={3}>

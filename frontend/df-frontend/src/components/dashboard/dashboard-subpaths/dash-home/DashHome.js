@@ -56,7 +56,7 @@ const DashHome = () => {
     // }
     
     return (
-        <Box component="main" sx={containerStyles} id='dash-home-container'>
+        <Box component="div" sx={containerStyles} id='dash-home-container'>
             <Grid container spacing={2} sx={gridContainerStyles}>
                 <Grid xs={12} md={3}>
                     <GenericColumn {...dashLeftColumnObj} />

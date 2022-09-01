@@ -82,7 +82,7 @@ function SearchBar(props) {
     };
 
     return (
-        <AppBar position="sticky" sx={{ top: useWindowResize < 900 ? 55 : 64}}>
+        <AppBar position="sticky">
             <Toolbar 
                 variant='dense' 
                 sx={{ 
