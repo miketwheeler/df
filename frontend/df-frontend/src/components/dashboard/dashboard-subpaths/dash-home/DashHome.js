@@ -40,7 +40,7 @@ const DashHome = () => {
         colId: 'dashboard-home-center-column',
         headingVals: { headingLeft: "project updates", headingRight: null},
         colSticky: false,
-        components: [<CentralContent />, <LatestNotifications />, <LatestNotifications />]
+        components: [<CentralContent />, <LatestNotifications />]
     }
     const dashRightColumnObj = {
         colId: 'dashboard-home-right-column',
@@ -48,12 +48,12 @@ const DashHome = () => {
         colSticky: false,
         components: [<CentralContent />, <LatestNotifications />]
     }
-    // const dashSecondaryUpper = {
-    //     colId: 'project-tracker',
-    //     headingVals: { headingLeft: null, headingRight: null},
-    //     colSticky: false,
-    //     components: [<LatestNotifications />]
-    // }
+    const dashSecondaryUpper = {
+        colId: 'project-tracker',
+        headingVals: { headingLeft: null, headingRight: null},
+        colSticky: false,
+        components: [<LatestNotifications />] // exchange for milestone tracker
+    }
     
     return (
         <Box component="div" sx={containerStyles} id='dash-home-container'>
@@ -69,11 +69,11 @@ const DashHome = () => {
                     {/* <GenericColumn {...dashSecondaryUpper} /> */}
                 </Grid>
             </Grid>
-            {/* <Grid container spacing={2} sx={gridContainerStyles}>
-            //     <Grid xs={12}>
-                    
-            //     </Grid>
-            // </Grid> */}
+            <Grid container spacing={2} sx={gridContainerStyles}>
+                <Grid xs={12}>
+                    <GenericColumn {...dashSecondaryUpper} />
+                </Grid>
+            </Grid>
         </Box>
     )
 }
