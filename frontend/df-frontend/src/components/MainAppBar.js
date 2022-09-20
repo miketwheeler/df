@@ -36,7 +36,7 @@ function MainAppBar() {
     };
     
     return (
-        <AppBar position="fixed" sx={{ zIndex: theme.zIndex.drawer + 1 }} id="top-appbar">
+        <AppBar  sx={{ zIndex: theme.zIndex.drawer + 1 }} id="top-appbar">
             <Container maxWidth="xl">
                 <Toolbar >
                     <Typography 

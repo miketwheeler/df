@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from "react";
-import { styled, alpha } from '@mui/material/styles';
+import { styled, alpha, useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,6 +12,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
+import useMediaQuery from '@mui/material/useMediaQuery';
 // import { StickyNote2Outlined } from '@mui/icons-material';
 import { useWindowResize } from './WindowResized';
 
@@ -26,7 +27,7 @@ const Search = styled('div')(({ theme }) => ({
     border: `1px solid ${theme.palette.background.paper}`,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
     '&:hover': {
-        backgroundColor: 'primary.main',
+        border: `1.25px solid ${theme.palette.background.paper}`
     },
     marginRight: theme.spacing(2),
     marginLeft: 0,
@@ -63,10 +64,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 function SearchBar(props) {
+    const theme = useTheme();
     const [anchorElUser, setAnchorElUser] = useState(null);
     const [searchBarTopVal, setSearchBarTopVal] = useState(64)
 
     let topVal = document.getElementById("top-appbar");
+
+    const matchesSmDown = useMediaQuery(theme.breakpoints.down('sm'));
+    const matchesSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+
+    const dynamicTopStyle = {
+        ...matchesSmDown && { top: 55 },
+        ...matchesSmUp && { top: 64 }
+    }
 
     // console.log(`topVal-searchbar: ${topVal}`)
     React.useMemo(() => {
@@ -82,7 +92,7 @@ function SearchBar(props) {
     };
 
     return (
-        <AppBar position="sticky">
+        <AppBar position="sticky" sx={{...dynamicTopStyle}}>
             <Toolbar 
                 variant='dense' 
                 sx={{ 
@@ -110,7 +120,7 @@ function SearchBar(props) {
                         </IconButton>
                     </Tooltip>
                     <Menu
-                        sx={{ mt: '45px' }}
+                        sx={{ my: 'auto' }}
                         id="menu-appbar"
                         // anchorEl={anchorElUser}
                         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}

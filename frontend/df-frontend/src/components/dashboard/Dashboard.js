@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useTheme } from '@mui/material/styles';
 import { useState, useContext, useMemo } from 'react'
 import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import AppBar from '@mui/material/AppBar'
@@ -9,6 +10,8 @@ import Tooltip from '@mui/material/Tooltip';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom'
 import UserContext from '../../userContext';
 import { useWindowResize } from '../WindowResized';
+import { CssBaseline } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 const tabContainerStyles = {
@@ -36,6 +39,14 @@ function Dashboard(props) {
         setValue(newValue);
     };
 
+    const matchesSmDown = useMediaQuery(theme.breakpoints.down('sm'));
+    const matchesSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+
+    const dynamicTopStyle = {
+        ...matchesSmDown && { top: 55 },
+        ...matchesSmUp && { top: 64 }
+    }
+
     const roleRoutes = {
         dev: {
             routes: ["", "dash-tasks", "dash-messages", "dash-schedule"],
@@ -61,8 +72,9 @@ function Dashboard(props) {
 
 
     return (
-        <Box sx={{ width: "100%", bgcolor: 'background.paper' }}>
-            <AppBar position="sticky" sx={{ m: 0, p: 0, height: 53, top: useWindowResize() > 900 ? 64 : 55 , zIndex: 100 }}>
+        <Box component="div" sx={{ width: "100%", bgcolor: 'background.paper' }}>
+        <>
+            <AppBar position="sticky" sx={{ m: 0, p: 0, height: 53, ...dynamicTopStyle }}>
                 <Tabs 
                     value={value} 
                     onChange={handleChange} 
@@ -105,11 +117,12 @@ function Dashboard(props) {
                     }
                 </Tabs>
             </AppBar>
-
-            <Box sx={tabContainerStyles} id='outlet-component'>
+        
+            <box component="div" sx={tabContainerStyles} id='outlet-component'>
                 {/* The respective tab/route selected is rendered */}
                 <Outlet />
-            </Box>
+            </box>
+            </>
         </Box>
     );
 }

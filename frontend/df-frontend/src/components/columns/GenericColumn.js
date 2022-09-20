@@ -15,11 +15,9 @@ const stickyLRContainerStyles = {
     position: 'sticky',
     top: 133,
 }
-
 const centerContainerStyles = {
     flexGrow: 1, 
 }
-
 const textBoxStyle = {
     width: '100%',
     display: 'flex', 
@@ -27,7 +25,6 @@ const textBoxStyle = {
     flexWrap: 'nowrap', 
     justifyContent: 'space-between'
 }
-
 const subheadingText = {
     float: 'right',
     opacity: .6, 
@@ -35,13 +32,12 @@ const subheadingText = {
     mt: 'auto',
 }
 
-
-function GenericColumn({...props}) {
-    function setHeadings() {
+function GenericColumn(props) {
+    const setHeadings = () => {
         return(
             <Box sx={{ mt: 1 }}>
                 <Typography variant="h6">
-                    {props.headingVals.headingLeft}
+                    { props.headingVals.headingLeft }
                 </Typography>
                 {
                     props.headingVals.headingRight 
@@ -56,24 +52,25 @@ function GenericColumn({...props}) {
     }
     
     // extract each passed component value to display Grid-Column (by index in passed obj)
-    function rollOutGrid() {
+    const rollOutGrid = () => {
         return (
             props.components.map((item, i) => 
                 item !== null
                 ? 
-                <Grid xs={12} sx={{px: 0}}>
+                <Grid xs={12} sx={{ px: 0 }}>
                     { props.components[i] }
                 </Grid>
                 :
-                <Grid display={{xs: 'none', sm: 'flex'}} sm={12}>
+                <Grid display={{ xs: 'none', sm: 'flex' }} sm={12}>
                     <AdvertSlot />
                 </Grid>
             )
         )
     }
 
+    // assembly of the card column (*as set now, need diverse layout & addtl types)
     return (
-        <Box id={props.colId} sx={ props.colSticky ? stickyLRContainerStyles : centerContainerStyles }>
+        <Box id={`column-${props.colId}`} sx={ props.colSticky ? stickyLRContainerStyles : centerContainerStyles }>
             { props.headingVals ? setHeadings() : null }
             <Stack spacing={1} sx={{mt: 2}}>
                 { rollOutGrid() }

@@ -3,6 +3,7 @@ import { useState, useMemo } from 'react'
 import { styled, useTheme } from '@mui/material/styles';
 import MainAppBar from './MainAppBar';
 import Box from '@mui/material/Box';
+// import Container from '@mui/material/Container';
 import MuiDrawer from '@mui/material/Drawer';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -59,6 +60,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     padding: theme.spacing(0, 1),
+    // border: '2px solid red',
+    margin: 0,
     ...theme.mixins.toolbar, // necessary for content to be below app bar
 }));
 
@@ -133,7 +136,7 @@ export default function NavDrawer() {
 
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', flexGrow: 1 }}>
             <CssBaseline />
             {/* Imported Customized Appbar */}
             <MainAppBar />
@@ -209,12 +212,14 @@ export default function NavDrawer() {
                 </Tabs>
             </Drawer>
             
-            
-            <Box component="main" sx={{ flexGrow: 1 }}>
+
+            <Box sx={{ flexGrow: 1 }}>
                 {/* Space Content in box below and to the right of the nav and right of Drawer */}
-                <DrawerHeader />
+                <DrawerHeader id="spacer-drawer-header" sx={{top: 0}} />
                 {/* Outlet is for each Primary-Nav Link  --> as listed inputs */}
-                <Outlet roleType={roleProp} />
+                <div sx={{ position: 'static' }}>
+                    <Outlet roleType={roleProp} />
+                </div>
             </Box>
         </Box>
     );
