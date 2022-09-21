@@ -30,19 +30,23 @@ const dashLeftColumnObj = {
     colId: 'dashboard-home-left-column',
     headingVals: { headingLeft: "my profile", headingRight: null },
     colSticky: true,
-    components: [<UserProfileQuick />, <LatestNotifications />, <LatestNotifications />]
+    components: [<UserProfileQuick />, <LatestNotifications />, <LatestNotifications />],
+    colCardRowHeights: [8, 2, 2]
 }
 const dashCenterColumnObj = {
     colId: 'dashboard-home-center-column',
     headingVals: { headingLeft: "project updates", headingRight: null },
     colSticky: false,
-    components: [<CentralContent />, <LatestNotifications />]
+    components: [<CentralContent />, <LatestNotifications />],
+    colCardRowHeights: [10, 2]
+
 }
 const dashRightColumnObj = {
     colId: 'dashboard-home-right-column',
     headingVals: { headingLeft: "far right", headingRight: null },
     colSticky: false,
-    components: [<CentralContent />, <LatestNotifications />]
+    components: [<CentralContent />, <LatestNotifications />],
+    colCardRowHeights: [10, 2]
 }
 const dashSecondaryUpper = {
     colId: 'project-tracker',
@@ -57,7 +61,8 @@ const DashHome = (props) => {
         <Box component="div" sx={containerStyles} id='dash-home-container'>
 
             {/* section 1 */}
-            <Grid container spacing={2} sx={ gridContainerStyles }>
+            {/* Need container height - then pass colCardRows to the generic column for x/12*/}
+            <Grid container spacing={2} sx={{ height: '100vh' ,...gridContainerStyles }}>
                 <Grid xs={12} md={3}>
                     <GenericColumn { ...dashLeftColumnObj } />
                 </Grid>

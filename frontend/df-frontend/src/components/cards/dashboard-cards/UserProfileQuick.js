@@ -37,7 +37,6 @@ const UserProfileQuick = (props) => {
                 </Grid>
             </Fade>
         </Paper>
- 
     )
 }
 

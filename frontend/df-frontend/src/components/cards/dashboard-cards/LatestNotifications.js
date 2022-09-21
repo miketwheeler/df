@@ -23,7 +23,7 @@ const cardComponent = {
 const LatestNotifications = (props) => {
     // const user = props.user;
     return (
-        <Paper sx={cardComponent} elevation={18} key={props.id} id={`card-${props.id}`} >
+        <Paper sx={cardComponent} elevation={18} key={props.id} id={ `card-${props.id}` } >
             <Fade in={true} timeout={600}>
                 <Grid container >
                     <Grid xs={12} sx={{ mx: 1 }}>
@@ -37,4 +37,4 @@ const LatestNotifications = (props) => {
     )
 }
 
-export default LatestNotifications
+export default LatestNotifications;

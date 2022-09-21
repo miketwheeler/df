@@ -57,13 +57,13 @@ function GenericColumn(props) {
             props.components.map((item, i) => 
                 item !== null
                 ? 
-                <Grid xs={12} sx={{ px: 0 }}>
-                    { props.components[i] }
-                </Grid>
+                    <Grid xs={12} sx={{ px: 0 }}>
+                        { props.components[i] }
+                    </Grid>
                 :
-                <Grid display={{ xs: 'none', sm: 'flex' }} sm={12}>
-                    <AdvertSlot />
-                </Grid>
+                    <Grid display={{ xs: 'none', sm: 'flex' }} sm={12}>
+                        <AdvertSlot />
+                    </Grid>
             )
         )
     }
