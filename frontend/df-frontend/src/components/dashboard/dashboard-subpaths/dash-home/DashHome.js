@@ -9,7 +9,7 @@ import GenericColumn from '../../../columns/GenericColumn';
 
 
 const containerStyles = {
-    flexGrow: 0, 
+    flexGrow: 1, 
     width: '100%',
     bgcolor: 'background.paper',
     color: 'primary.main',
@@ -62,25 +62,29 @@ const DashHome = (props) => {
 
             {/* section 1 */}
             {/* Need container height - then pass colCardRows to the generic column for x/12*/}
-            <Grid container spacing={2} sx={{ height: '100vh' ,...gridContainerStyles }}>
-                <Grid xs={12} md={3}>
+            <Grid container spacing={2} sx={ gridContainerStyles }>
+                <Grid xs={12} sm={3}>
                     <GenericColumn { ...dashLeftColumnObj } />
                 </Grid>
-                <Grid xs={12} md={6}>
-                    <GenericColumn { ...dashCenterColumnObj } />
-                </Grid>
-                <Grid xs={12} md={3}>
-                    <GenericColumn { ...dashRightColumnObj } />
-                    {/* <GenericColumn {...dashSecondaryUpper} /> */}
+                <Grid container xs={12} sm={8} >
+                    <Grid xs={12} md={8}>
+                        <GenericColumn { ...dashCenterColumnObj } />
+                    </Grid>
+                    <Grid xs={12} md={4}>
+                        <GenericColumn { ...dashRightColumnObj } />
+                    </Grid>
+                    <Grid xs={12}>
+                        <GenericColumn { ...dashSecondaryUpper } />
+                    </Grid>
                 </Grid>
             </Grid>
 
             {/* section 2 */}
-            <Grid container spacing={2} sx={gridContainerStyles}>
+            {/* <Grid container spacing={2} sx={ gridContainerStyles }>
                 <Grid xs={12}>
-                    <GenericColumn {...dashSecondaryUpper} />
+                    <GenericColumn { ...dashSecondaryUpper } />
                 </Grid>
-            </Grid>
+            </Grid> */}
         </Box>
     )
 }

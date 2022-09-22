@@ -73,7 +73,6 @@ function Dashboard(props) {
 
     return (
         <Box component="div" sx={{ width: "100%", bgcolor: 'background.paper' }}>
-        <>
             <AppBar position="sticky" sx={{ m: 0, p: 0, height: 53, ...dynamicTopStyle }}>
                 <Tabs 
                     value={value} 
@@ -118,11 +117,10 @@ function Dashboard(props) {
                 </Tabs>
             </AppBar>
         
-            <box component="div" sx={tabContainerStyles} id='outlet-component'>
+            <div style={tabContainerStyles} id='current-tab-body-content'>
                 {/* The respective tab/route selected is rendered */}
                 <Outlet />
-            </box>
-            </>
+            </div>
         </Box>
     );
 }
