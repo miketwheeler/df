@@ -7,7 +7,9 @@ import { Star } from '@mui/icons-material'
 export const StarRatingComponent = ({...props}) => {
     return (
         <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'nowrap'}}>
-            <Typography sx={{fontSize: '.8em', opacity: '.6'}}>rated &nbsp;</Typography>
+            <Typography sx={{fontSize: '.8em', opacity: '.6', mt: 'auto'}}>
+                rated &nbsp;
+            </Typography>
             <Rating
                 name="retrieved-imutable-rating"
                 size="small"

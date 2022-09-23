@@ -50,6 +50,9 @@ export const theme = createTheme({
         subtitle2: {
             fontFamily: 'Play',
         },
+        specHeader: {
+            fontFamily: 'Play',
+        },
         button: {
             fontFamily: 'Play',
             fontWeight: 500,

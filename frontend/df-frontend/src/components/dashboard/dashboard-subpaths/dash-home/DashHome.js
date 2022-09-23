@@ -13,9 +13,6 @@ const containerStyles = {
     width: '100%',
     bgcolor: 'background.paper',
     color: 'primary.main',
-    // height: '100%',
-    // height: 'fit-content',
-    // top: 64,
 }
 
 const gridContainerStyles = {
@@ -23,7 +20,8 @@ const gridContainerStyles = {
     maxWidth: '1840px',
     px: 3,
     mx: 'auto',
-    mt: 0
+    mt: 0,
+    width: '100%',
 }
 
 const dashLeftColumnObj = {
@@ -31,22 +29,18 @@ const dashLeftColumnObj = {
     headingVals: { headingLeft: "my profile", headingRight: null },
     colSticky: true,
     components: [<UserProfileQuick />, <LatestNotifications />, <LatestNotifications />],
-    colCardRowHeights: [8, 2, 2]
 }
 const dashCenterColumnObj = {
     colId: 'dashboard-home-center-column',
     headingVals: { headingLeft: "project updates", headingRight: null },
     colSticky: false,
     components: [<CentralContent />, <LatestNotifications />],
-    colCardRowHeights: [10, 2]
-
 }
 const dashRightColumnObj = {
     colId: 'dashboard-home-right-column',
     headingVals: { headingLeft: "far right", headingRight: null },
     colSticky: false,
     components: [<CentralContent />, <LatestNotifications />],
-    colCardRowHeights: [10, 2]
 }
 const dashSecondaryUpper = {
     colId: 'project-tracker',
@@ -55,18 +49,20 @@ const dashSecondaryUpper = {
     components: [<LatestNotifications />] // exchange for milestone tracker
 }
 
-
+// Assembles the DASHBOARD/HOME page
+// -main layout and waypoint for passing in the components to model on this page
 const DashHome = (props) => {    
     return (
-        <Box component="div" sx={containerStyles} id='dash-home-container'>
-
+        <Box sx={containerStyles} id='dash-home-container'>
             {/* section 1 */}
             {/* Need container height - then pass colCardRows to the generic column for x/12*/}
             <Grid container spacing={2} sx={ gridContainerStyles }>
-                <Grid xs={12} sm={3}>
-                    <GenericColumn { ...dashLeftColumnObj } />
+                <Grid container xs={12} md={3}>
+                    <Grid xs={12}>
+                        <GenericColumn { ...dashLeftColumnObj } />
+                    </Grid>
                 </Grid>
-                <Grid container xs={12} sm={8} >
+                <Grid container xs={12} md={8.9}>
                     <Grid xs={12} md={8}>
                         <GenericColumn { ...dashCenterColumnObj } />
                     </Grid>
@@ -78,13 +74,6 @@ const DashHome = (props) => {
                     </Grid>
                 </Grid>
             </Grid>
-
-            {/* section 2 */}
-            {/* <Grid container spacing={2} sx={ gridContainerStyles }>
-                <Grid xs={12}>
-                    <GenericColumn { ...dashSecondaryUpper } />
-                </Grid>
-            </Grid> */}
         </Box>
     )
 }

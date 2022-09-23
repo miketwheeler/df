@@ -32,7 +32,7 @@ function HighlightCard(props) {
                         <Typography variant="subtitle2" sx={{ml: 'auto', my: 'auto', opacity: '.6'}}>
                             {props.dev_type}
                         </Typography>
-                        <Typography sx={{height: 20, my: 'auto', mx: 1,}}>
+                        <Typography sx={{my: 'auto', mx: 1, opacity: '.6'}}>
                             {props.project_type}
                         </Typography>
                     </div>
@@ -45,7 +45,7 @@ function HighlightCard(props) {
                     <HeadingThenData headingVal={'deployed: '} dataVal1={props.deployed.toString()} />
                 </Stack>
                 <Box sx={{flexGrow: 1}}>
-                    <Stack spacing={.5} sx={{my: 2, mx: 'auto'}}>
+                    <Stack spacing={1.25} sx={{my:2, mx: 'auto'}}>
                         {/* need to track @ redux - state for contacted members: currently props.dummyData for now */}
                         <Chip label={`total contacted: ${props.current_team_count}`} variant="outlined" sx={{color: 'inherit'}} />
                         <Chip label={`denied contacts: ${props.total_team_count}`} variant="outlined" sx={{color: 'inherit'}} />

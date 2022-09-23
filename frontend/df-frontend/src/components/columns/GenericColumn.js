@@ -32,19 +32,35 @@ const subheadingText = {
     mt: 'auto',
 }
 
+
+// Via props input - plots out passed components in a column format for more unified design approach
+//  - headingLeft, headingRight?, item(s)? list [] -> (*passed-in component(s)) && if null item -> advert slot
 function GenericColumn(props) {
     const setHeadings = () => {
         return(
-            <Box sx={{ mt: 1 }}>
-                <Typography variant="h6">
-                    { props.headingVals.headingLeft }
-                </Typography>
+            <Box 
+                flexGrow={0} 
+                sx={{ 
+                    mt: 1, 
+                    display: 'flex', 
+                    flexDirection: 'row', 
+                    flexWrap: 'nowrap', 
+                    justifyContent: 'space-between',
+                }}>
+                {
+                    props.headingVals.headingLeft
+                    ? 
+                    <Typography variant="h6" sx={{mb: 0}}>
+                        {props.headingVals.headingLeft}
+                    </Typography>
+                    : null
+                }
                 {
                     props.headingVals.headingRight 
                     ? 
-                        <Typography sx={subheadingText}>
-                            {props.headingVals.headingRight}
-                        </Typography>
+                    <Typography sx={subheadingText}> 
+                        {props.headingVals.headingRight}
+                    </Typography>
                     : null
                 }
             </Box>
@@ -57,13 +73,13 @@ function GenericColumn(props) {
             props.components.map((item, i) => 
                 item !== null
                 ? 
-                    <Grid xs={12} sx={{ px: 0 }}>
-                        { props.components[i] }
-                    </Grid>
+                <Grid xs={12} sx={{ px: 0 }}>
+                    { props.components[i] }
+                </Grid>
                 :
-                    <Grid display={{ xs: 'none', sm: 'flex' }} sm={12}>
-                        <AdvertSlot />
-                    </Grid>
+                <Grid display={{ xs: 'none', sm: 'flex' }} sm={12}>
+                    <AdvertSlot />
+                </Grid>
             )
         )
     }
@@ -72,7 +88,7 @@ function GenericColumn(props) {
     return (
         <Box id={`column-${props.colId}`} sx={ props.colSticky ? stickyLRContainerStyles : centerContainerStyles }>
             { props.headingVals ? setHeadings() : null }
-            <Stack spacing={1} sx={{mt: 2}}>
+            <Stack spacing={1} sx={{mt: 1}}>
                 { rollOutGrid() }
             </Stack>
         </Box>
