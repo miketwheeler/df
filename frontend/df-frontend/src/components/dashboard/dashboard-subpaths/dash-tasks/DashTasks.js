@@ -1,8 +1,10 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import GenericColumn from '../../../columns/GenericColumn';
-import GenericCard from '../../../cards/GenericCard';
+import GenericInfoCard from '../../../cards/GenericInfoCard';
+import GenericProfileCard from '../../../cards/GenericProfileCard';
 import Grid from '@mui/material/Unstable_Grid2';
+import { user_data, project_data } from '../../../../data/data_data';
 
 const containerStyles = {
     flexGrow: 1, 
@@ -20,26 +22,21 @@ const gridContainerStyles = {
     width: '100%',
 }
 
-const projectCardDeets = {
-
-}
-
-const personCardDeets = {
-    
-}
-
+const test_project = project_data[0];
+const test_user1 = user_data[0];
+const test_user2 = user_data[1];
 
 const dashLeftCol = {
     colId: 'dashboard-tasks-left-column',
     headingVals: { headingLeft: "Project Type Card" },
     colSticky: true,
-    components: [<GenericCard {...projectCardDeets} />, <GenericCard />],
+    components: [<GenericInfoCard {...test_project} />, <GenericInfoCard />],
 }
 const dashMiddleCol = {
     colId: 'dashboard-tasks-middle-column',
     headingVals: { headingLeft: "Person Type Card", headingRight: 'select' },
     colSticky: true,
-    components: [<GenericCard {...projectCardDeets} />, <GenericCard {...projectCardDeets} />],
+    components: [<GenericProfileCard {...test_user1} />, <GenericProfileCard {...test_user2} />],
 }
 
 // Assembles the DASHBOARD/TASKS page

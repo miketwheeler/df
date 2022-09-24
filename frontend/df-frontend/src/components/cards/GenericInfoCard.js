@@ -21,7 +21,9 @@ const invertedCardComponentStyles = {
 }
 
 
-function GenericCard(props) {
+
+
+const GenericInfoCard = (props) => {
 
     // later will load-in state for displayed stats
     // const numContacts = useSelector((state) => state.memberIdListReducer.memberIdList)
@@ -98,4 +100,4 @@ function GenericCard(props) {
 
 }
 
-export default GenericCard
+export default GenericInfoCard;
