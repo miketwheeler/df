@@ -88,7 +88,7 @@ function GenericColumn(props) {
     return (
         <Box id={`column-${props.colId}`} sx={ props.colSticky ? stickyLRContainerStyles : centerContainerStyles }>
             { props.headingVals ? setHeadings() : null }
-            <Stack spacing={1} sx={{mt: 1}}>
+            <Stack spacing={0} sx={{mt: 1}}>
                 { rollOutGrid() }
             </Stack>
         </Box>

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Grid from '@mui/material/Unstable_Grid2';
-import { Typography, Stack, Box, Divider, CardActionArea, useTheme, Paper } from '@mui/material';
+import { Typography, Stack, Box, Divider, CardActionArea, useTheme, Paper, FormControlLabel, Collapse  } from '@mui/material';
 import { FaceRetouchingOff, FaceRetouchingNatural } from '@mui/icons-material'
 
 import Ava from '../../static/images/avatar/2.png';
 import { HeadingThenData } from '../text-components/HeadingThenData';
-import { HeadingRow } from '../text-components/HeadingRow';
+import HeadingRow from '../../components/text-components/HeadingRow'
 
 import { SpecialSwitch } from '../small-components/SpecialSwitch';
 import { memberAdd, memberRemove } from '../../slices/memberhallSlices/memberIdListSlice';
@@ -15,9 +15,6 @@ import { SkillLevel } from '../text-components/SkillLevel';
 import { StarRatingComponent } from '../text-components/StarRatingComponent';
 
 
-const containerStyles = {
-    flexGrow: 1,
-}
 
 const cardComponent = {
     height: 'fit-content', 
@@ -28,8 +25,6 @@ const cardComponent = {
     '&:hover': { boxShadow: '.5px .5px 3px 1px rgba(25,118,210, 1)' },
     '&.Mui-active': { boxShadow: '.5px .5px 3px 1px rgba(25,118,210, .8)' },
 }
-const availabilityIconStyles = { height: 20, color: 'green', my: 'auto', ml: .1 }
-const unavailabilityIconStyles = { height: 20, my: 'auto', opacity: .3, ml: .1 }
 const rateSkillBoxStyles = { 
     flexGrow: 1, 
     display: 'flex', 
@@ -40,11 +35,11 @@ const rateSkillBoxStyles = {
     my: 2,
 }
 const profilePicStyles = { 
-    // maxHeight: '220px', 
-    // maxWidth:'220px', 
+    maxHeight: '220px', 
+    maxWidth:'220px', 
     minHeight: '80px', 
     minWidth:'80px', 
-    // height: '100%', 
+    height: '100%', 
     width: '100%', 
     margin: 'auto', 
     objectFit: 'scale-down',
@@ -56,6 +51,12 @@ const GenericProfileCard = (props) => {
     // later will load-in state for displayed stats
     // const numContacts = useSelector((state) => state.memberIdListReducer.memberIdList)
     const teamSlotsAvailable = props.total_team_count - props.current_team_count;
+
+    const headingVals = {
+        headingLeftVal: `${props.first_name} ~ ${props.user_name}`,
+        headingRightVal: null,
+        availability: props.availability
+    }
 
     const theme = useTheme();
     // gets / sets the state for the current member-card selected *(exploded view) or the current list of members to message
@@ -84,42 +85,32 @@ const GenericProfileCard = (props) => {
         setSelectedCardNum(cardId);
     }
 
-    useEffect(() => {
-        if(selectedCardNum !== -1)
-            console.log(`- - card number ${selectedCardNum}`)
-    }, [selectedCardNum])
+    // useEffect(() => {
+    //     if(selectedCardNum !== -1)
+    //         console.log(`- - card number ${selectedCardNum}`)
+    // }, [selectedCardNum])
     
+    const [expandedCard, setExpandedCard] = useState(false);
+
+    const handleExpandCard = () => {
+        setExpandedCard(true);
+    }
+
 
     return (
-        <Box sx={containerStyles}>
-            <Grid container spacing={2}>
+        <Box sx={{ flexGrow: 1, m: 0 }}>
+            {/* <Grid container spacing={1}> */}
                 {/* Indiv member card selectable and a switch to cluster-message mult members @ once */}
                 <CardActionArea 
                     elevation={6} 
-                    id={'clickable-area-member-card'} 
+                    id={'member-button-card'} 
                     onClick={() => handleProfileSelected(props.id)}
                     >
-
                     <Paper sx={cardComponent} elevation={6} key={props.id} id={`card-${props.id}`} >
                         <Grid container>
                             <Grid xs={9}>
                                 <Stack spacing={1}>
-                                    {/* Displays the firstname, username, devType, & availablity of this user*/}
-                                    {/* <Box sx={{flexWrap: 'nowrap', justifyContent: 'space-between' }}>
-                                        <div style={{display: 'flex', flexDirection: 'row', alignContent: 'center', justifyContent: 'center'}}>
-                                            <Typography variant="subtitle1">
-                                                {props.first_name} ~ {props.user_name} 
-                                            </Typography>
-                                            <Box sx={{ml: 'auto', my: 'auto'}}>
-                                                {
-                                                    props.availability === true 
-                                                    ? <FaceRetouchingNatural sx={availabilityIconStyles} /> 
-                                                    : <FaceRetouchingOff sx={unavailabilityIconStyles} />
-                                                }
-                                            </Box>
-                                        </div>
-                                    </Box> */}
-                                    {/* <HeadingRow headin */}
+                                    <HeadingRow {...headingVals} />
                                     <Divider orientation="horizontal" flexItem />
                                     <Box sx={{display: 'flex', flexDirection: 'column'}}>
                                         <Typography variant='subtitle1'>{props.dev_type[0]}</Typography>
@@ -153,9 +144,8 @@ const GenericProfileCard = (props) => {
                             </Grid>
                         </Grid>
                     </Paper>
-
                 </CardActionArea>
-            </Grid>
+            {/* </Grid> */}
         </Box>
     )
 

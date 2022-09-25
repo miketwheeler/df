@@ -30,7 +30,7 @@ const dashLeftCol = {
     colId: 'dashboard-tasks-left-column',
     headingVals: { headingLeft: "Project Type Card" },
     colSticky: true,
-    components: [<GenericInfoCard {...test_project} />, <GenericInfoCard />],
+    components: [<GenericInfoCard user={test_project} />, <GenericInfoCard />],
 }
 const dashMiddleCol = {
     colId: 'dashboard-tasks-middle-column',
