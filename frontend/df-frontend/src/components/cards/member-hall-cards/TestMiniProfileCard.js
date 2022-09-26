@@ -76,7 +76,6 @@ const MyCard = (props) => {
     const handleProfileSelected = (cardId) => {
         if(memberCardSelected !== cardId) {
             document.getElementById(`card-${cardId}`).classList.add("Mui-active");
-            
 
             if(memberCardSelected !== -1) {
                 document.getElementById(`card-${memberCardSelected}`).classList.remove("Mui-active");

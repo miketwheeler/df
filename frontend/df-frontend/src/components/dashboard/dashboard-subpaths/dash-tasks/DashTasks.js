@@ -52,11 +52,11 @@ const DashTasks = (props) => {
                     <GenericColumn { ...dashLeftCol } />
                 </Grid>
             </Grid>
-            <Grid container xs={12} md={8.9}>
+            <Grid container xs={12} md={8.99}>
                 <Grid xs={12} md={8}>
                     <GenericColumn { ...dashMiddleCol } />
                 </Grid>
-                <Grid xs={12} md={4}>
+                <Grid xs={12} md={4} sx={{ display: { } }}>
                     {/* <GenericColumn { ...dashRightColumnObj } /> */}
                 </Grid>
                 <Grid xs={12}>

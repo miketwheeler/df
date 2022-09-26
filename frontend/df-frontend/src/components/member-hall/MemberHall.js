@@ -7,8 +7,11 @@ import SearchBar from '../SearchBar'
 import LeftColumn from './member-hall-components/LeftColumn';
 import CenterColumn from './member-hall-components/CenterColumn'
 import RightColumn from './member-hall-components/RightColumn';
-
+import { user_data, project_data } from '../../data/data_data';
 // import ExplodedCard from '../cards/ExplodedCard';
+import GenericInfoCard from '../cards/GenericInfoCard';
+import GenericProfileCard from '../cards/GenericProfileCard';
+import GenericColumn from '../columns/GenericColumn';
 
 const barTitle="member hall"
 
@@ -27,6 +30,29 @@ const gridContainerStyles = {
     mx: 'auto',
 }
 
+const test_project = project_data[0];
+const test_user1 = user_data[0];
+const test_user2 = user_data[1];
+
+const leftCol = {
+    colId: 'member-hall-left-column',
+    headingVals: { headingLeft: "my project" },
+    colSticky: true,
+    components: [<GenericInfoCard user={test_project} />, null],
+}
+const middleCol = {
+    colId: 'member-hall-middle-column',
+    headingVals: { headingLeft: "Person Type Card", headingRight: 'select' },
+    colSticky: true,
+    components: [
+        <GenericProfileCard {...user_data[0]} />, 
+        <GenericProfileCard {...user_data[1]} />, 
+        <GenericProfileCard {...user_data[2]} />,
+        <GenericProfileCard {...user_data[3]} />,
+        <GenericProfileCard {...user_data[4]} />,
+        <GenericProfileCard {...user_data[5]} />,
+    ],
+}
 
 const MemberHall = (props) => {
     return (
@@ -34,10 +60,12 @@ const MemberHall = (props) => {
             <SearchBar title={barTitle} />
             <Grid container spacing={2} sx={gridContainerStyles}>
                 <Grid xs={12} md={3}>
-                    <LeftColumn />
+                    {/* <LeftColumn /> */}
+                    <GenericColumn {...leftCol} />
                 </Grid>
                 <Grid xs={12} md={5} lg={4}>
-                    <CenterColumn />
+                    {/* <CenterColumn /> */}
+                    <GenericColumn {...middleCol} />
                 </Grid>
                 <Grid display={{ xs: 'none', md: 'block'}} md={4} lg={5}>
                     <RightColumn />
