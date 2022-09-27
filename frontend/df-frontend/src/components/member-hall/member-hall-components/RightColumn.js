@@ -5,20 +5,19 @@ import AdvertSlot from '../../cards/member-hall-cards/AdvertSlot';
 import ExplodedCard from '../../cards/member-hall-cards/ExplodedCard';
 import MessageBox from '../../cards/member-hall-cards/MessageBox';
 import { useSelector } from 'react-redux'
-
-// import axios from 'axios'
 import { user_data } from '../../../data/data_data'
 
 
 const containerStyles = {
     position: 'sticky',
-    top: 130,
+    // top: 130,
 }
 
 function RightColumn() {
-
     // gets the state for the current member-card selected passes to an exploded view
-    const memberCardSelected = useSelector((state) => state.memberCardSelectedReducer.memberSelected);
+    const memberCardSelected = useSelector((state) => 
+        state.memberCardSelectedReducer.memberSelected
+    );
     let useMemberData; 
 
     useMemo(() => {
@@ -41,10 +40,15 @@ function RightColumn() {
                         memberCardSelected !== -1
                         ?
                         <ExplodedCard {...useMemberData} startAnim={true} />
-                        // <ExplodedCard />
                         :
-                        <Box sx={{flexGrow: 1, py: 3, alignContent: 'center'}}>
-                            <Skeleton variant="rectangular" animation="wave" height={420} width={'100%'} sx={{borderRadius: 2}} />
+                        <Box sx={{flexGrow: 1, pt:2, alignContent: 'center'}}>
+                            <Skeleton 
+                                variant="rectangular" 
+                                animation="wave" 
+                                height={420} 
+                                width={'100%'} 
+                                sx={{borderRadius: 2}} 
+                                />
                         </Box>
                     }    
                 </Grid>

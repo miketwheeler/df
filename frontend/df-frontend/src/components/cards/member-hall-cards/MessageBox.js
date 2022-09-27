@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Typography, Stack, Box, Paper, TextField, Button, Chip, Slide} from '@mui/material';
+import { Typography, Stack, Box, Paper, TextField, Button, Chip, Slide, Modal, Dialog, Popper} from '@mui/material';
 
 import { useFormik } from 'formik';
 import * as yup from 'yup'
@@ -15,17 +15,16 @@ const cardComponent = {
     p: 2,
     mb: 2,
     width: '100%',
-    // mr: 3,
-    // minWidth: '300px',
     backgroundColor: 'primary.main',
     display: 'block',
+    maxWidth: '400px',
+    position: 'fixed',
+    bottom: '10px',
+    right: '10px',
+    zIndex: '200'
 }
-// 
+
 const buttonStyles = {
-    // color: 'primary.main',
-    // '& label': {
-    //     color: 'primary.main'
-    // },
     '& label.Mui-focused': {
         color: 'secondary.main',
     },
@@ -33,12 +32,6 @@ const buttonStyles = {
         borderBottomColor: 'secondary.main',
     },
     '& .MuiOutlinedInput-root': {
-        // '& .MuiInputBase-inputMultiline': {
-        //     color: 'primary.main',
-        // },
-        // '& fieldset': {
-        //     borderColor: 'primary.main',
-        // },
         '&:hover fieldset': {
             borderColor: 'secondary.main',
         },
@@ -51,7 +44,7 @@ const buttonStyles = {
 const validateSchema = yup.object({
     message: yup
         .string("")
-        .required(`don't be blank`)
+        .required(`you must have something to say...`)
 })
 
 const MessageBox = () => {
@@ -67,53 +60,66 @@ const MessageBox = () => {
     })
 
     return (
-        <Box sx={{flexGrow: 1, justifyContent: 'center'}}>
-            <Paper sx={cardComponent} elevation={18}>
-                <form onSubmit={formik.onSubmit}>
-                    <Stack spacing={2} pb={2}>
-                        <Typography variant="subtitle1">
-                            dispatch to group
-                        </Typography>
-                        <Box sx={{flexGrow: 1}}>
-                            {
-                                contactsList.map((id) => 
-                                    <Slide direction='left' in={id} mountOnEnter unmountOnExit container={containerRef.current}>
-                                        <Chip label={`${user_data[id-1].user_name}`} sx={{m: .25}} />
-                                    </Slide>
-                                )
-                            }
+        <Popper
+            open={true}
+            keepMounted 
+            disableEnforceFocus={true}
+            hideBackdrop
+            disableBackdropClick={true}
+            aria-labelledby="modal-title"
+            aria-describedby="modal"
+            disableScrollLock={true}
+            // disablePortal={true}
+            // components={{Backdrop: 'none'}}
+            >
+            {/* // <Box sx={{flexGrow: 1, justifyContent: 'center', position: 'fixed', bottom: '10px', right: '10px'}}> */}
+                <Paper sx={cardComponent} elevation={18}>
+                    <form onSubmit={formik.onSubmit}>
+                        <Stack spacing={2} pb={2}>
+                            <Typography variant="subtitle1" id="modal-title">
+                                dispatch to group
+                            </Typography>
+                            <Box sx={{flexGrow: 1}}>
+                                {
+                                    contactsList.map((id) => 
+                                        <Slide direction='left' in={id} mountOnEnter unmountOnExit container={containerRef.current}>
+                                            <Chip label={`${user_data[id-1].user_name}`} sx={{m: .25}} />
+                                        </Slide>
+                                    )
+                                }
+                            </Box>
+                            <TextField 
+                                fullWidth 
+                                id='quickMessage' 
+                                name='quick-message' 
+                                label='message'
+                                multiline
+                                required
+                                value={formik.values.message}
+                                onChange={formik.handleChange}
+                                onError={formik.touched.message && Boolean(formik.errors.message)}
+                                helperText={formik.touched.message && formik.errors.message}
+                                sx={buttonStyles}
+                                />
+                        </Stack> 
+                        <Box sx={{ flexGrow: 1, width: '100%', flexDirection: 'row' }}> 
+                            <Button 
+                                color='primary' 
+                                vaiant='contained' 
+                                type='submit' 
+                                sx={{ 
+                                    textTransform: 'none', 
+                                    backgroundColor: 'secondary.main', 
+                                    '&:hover': { opacity: .5 }
+                                }}
+                                >
+                                send it
+                            </Button> 
                         </Box>
-                        <TextField 
-                            fullWidth 
-                            id='quickMessage' 
-                            name='quick-message' 
-                            label='message'
-                            multiline
-                            required
-                            value={formik.values.message}
-                            onChange={formik.handleChange}
-                            onError={formik.touched.message && Boolean(formik.errors.message)}
-                            helperText={formik.touched.message && formik.errors.message}
-                            sx={buttonStyles}
-                            />
-                    </Stack> 
-                    <Box sx={{ flexGrow: 1, width: '100%', flexDirection: 'row' }}> 
-                        <Button 
-                            color='primary' 
-                            vaiant='contained' 
-                            type='submit' 
-                            sx={{ 
-                                textTransform: 'none', 
-                                backgroundColor: 'secondary.main', 
-                                '&:hover': { opacity: .5 }
-                            }}
-                            >
-                            send it
-                        </Button> 
-                    </Box>
-                </form>
-        </Paper>
-        </Box>
+                    </form>
+            </Paper>
+            {/* // </Box> */}
+        </Popper>
     )
 }
 

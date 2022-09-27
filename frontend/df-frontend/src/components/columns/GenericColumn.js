@@ -5,9 +5,9 @@ import AdvertSlot from '../cards/member-hall-cards/AdvertSlot';
 import HighlightCard from '../cards/member-hall-cards/HighlightCard';
 import { project_data as pData } from '../../data/data_data';
 import { useSelector } from 'react-redux'
+import { user_data } from '../../data/data_data'
 // import UserProfileQuick from '../cards/dashboard-cards/UserProfileQuick';
 // import LatestNotifications from '../cards/dashboard-cards/LatestNotifications';
-import { user_data } from '../../data/data_data'
 
 let highlighted = []
 
@@ -36,6 +36,15 @@ const subheadingText = {
 // Via props input - plots out passed components in a column format for more unified design approach
 //  - headingLeft, headingRight?, item(s)? list [] -> (*passed-in component(s)) && if null item -> advert slot
 function GenericColumn(props) {
+    const memberCardSelected = useSelector((state) => 
+        state.memberCardSelectedReducer.memberSelected
+    );
+    let useMemberData; 
+
+    useMemo(() => {
+        useMemberData = user_data[memberCardSelected - 1]
+    }, [memberCardSelected])
+
     const setHeadings = () => {
         return(
             <Box 
@@ -60,6 +69,18 @@ function GenericColumn(props) {
                     ? 
                     <Typography sx={subheadingText}> 
                         {props.headingVals.headingRight}
+                    </Typography>
+                    : null
+                }
+                {
+                    props.headingVals.headingDynamic
+                    ?
+                    <Typography variant="h6" sx={{mb: 0}}>
+                        {
+                            memberCardSelected !== -1
+                            ? props.headingVals.headingDynamic[0]
+                            : props.headingVals.headingDynamic[1]
+                        }
                     </Typography>
                     : null
                 }

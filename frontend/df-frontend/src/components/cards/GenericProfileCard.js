@@ -52,7 +52,6 @@ const GenericProfileCard = (props) => {
 
     const theme = useTheme();
     // later will load-in state for displayed stats
-    const teamSlotsAvailable = props.total_team_count - props.current_team_count;
     const headingVals = {
         headingLeftVal: `${props.first_name} ~ ${props.user_name}`,
         headingRightVal: null,
@@ -67,7 +66,7 @@ const GenericProfileCard = (props) => {
     const membersCheckBoxSelected = useSelector((state) => state.memberIdListReducer.memberIdList);
     const memberCardSelected = useSelector((state) => state.memberCardSelectedReducer.memberSelected);
     const dispatch = useDispatch();
-    
+
     // On selected - adds this member to the list to message plural or singular
     function handleCardChecked(switchId) {
         membersCheckBoxSelected.includes(switchId) ? dispatch(memberRemove(switchId)) : dispatch(memberAdd(switchId))
@@ -85,17 +84,6 @@ const GenericProfileCard = (props) => {
         }
         setSelectedCardNum(cardId);
     }
-    
-    // const [expandedCard, setExpandedCard] = useState(false);
-    // const handleExpandCard = () => {
-    //     setExpandedCard(true);
-    // }
-    // const contentListA = [
-    //     { head: 'enrolled since: ', data: props.enroll_date },
-    //     { head: 'teams on: ', data: props.teams },
-    //     { head: 'region/state: ', data: props.state }
-    // ]
-
 
     return (
         <Box sx={{ flexGrow: 1, m: 0 }}>
@@ -105,14 +93,14 @@ const GenericProfileCard = (props) => {
                 id={'member-button-card'} 
                 onClick={() => handleProfileSelected(props.id)}
                 >
-                <Paper sx={cardComponent} elevation={6} key={props.id} id={`card-${props.id}`} >
+                <Paper sx={cardComponent} elevation={6} key={props.id} id={`card-${props.id}`}>
                     <Grid container>
                         <Grid xs={9}>
                             <Stack spacing={1}>
                                 <HeadingRow {...headingVals} />
                                 <Divider orientation="horizontal" flexItem />
                                 <Grid xs={12}>
-                                    <HeadingThenData headingVal={'specializes in: '} dataVal1={props.dev_type} />
+                                    <HeadingThenData headingVal={'specialty: '} dataVal1={props.dev_type} />
                                     <Collapse in={props.id === memberCardSelected && matchesMdDown}>
                                         <Stack spacing={1} sx={{mt: 1}}>
                                         <HeadingThenData headingVal={'enrolled since: '} dataVal1={props.enroll_date} />
@@ -132,7 +120,6 @@ const GenericProfileCard = (props) => {
                         </Grid>
                         {/* Right column - displays profile img and selection to cluster message */}
                         <Grid xs={3} sx={{display: 'flex', alignContent: 'flex-end', p: 0, m: 0, justifyContent: 'right'}}>
-                            {/* <Stack spacing={0}> */}
                             <Box flexGrow={1}>
                                 <Box sx={{flexGrow: 1, ml: 'auto', float: 'right', height: 'fit-content'}}>
                                     <SpecialSwitch 
@@ -144,13 +131,10 @@ const GenericProfileCard = (props) => {
                                         />
                                 </Box>
                                 {/* Placeholder - get image from user inLR */}
-                                {/* <Box sx={{flexGrow: 1, alignItems: 'center', p: 1.5, pt: 0 }}> */}
-                                <div style={{height: '80%', padding: 3}}>
+                                <div style={{padding: 3}}>
                                     <img src={Ava} style={profilePicStyles} alt="profile-pic" />
                                 </div>
-                                {/* </Box> */}
                             </Box>
-                            {/* </Stack> */}
                         </Grid>
                         <Collapse in={props.id === memberCardSelected && matchesMdDown}>
                             <Grid xs={12}>
