@@ -6,6 +6,7 @@ import UserProfileQuick from '../../../cards/dummy-card-placeholder/UserProfileQ
 import LatestNotifications from '../../../cards/dummy-card-placeholder/LatestNotifications'; //takes an id value -> sets id 'card-${x}' && key ${x}
 import CentralContent from '../../../cards/dummy-card-placeholder/CentralContent'
 import GenericColumn from '../../../columns/GenericColumn';
+import MilestoneTimeline from '../../../cards/MilestoneTimeline'
 
 
 const containerStyles = {
@@ -24,25 +25,25 @@ const gridContainerStyles = {
     width: '100%',
 }
 
-const dashLeftColumnObj = {
+const leftCol = {
     colId: 'dashboard-home-left-column',
     headingVals: { headingLeft: "my profile", headingRight: null },
     colSticky: true,
     components: [<UserProfileQuick />, <LatestNotifications />, <LatestNotifications />],
 }
-const dashCenterColumnObj = {
+const middleCol = {
     colId: 'dashboard-home-center-column',
-    headingVals: { headingLeft: "project updates", headingRight: null },
+    headingVals: { headingLeft: "current events", headingRight: null },
     colSticky: false,
     components: [<CentralContent />, <LatestNotifications />],
 }
-const dashRightColumnObj = {
+const rightCol = {
     colId: 'dashboard-home-right-column',
-    headingVals: { headingLeft: "far right", headingRight: null },
+    headingVals: { headingLeft: "project", headingRight: null },
     colSticky: false,
-    components: [<CentralContent />, <LatestNotifications />],
+    components: [<MilestoneTimeline />, <LatestNotifications />],
 }
-const dashSecondaryUpper = {
+const belowRightCol = {
     colId: 'project-tracker',
     headingVals: { headingLeft: null, headingRight: null },
     colSticky: false,
@@ -59,18 +60,18 @@ const DashHome = (props) => {
             <Grid container spacing={2} sx={ gridContainerStyles }>
                 <Grid container xs={12} md={3}>
                     <Grid xs={12}>
-                        <GenericColumn { ...dashLeftColumnObj } />
+                        <GenericColumn { ...leftCol } />
                     </Grid>
                 </Grid>
                 <Grid container xs={12} md={8.9}>
                     <Grid xs={12} md={8}>
-                        <GenericColumn { ...dashCenterColumnObj } />
+                        <GenericColumn { ...middleCol } />
                     </Grid>
                     <Grid xs={12} md={4}>
-                        <GenericColumn { ...dashRightColumnObj } />
+                        <GenericColumn { ...rightCol } />
                     </Grid>
                     <Grid xs={12}>
-                        <GenericColumn { ...dashSecondaryUpper } />
+                        <GenericColumn { ...belowRightCol } />
                     </Grid>
                 </Grid>
             </Grid>

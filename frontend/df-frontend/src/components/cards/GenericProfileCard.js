@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Grid from '@mui/material/Unstable_Grid2';
-import { Typography, Stack, Box, Divider, CardActionArea, useTheme, Paper, FormControlLabel, Collapse, useMediaQuery  } from '@mui/material';
-import { FaceRetouchingOff, FaceRetouchingNatural } from '@mui/icons-material'
+import { Stack, Box, Divider, CardActionArea, useTheme, Paper, Collapse, useMediaQuery  } from '@mui/material';
 
 import Ava from '../../static/images/avatar/2.png';
 import { HeadingThenData } from '../utility-components/HeadingThenData';
@@ -47,19 +46,17 @@ const profilePicStyles = {
     overflow: 'none'
 }
 
-
 const GenericProfileCard = (props) => {
 
     const theme = useTheme();
-    // later will load-in state for displayed stats
+
     const headingVals = {
         headingLeftVal: `${props.first_name} ~ ${props.user_name}`,
         headingRightVal: null,
         availability: props.availability
     }
-    const [selectedCardOpen, setSelectedCardOpen] = useState(false);
+
     const [selectedCardNum, setSelectedCardNum] = useState(-1);
-    const matchesSmDown = useMediaQuery(theme.breakpoints.down('sm'))
     const matchesMdDown = useMediaQuery(theme.breakpoints.down('md'))
 
     // state

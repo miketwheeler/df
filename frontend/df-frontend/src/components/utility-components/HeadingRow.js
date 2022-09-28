@@ -28,7 +28,7 @@ const HeadingRow = (props) => {
                     null
                 }
                 {
-                    props.availability !== null
+                    props.availability && props.availability !== null
                     ?
                     <>
                         <Typography variant="subtitle2" sx={subtitle2Styles}>
