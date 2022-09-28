@@ -6,9 +6,9 @@ import {
     FaceRetouchingNatural,
 } from '@mui/icons-material'
 import Ava from '../../../static/images/avatar/2.png'
-import { HeadingThenData } from '../../text-components/HeadingThenData';
-import { SkillLevel } from '../../text-components/SkillLevel';
-import { StarRatingComponent } from '../../text-components/StarRatingComponent';
+import { HeadingThenData } from '../../utility-components/HeadingThenData';
+import { SkillLevel } from '../../utility-components/SkillLevel';
+import { StarRatingComponent } from '../../utility-components/StarRatingComponent';
 
 
 // styles applied to the entire card container

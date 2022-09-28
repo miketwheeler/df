@@ -2,17 +2,12 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Unstable_Grid2';
 import SearchBar from '../SearchBar'
-// import MyCard from '../cards/MyCard';
-// import { user_data as data } from '../../data/data_data';
-import LeftColumn from './member-hall-components/LeftColumn';
-import CenterColumn from './member-hall-components/CenterColumn'
-import RightColumn from './member-hall-components/RightColumn';
 import { user_data, project_data } from '../../data/data_data';
-// import ExplodedCard from '../cards/ExplodedCard';
 import GenericInfoCard from '../cards/GenericInfoCard';
 import GenericProfileCard from '../cards/GenericProfileCard';
 import GenericColumn from '../columns/GenericColumn';
-import ExplodedCard from '../cards/member-hall-cards/ExplodedCard';
+import StaticExpandedProfileCard from '../cards/StaticExpandedProfileCard';
+import MessageBox from '../cards/MessageBox';
 
 const barTitle="member hall"
 
@@ -33,8 +28,6 @@ const gridContainerStyles = {
 }
 
 const test_project = project_data[0];
-const test_user1 = user_data[0];
-const test_user2 = user_data[1];
 
 const leftCol = {
     colId: 'member-hall-left-column',
@@ -59,7 +52,7 @@ const rightCol = {
     colId: 'member-hall-right-column',
     headingVals: { headingDynamic: ['member detail', 'select to expand...'] },
     colSticky: true,
-    components: [ <ExplodedCard />, null ],
+    components: [ <StaticExpandedProfileCard />, null ],
 }
 
 const MemberHall = (props) => {
@@ -80,6 +73,7 @@ const MemberHall = (props) => {
                     <GenericColumn {...rightCol} />
                 </Grid>
             </Grid>
+            <MessageBox />
         </Box>
     )
 }

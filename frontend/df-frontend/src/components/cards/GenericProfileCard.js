@@ -5,14 +5,14 @@ import { Typography, Stack, Box, Divider, CardActionArea, useTheme, Paper, FormC
 import { FaceRetouchingOff, FaceRetouchingNatural } from '@mui/icons-material'
 
 import Ava from '../../static/images/avatar/2.png';
-import { HeadingThenData } from '../text-components/HeadingThenData';
-import HeadingRow from '../../components/text-components/HeadingRow'
+import { HeadingThenData } from '../utility-components/HeadingThenData';
+import HeadingRow from '../utility-components/HeadingRow'
 
-import { SpecialSwitch } from '../small-components/SpecialSwitch';
+import { SpecialSwitch } from '../utility-components/SpecialSwitch';
 import { memberAdd, memberRemove } from '../../slices/memberhallSlices/memberIdListSlice';
 import { memberSelect } from '../../slices/memberhallSlices/memberCardSelectSlice';
-import { SkillLevel } from '../text-components/SkillLevel';
-import { StarRatingComponent } from '../text-components/StarRatingComponent';
+import { SkillLevel } from '../utility-components/SkillLevel';
+import { StarRatingComponent } from '../utility-components/StarRatingComponent';
 
 
 

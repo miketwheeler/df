@@ -1,7 +1,7 @@
 import React from 'react'
 import Paper from '@mui/material/Paper'
 import { Typography, Stack, Box, Divider, Chip } from '@mui/material';
-import { HeadingThenData } from '../text-components/HeadingThenData';
+import { HeadingThenData } from '../utility-components/HeadingThenData';
 
 // import { useSelector } from 'react-redux'
 

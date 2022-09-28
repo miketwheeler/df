@@ -2,9 +2,9 @@ import React from 'react'
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 
-import UserProfileQuick from '../../../cards/dashboard-cards/UserProfileQuick';
-import LatestNotifications from '../../../cards/dashboard-cards/LatestNotifications'; //takes an id value -> sets id 'card-${x}' && key ${x}
-import CentralContent from '../../../cards/dashboard-cards/CentralContent'
+import UserProfileQuick from '../../../cards/dummy-card-placeholder/UserProfileQuick';
+import LatestNotifications from '../../../cards/dummy-card-placeholder/LatestNotifications'; //takes an id value -> sets id 'card-${x}' && key ${x}
+import CentralContent from '../../../cards/dummy-card-placeholder/CentralContent'
 import GenericColumn from '../../../columns/GenericColumn';
 
 

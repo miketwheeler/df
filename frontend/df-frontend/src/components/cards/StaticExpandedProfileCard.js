@@ -1,16 +1,16 @@
 import React from 'react'
 import Grid from '@mui/material/Unstable_Grid2';
 import { useSelector, useDispatch } from 'react-redux';
-import { Stack, Box, Divider, Fade, Paper, useMediaQuery, useTheme, Skeleton} from '@mui/material';
-import Ava from '../../../static/images/avatar/2.png'
-import { HeadingThenData } from '../../text-components/HeadingThenData';
-import HeadingRow from '../../text-components/HeadingRow';
-import { SpecialSwitch } from '../../small-components/SpecialSwitch';
-import { memberAdd, memberRemove } from '../../../slices/memberhallSlices/memberIdListSlice';
-import { memberSelect } from '../../../slices/memberhallSlices/memberCardSelectSlice';
-import { SkillLevel } from '../../text-components/SkillLevel';
-import { StarRatingComponent } from '../../text-components/StarRatingComponent';
-import { user_data } from '../../../data/data_data';
+import { Stack, Box, Divider, Fade, Paper, useTheme, Skeleton} from '@mui/material';
+import Ava from '../../static/images/avatar/2.png'
+import { HeadingThenData } from '../utility-components/HeadingThenData';
+import HeadingRow from '../utility-components/HeadingRow';
+import { SpecialSwitch } from '../utility-components/SpecialSwitch';
+import { memberAdd, memberRemove } from '../../slices/memberhallSlices/memberIdListSlice';
+import { memberSelect } from '../../slices/memberhallSlices/memberCardSelectSlice';
+import { SkillLevel } from '../utility-components/SkillLevel';
+import { StarRatingComponent } from '../utility-components/StarRatingComponent';
+import { user_data } from '../../data/data_data';
 
 
 
@@ -18,7 +18,7 @@ import { user_data } from '../../../data/data_data';
 const cardComponent = {
     height: 'fit-content', 
     minHeight: '140px', 
-    my: 2.6,
+    // my: 2.6,
     p: 2,
     color: 'primary.main',
     // minWidth: '300px',
@@ -29,19 +29,19 @@ const rateSkillBoxStyles = { flexGrow: 1, display: 'flex', alignContent: 'flex-e
 const profilePicStyles = { maxHeight: '220px', maxWidth:'220px', height: '100%', width: '100%', margin: 'auto', objectFit: 'scale-down' }
 
 
-const ExplodedCard = (props) => {
+const StaticExpandedProfileCard = (props) => {
     const theme = useTheme();
     const membersCheckBoxSelected = useSelector((state) => state.memberIdListReducer.memberIdList);
     const memberCardSelected = useSelector((state) => state.memberCardSelectedReducer.memberSelected);
     const dispatch = useDispatch();
+    
+    const active_member = {...user_data[memberCardSelected - 1]}
 
     const headingVals = {
-        headingLeftVal: `${props.first_name} ~ ${props.user_name}`,
+        headingLeftVal: `${active_member.first_name} ~ ${active_member.user_name}`,
         headingRightVal: null,
-        availability: props.availability
+        availability: active_member.availability
     }
-
-    const active_member = {...user_data[memberCardSelected]}
 
     function handleCardChecked(switchId) {
         membersCheckBoxSelected.includes(switchId) ? dispatch(memberRemove(switchId)) : dispatch(memberAdd(switchId))
@@ -54,7 +54,7 @@ const ExplodedCard = (props) => {
                     {
                         memberCardSelected === -1
                         ?
-                        <Box sx={{flexGrow: 1, pt:2, alignContent: 'center'}}>
+                        <Box sx={{flexGrow: 1, alignContent: 'center'}}>
                             <Skeleton 
                                 variant="rectangular" 
                                 animation="wave" 
@@ -67,24 +67,23 @@ const ExplodedCard = (props) => {
                         <>
                         <Grid container>
                             <Grid xs={12}>
-                            <HeadingRow {...headingVals} />
                                 <Stack spacing={1}>
+                                    <HeadingRow {...headingVals} />
                                     <Divider orientation="horizontal" flexItem />
-                                    <Grid xs={9}>
-                                        <HeadingThenData headingVal={'specialty: '} dataVal1={active_member.dev_type} />
-                                        <Stack spacing={1} sx={{mt: 1}}>
-                                            <HeadingThenData headingVal={'enrolled since: '} dataVal1={active_member.enroll_date} />
-                                            <HeadingThenData headingVal={'teams on: '} dataVal1={active_member.teams} />
-                                            <HeadingThenData headingVal={'region/state: '} dataVal1={active_member.state} />
-                                        </Stack>
-                                    </Grid>
-                                    <Grid xs={3} sx={{display: 'flex', alignContent: 'flex-end', p: 0, m: 0, justifyContent: 'right'}}>
-                                        <Box flexGrow={1}>
-                                            <Box sx={{flexGrow: 1, ml: 'auto', float: 'right', height: 'fit-content'}} />
+                                    <Grid container sx={{p:0, m:0}}>
+                                        <Grid xs={9}>
+                                            <HeadingThenData headingVal={'specialty: '} dataVal1={active_member.dev_type} />
+                                            <Stack spacing={1} sx={{mt: 1}}>
+                                                <HeadingThenData headingVal={'enrolled since: '} dataVal1={active_member.enroll_date} />
+                                                <HeadingThenData headingVal={'teams on: '} dataVal1={active_member.teams} />
+                                                <HeadingThenData headingVal={'region/state: '} dataVal1={active_member.state} />
+                                            </Stack>
+                                        </Grid>
+                                        <Grid xs={3} sx={{display: 'flex', alignContent: 'flex-end', p: 0, m: 0, justifyContent: 'right'}}>
                                             <div style={{padding: 3}}>
                                                 <img src={Ava} style={profilePicStyles} alt="profile-pic" />
                                             </div>
-                                        </Box>
+                                        </Grid>
                                     </Grid>
                                     <Box sx={{flexGrow: 1, my: 2, flexDirection: 'column', height: '100%'}} />
                                     <Box sx={rateSkillBoxStyles}>
@@ -111,4 +110,4 @@ const ExplodedCard = (props) => {
     )
 }
 
-export default ExplodedCard;
+export default StaticExpandedProfileCard;

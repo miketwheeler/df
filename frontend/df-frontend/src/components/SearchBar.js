@@ -103,7 +103,8 @@ function SearchBar(props) {
                     // position: 'sticky',
                     // top: WindowResized.width > 900 ? 64 : 55
                 }} 
-                disableGutters={true}>
+                disableGutters={true}
+                >
                 <Typography
                     variant="h6"
                     noWrap

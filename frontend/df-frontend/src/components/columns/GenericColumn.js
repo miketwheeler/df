@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react'
 import Grid from '@mui/material/Unstable_Grid2';
 import { Typography, Box, Stack } from '@mui/material';
-import AdvertSlot from '../cards/member-hall-cards/AdvertSlot';
-import HighlightCard from '../cards/member-hall-cards/HighlightCard';
+import AdvertSlot from '../cards/AdvertSlot';
+// import HighlightCard from '../cards/member-hall-cards/HighlightCard';
 import { project_data as pData } from '../../data/data_data';
 import { useSelector } from 'react-redux'
 import { user_data } from '../../data/data_data'

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Typography } from '@mui/material'
-import { theme } from '../../../theme'
+import { theme } from '../../../../theme'
 
 
 function DashTeam() {

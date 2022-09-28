@@ -6,29 +6,32 @@ import {
     FaceRetouchingNatural,
 } from '@mui/icons-material'
 import Ava from '../../../static/images/avatar/2.png'
-import { HeadingThenData } from '../../text-components/HeadingThenData';
-import { SkillLevel } from '../../text-components/SkillLevel';
-import { StarRatingComponent } from '../../text-components/StarRatingComponent';
+import { HeadingThenData } from '../../utility-components/HeadingThenData';
+import { SkillLevel } from '../../utility-components/SkillLevel';
+import { StarRatingComponent } from '../../utility-components/StarRatingComponent';
 
 
 // styles applied to the entire card container
 const cardComponent = {
-    height: '100%', 
-    minHeight: '140px', 
+    height: 'fit-content', 
+    minHeight: '340px', 
     color: 'primary.main',
     border: 'none',
     display: 'block',
 }
 
-const LatestNotifications = (props) => {
+
+const UserProfileQuick = (props) => {
+
     // const user = props.user;
+
     return (
-        <Paper sx={cardComponent} elevation={18} key={props.id} id={ `card-${props.id}` } >
+        <Paper sx={cardComponent} elevation={18} key={props.id} id={`card-${props.id}`} >
             <Fade in={true} timeout={600}>
                 <Grid container >
-                    <Grid xs={12} sx={{ mx: 1 }}>
-                        <Stack spacing={1} sx={{ height: '100%' }} >
-                            LatestNotifications
+                    <Grid xs={12} sx={{mx: 1}}>
+                        <Stack spacing={1} sx={{height: '100%'}} >
+                            UserProfile
                         </Stack>
                     </Grid>                    
                 </Grid>
@@ -37,4 +40,4 @@ const LatestNotifications = (props) => {
     )
 }
 
-export default LatestNotifications;
+export default UserProfileQuick
