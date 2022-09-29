@@ -23,29 +23,39 @@ const headingVals = {
 
 const project = project_data[0];
 const maxMilestones = 5;
+const completedMilestones = 3;
 
 ////////////////////////////////////////////////
 // create list to map out using these functions
 
+const dummyTimelineData = [
+    { msNum: 1, dateVal: project.start_date, complete: true },
+    { msNum: 2, dateVal: '02/22/2022', complete: true },
+    { msNum: 3, dateVal: '04/20/2022', complete: true },
+    { msNum: 4, dateVal: '07/10/2022', complete: false },
+    { msNum: 5, dateVal: project.end_date, complete: false }
+]
 
-const buildTimeline = () => {
-    for(let i=0; i<maxMilestones; i++) {
-        const passVals = {
-            msNum: i+1,
-            dateVal: i===0 ? project.start_date : i===maxMilestones-1 ? project.end_date : '04/20/2022'
-        }
-    CreateTimelineItem(passVals)
-    }
-}
-
+// <TimelineItem sx={{opacity: .3}}>
+//     <TimelineOppositeContent >
+//         m3
+//     </TimelineOppositeContent>
+//     <TimelineSeparator >
+//         <TimelineDot variant='outlined' />
+//         <TimelineConnector  />
+//     </TimelineSeparator>
+//     <TimelineContent>
+//         04/20/2022
+//     </TimelineContent>
+// </TimelineItem>
 const CreateTimelineItem = (props) => {
     return (
-        <TimelineItem>
+        <TimelineItem sx={{ opacity: props.complete === true ? 1 : .3}}>
             <TimelineOppositeContent>
                 {`m${props.msNum}`}
             </TimelineOppositeContent>
             <TimelineSeparator>
-                <TimelineDot />
+                <TimelineDot variant={props.complete === true ? 'filled' : 'outlined'} />
                 {
                     props.msNum !== maxMilestones
                     ? <TimelineConnector />
@@ -69,7 +79,11 @@ export default function LeftPositionedTimeline() {
             
             <Timeline position="right">
 
-                { buildTimeline() }
+                { 
+                    dummyTimelineData.map((item, i) => {
+                        return <CreateTimelineItem {...item} />
+                    })
+                }
 
             </Timeline>
         </Paper>
