@@ -2,11 +2,14 @@ import React from 'react'
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 
+import { project_data } from '../../../../data/data_data';
+
 import UserProfileQuick from '../../../cards/dummy-card-placeholder/UserProfileQuick';
 import LatestNotifications from '../../../cards/dummy-card-placeholder/LatestNotifications'; //takes an id value -> sets id 'card-${x}' && key ${x}
 import CentralContent from '../../../cards/dummy-card-placeholder/CentralContent'
 import GenericColumn from '../../../columns/GenericColumn';
 import MilestoneTimeline from '../../../cards/MilestoneTimeline'
+import FundingCard from '../../../cards/FundingCard';
 
 
 const containerStyles = {
@@ -25,6 +28,8 @@ const gridContainerStyles = {
     width: '100%',
 }
 
+const passed_project = project_data[0]
+
 const leftCol = {
     colId: 'dashboard-home-left-column',
     headingVals: { headingLeft: "my profile", headingRight: null },
@@ -41,7 +46,7 @@ const rightCol = {
     colId: 'dashboard-home-right-column',
     headingVals: { headingLeft: "project", headingRight: null },
     colSticky: false,
-    components: [<MilestoneTimeline />, <LatestNotifications />],
+    components: [<MilestoneTimeline />, <FundingCard {...passed_project} />],
 }
 const belowRightCol = {
     colId: 'project-tracker',
@@ -56,7 +61,7 @@ const DashHome = (props) => {
     return (
         <Box sx={containerStyles} id='dash-home-container'>
             {/* section 1 */}
-            {/* Need container height - then pass colCardRows to the generic column for x/12*/}
+            {/* Need container height - then pass colCardRows to the generic column for x/12 */}
             <Grid container spacing={2} sx={ gridContainerStyles }>
                 <Grid container xs={12} md={3}>
                     <Grid xs={12}>

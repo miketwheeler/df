@@ -33,7 +33,7 @@ const leftCol = {
     colId: 'member-hall-left-column',
     headingVals: { headingLeft: "my project" },
     colSticky: true,
-    components: [<GenericInfoCard user={test_project} />, null],
+    components: [<GenericInfoCard {...test_project} />, null],
 }
 const middleCol = {
     colId: 'member-hall-middle-column',

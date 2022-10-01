@@ -41,7 +41,6 @@ const profilePicStyles = {
     minWidth:'60px', 
     height: '100%', 
     width: '100%', 
-    // my: 'auto', 
     objectFit: 'scale-down',
     overflow: 'none'
 }

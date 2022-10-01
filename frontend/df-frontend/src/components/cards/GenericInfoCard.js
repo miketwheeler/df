@@ -28,7 +28,7 @@ const GenericInfoCard = (props) => {
     // later will load-in state for displayed stats
     // const numContacts = useSelector((state) => state.memberIdListReducer.memberIdList)
 
-    const teamSlotsAvailable = props.total_team_count - props.current_team_count;
+    // const teamSlotsAvailable = props.total_team_count - props.current_team_count;
 
     return (
         <Paper sx={props.inverted ? invertedCardComponentStyles : cardComponentStyles} elevation={props.inverted ? 0 : 6} key={props.id}>
@@ -37,12 +37,12 @@ const GenericInfoCard = (props) => {
                 <Box sx={{flexGrow: 1, flexWrap: 'nowrap', justifyContent: 'space-between' }}>
                     <div style={{display: 'flex', flexDirection: 'row', alignContent: 'center', justifyContent: 'center'}}>
                         <Typography variant="subtitle1">
-                            test1
-                            {/* {props.project_name} */}
+                            {/* test1 */}
+                            { props.project_name }
                         </Typography>
                         <Typography variant="subtitle2" sx={{ml: 'auto', my: 'auto', opacity: '.6'}}>
-                            test2
-                            {/* {props.dev_type} */}
+                            {/* test2 */}
+                            { props.project_type }
                         </Typography>
 
 {/* This is a slot for an Icon - like the mini card, and adjacent to it's info */}
@@ -54,10 +54,12 @@ const GenericInfoCard = (props) => {
                 <Divider orientation="horizontal" flexItem />
                 <Stack spacing={1}>
 {/* Heading then data list/stack */}
-                    <HeadingThenData type={'datespan'} headingVal={'active: '} dataVal1={'10/13/2022'} dataVal2={'12/14/2999'} />{/* <HeadingThenData type={'datespan'} headingVal={'active: '} dataVal1={props.start_date} dataVal2={props.end_date} /> */}
-                    <HeadingThenData type={'ratio'} headingVal={'current milestone: '} dataVal1={'2'} dataVal2={'5'} />{/* <HeadingThenData type={'ratio'} headingVal={'current milestone: '} dataVal1={props.milestone} dataVal2={totalMilestones} /> */}
-                    <HeadingThenData headingVal={'funded: '} dataVal1={'true'} />{/* <HeadingThenData headingVal={'funded: '} dataVal1={props.funded.toString()} /> */}
-                    <HeadingThenData headingVal={'deployed: '} dataVal1={'01/20/2999'} />{/* <HeadingThenData headingVal={'deployed: '} dataVal1={props.deployed.toString()} /> */}
+                    <HeadingThenData type={'datespan'} headingVal={'active: '} dataVal1={props.startdate} dataVal2={props.end_date} />{/* <HeadingThenData type={'datespan'} headingVal={'active: '} dataVal1={props.start_date} dataVal2={props.end_date} /> */}
+                    <HeadingThenData type={'ratio'} headingVal={'current milestone: '} dataVal1={props.milestone} dataVal2={'5'} />{/* <HeadingThenData type={'ratio'} headingVal={'current milestone: '} dataVal1={props.milestone} dataVal2={totalMilestones} /> */}
+                    <HeadingThenData headingVal={'funded: '} dataVal1={props.funded.toString()} />{/* <HeadingThenData headingVal={'funded: '} dataVal1={props.funded.toString()} /> */}
+                    <HeadingThenData headingVal={'deployed: '} dataVal1={props.deployed.toString()} />{/* <HeadingThenData headingVal={'deployed: '} dataVal1={props.deployed.toString()} /> */}
+                    <HeadingThenData headingVal={'stack: '} dataVal1={props.tech_stack} />
+                    <HeadingThenData type={'ratio'} headingVal={'team slots: '} dataVal1={props.current_team_count} dataVal2={props.total_team_count} />
                 </Stack>
                 <Box sx={{flexGrow: 1}}>
                     <Stack spacing={1.25} sx={{my:2, mx: 'auto'}}>
