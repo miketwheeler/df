@@ -51,7 +51,6 @@ const GenericProfileCard = (props) => {
 
     const headingVals = {
         headingLeftVal: `${props.first_name} ~ ${props.user_name}`,
-        headingRightVal: null,
         availability: props.availability
     }
 
@@ -99,9 +98,9 @@ const GenericProfileCard = (props) => {
                                     <HeadingThenData headingVal={'specialty: '} dataVal1={props.dev_type} />
                                     <Collapse in={props.id === memberCardSelected && matchesMdDown}>
                                         <Stack spacing={1} sx={{mt: 1}}>
-                                        <HeadingThenData headingVal={'enrolled since: '} dataVal1={props.enroll_date} />
-                                        <HeadingThenData headingVal={'teams on: '} dataVal1={props.teams} />
-                                        <HeadingThenData headingVal={'region/state: '} dataVal1={props.state} />
+                                            <HeadingThenData headingVal={'enrolled since: '} dataVal1={props.enroll_date} />
+                                            <HeadingThenData headingVal={'teams on: '} dataVal1={props.teams} />
+                                            <HeadingThenData headingVal={'region/state: '} dataVal1={props.state} />
                                         </Stack>
                                     </Collapse>
                                 </Grid>

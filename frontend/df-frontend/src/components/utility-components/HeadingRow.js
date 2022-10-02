@@ -5,21 +5,28 @@ import { FaceRetouchingOff, FaceRetouchingNatural } from '@mui/icons-material'
 
 const rowContainer = {flexGrow: 1, flexWrap: 'nowrap', justifyContent: 'space-between', width: '100%', pr: 0 }
 const rowInnerBox = {display: 'flex', flexDirection: 'row', alignContent: 'center', justifyContent: 'center'}
-const subtitle2Styles = { ml: 'auto', my: 'auto', opacity: '.6' }
-const availabilityIconStyles = { height: 20, color: 'green', my: 'auto', ml: .1}
-const unavailabilityIconStyles = { height: 20, my: 'auto', opacity: .3, ml: .1 }
 
 
-// accepts props - type*(headingRightVal, availablity)
+// accepts props::
+//    - headingLeftVal(str), headingRightVal(str), availablity(bool), project_type(str))
 const HeadingRow = (props) => {
+
     return (
         <Box sx={rowContainer}>
             <div style={rowInnerBox}>
-                <Typography variant="subtitle1">
+                <Typography 
+                    variant="subtitle1"
+                    sx={{ 
+                        width: 200,
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis'
+                    }}
+                    >
                     {props.headingLeftVal}
                 </Typography>
                 {
-                    props.headingRightVal
+                    props.headingRightVal !== null
                     ?
                     <Typography variant="subtitle2" sx={{ml: 'auto', my: 'auto', opacity: '.6'}}>
                         {props.headingRightVal}
@@ -28,29 +35,34 @@ const HeadingRow = (props) => {
                     null
                 }
                 {
-                    props.availability && props.availability !== null
+                    props.availability !== null
                     ?
                     <>
-                        <Typography variant="subtitle2" sx={subtitle2Styles}>
+                        <Typography variant="subtitle2" sx={{ ml: 'auto', my: 'auto', opacity: '.6' }}>
                             {
-                            props.availability === true ? 'available' : 'N/A'
+                            props.availability ? 'available' : 'N/A'
                             }
                         </Typography>
                         {
-                            props.availability === true 
+                            props.availability
                             ?
-                            <FaceRetouchingNatural sx={availabilityIconStyles} />
+                            <FaceRetouchingNatural sx={{ height: 20, color: 'green', my: 'auto', ml: .1}} />
                             :
-                            <FaceRetouchingOff sx={unavailabilityIconStyles} />
+                            <FaceRetouchingOff sx={{ height: 20, my: 'auto', opacity: .3, ml: .1 }} />
                         }
                     </>
                     :
                     null
                 }
-                {/* This is a slot for an Icon - like the mini card, and adjacent to it's info */}
-                <Typography sx={{my: 'auto', mx: 0, opacity: '.6'}}>
-                    {props.project_type}
-                </Typography>
+                {
+                    props.project_type
+                    ?
+                    <Typography sx={{my: 'auto', mx: 0, opacity: '.6'}}>
+                        {props.project_type}
+                    </Typography>
+                    :
+                    null
+                }
             </div>
         </Box>
     )

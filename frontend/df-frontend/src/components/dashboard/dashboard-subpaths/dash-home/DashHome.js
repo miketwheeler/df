@@ -46,7 +46,7 @@ const rightCol = {
     colId: 'dashboard-home-right-column',
     headingVals: { headingLeft: "project", headingRight: null },
     colSticky: false,
-    components: [<MilestoneTimeline />, <FundingCard {...passed_project} />],
+    components: [<MilestoneTimeline />, <FundingCard { ...passed_project } />],
 }
 const belowRightCol = {
     colId: 'project-tracker',

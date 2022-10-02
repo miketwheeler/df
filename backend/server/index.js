@@ -10,7 +10,7 @@ var usersRouter = require('./routes/users');
 var testAPIRouter = require('./routes/testroute');
 
 // old
-const express = require("express");
+// const express = require("express");
 const PORT = process.env.PORT || 3090;
 const app = express();
 
@@ -36,18 +36,12 @@ app.use((req, res) => {
     res.setHeader('Content-Type', 'text/html');
     res.end('<html><body><h1>This is an Express Server</h1></body></html>');
 });
-
-
 app.get('/api', (req,res) => {
     res.json({ message: "Hello from Express!"});
 })
-
-
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 })
-
-
 
 // view engine setup
 
@@ -55,13 +49,11 @@ app.listen(PORT, () => {
 app.use(function (req, res, next) {
   next(createError(404));
 });
-
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
   // render the error page
   res.status(err.status || 500);
   res.render('error');

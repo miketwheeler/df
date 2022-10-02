@@ -28,6 +28,16 @@ const gridContainerStyles = {
 }
 
 const test_project = project_data[0];
+const qty_users = 16;
+const getUsersList = (qty) => {
+    const display_users_list = [];
+    for(let i=0; i<=qty; i++) {
+        display_users_list.push(
+            <GenericProfileCard {...user_data[i]} />
+        );
+    }
+    return display_users_list;
+}
 
 const leftCol = {
     colId: 'member-hall-left-column',
@@ -39,14 +49,15 @@ const middleCol = {
     colId: 'member-hall-middle-column',
     headingVals: { headingLeft: "members", headingRight: 'select' },
     colSticky: false,
-    components: [
-        <GenericProfileCard {...user_data[0]} />, 
-        <GenericProfileCard {...user_data[1]} />, 
-        <GenericProfileCard {...user_data[2]} />,
-        <GenericProfileCard {...user_data[3]} />,
-        <GenericProfileCard {...user_data[4]} />,
-        <GenericProfileCard {...user_data[5]} />,
-    ],
+    components: getUsersList(qty_users)
+    // [
+    //     <GenericProfileCard { ...user_data[0] } />, 
+    //     <GenericProfileCard { ...user_data[1] } />, 
+    //     <GenericProfileCard { ...user_data[2] } />,
+    //     <GenericProfileCard { ...user_data[3] } />,
+    //     <GenericProfileCard { ...user_data[4] } />,
+    //     <GenericProfileCard { ...user_data[5] } />,
+    // ],
 }
 const rightCol = {
     colId: 'member-hall-right-column',
@@ -62,15 +73,15 @@ const MemberHall = (props) => {
             <Grid container spacing={2} sx={gridContainerStyles}>
                 <Grid xs={12} md={3}>
                     {/* <LeftColumn /> */}
-                    <GenericColumn {...leftCol} />
+                    <GenericColumn { ...leftCol } />
                 </Grid>
                 <Grid xs={12} md={5} lg={4}>
                     {/* <CenterColumn /> */}
-                    <GenericColumn {...middleCol} />
+                    <GenericColumn { ...middleCol } />
                 </Grid>
-                <Grid display={{ xs: 'none', md: 'block'}} md={4} lg={5}>
+                <Grid display={{ xs: 'none', md: 'block' }} md={4} lg={5}>
                     {/* <RightColumn /> */}
-                    <GenericColumn {...rightCol} />
+                    <GenericColumn { ...rightCol } />
                 </Grid>
             </Grid>
             <MessageBox />
