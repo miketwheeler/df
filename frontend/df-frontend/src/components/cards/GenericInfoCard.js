@@ -56,8 +56,8 @@ const GenericInfoCard = (props) => {
 {/* Heading then data list/stack */}
                     <HeadingThenData type={'datespan'} headingVal={'active: '} dataVal1={props.startdate} dataVal2={props.end_date} />{/* <HeadingThenData type={'datespan'} headingVal={'active: '} dataVal1={props.start_date} dataVal2={props.end_date} /> */}
                     <HeadingThenData type={'ratio'} headingVal={'current milestone: '} dataVal1={props.milestone} dataVal2={'5'} />{/* <HeadingThenData type={'ratio'} headingVal={'current milestone: '} dataVal1={props.milestone} dataVal2={totalMilestones} /> */}
-                    <HeadingThenData headingVal={'funded: '} dataVal1={props.funded.toString()} />{/* <HeadingThenData headingVal={'funded: '} dataVal1={props.funded.toString()} /> */}
-                    <HeadingThenData headingVal={'deployed: '} dataVal1={props.deployed.toString()} />{/* <HeadingThenData headingVal={'deployed: '} dataVal1={props.deployed.toString()} /> */}
+                    <HeadingThenData headingVal={'funded: '} dataVal1={`${props.funded}`} />{/* <HeadingThenData headingVal={'funded: '} dataVal1={props.funded.toString()} /> */}
+                    <HeadingThenData headingVal={'deployed: '} dataVal1={`${props.deployed}`} />{/* <HeadingThenData headingVal={'deployed: '} dataVal1={props.deployed.toString()} /> */}
                     <HeadingThenData headingVal={'stack: '} dataVal1={props.tech_stack} />
                     <HeadingThenData type={'ratio'} headingVal={'team slots: '} dataVal1={props.current_team_count} dataVal2={props.total_team_count} />
                 </Stack>

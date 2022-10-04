@@ -50,14 +50,6 @@ const middleCol = {
     headingVals: { headingLeft: "members", headingRight: 'select' },
     colSticky: false,
     components: getUsersList(qty_users)
-    // [
-    //     <GenericProfileCard { ...user_data[0] } />, 
-    //     <GenericProfileCard { ...user_data[1] } />, 
-    //     <GenericProfileCard { ...user_data[2] } />,
-    //     <GenericProfileCard { ...user_data[3] } />,
-    //     <GenericProfileCard { ...user_data[4] } />,
-    //     <GenericProfileCard { ...user_data[5] } />,
-    // ],
 }
 const rightCol = {
     colId: 'member-hall-right-column',
