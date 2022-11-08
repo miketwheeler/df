@@ -22,7 +22,8 @@ const gridContainerStyles = {
     width: '100%',
 }
 
-const test_project = project_data[0];
+const test_project1 = project_data[0];
+const test_project2 = project_data[1];
 const test_user1 = user_data[0];
 const test_user2 = user_data[1];
 
@@ -30,7 +31,7 @@ const dashLeftCol = {
     colId: 'dashboard-tasks-left-column',
     headingVals: { headingLeft: "Project Type Card" },
     colSticky: true,
-    components: [<GenericInfoCard user={test_project} />, <GenericInfoCard />],
+    components: [<GenericInfoCard {...test_project1} />, <GenericInfoCard {...test_project2} />],
 }
 const dashMiddleCol = {
     colId: 'dashboard-tasks-middle-column',
