@@ -14,9 +14,9 @@ const dbConnectionString = process.env.DATABASE.replace('<DBPASSWORD>', process.
 
 dbConnect()
     .then(() => {
-        console.log(`DB connection successful!`)
+        console.log(`connection devfoyer-DB successful! ✅`)
     })
-    .catch((err) => console.log(`there was an error connecting to the database: ${err}`))
+    .catch((err) => console.log(`There was an error connecting to the database ❌: ${err}`))
 
 async function dbConnect() {
     await mongoose.connect(dbConnectionString);

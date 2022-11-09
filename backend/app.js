@@ -14,7 +14,7 @@ const globalErrorHandler = require('./server/controllers/errorController');
 
 // routers
 // const tourRouter = require('./server/routes/tourRoutes');
-// const userRouter = require('./server/routes/userRoutes');
+const userRouter = require('./server/routes/userRoutes');
 // const reviewRouter = require('./server/routes/reviewRoutes');
 
 // express app instance
@@ -22,7 +22,7 @@ const app = express();
 
 // vars
 // const toursEndpoint = '/api/v1/tours';
-// const usersEndpoint = '/api/v1/users';
+const usersEndpoint = '/api/v1/users';
 // const reviewsEndpoint = '/api/v1/reviews';
 
 
@@ -82,7 +82,7 @@ app.use((req, res, next) => {
 
 // mounting a new router for a route
 // app.use(toursEndpoint, tourRouter);
-// app.use(usersEndpoint, userRouter);
+app.use(usersEndpoint, userRouter);
 // app.use(reviewsEndpoint, reviewRouter);
 
 // middleware if no router reached - 'catch' bad route handling

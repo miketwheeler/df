@@ -1,5 +1,9 @@
-const AppError = require("../utils/appError");
+//////////////////////////////////////////////////////////////////
+// Error Controller
+//////////////////////////////////////////////////////////////////
 
+
+const AppError = require("../utils/appError");
 
 const handleCastErrorDB = (err) => {
     const message = `Invalid ${err.path}: ${err.value}.`;
@@ -42,8 +46,6 @@ const sendErrorProd = (err, res) => {
         })
     } else {  // programming or other unknown error: don't leak details to the client
         console.error('ERROR 🤬', err);
-
-
 
         res.status(500).json({
             status: 'error',
