@@ -9,18 +9,26 @@ const projectSchema = new mongoose.Schema({
     name: { // project name
         type: String,
         required: [true, "A project must have a name!"], // validator
-        unique: true, 
+        unique: [true, "There is another project that has that name, try a different one - mayabe a codename for now."], 
         trim: true,
         maxLength: [40, 'A project name must be less than 40 characters long'], // validator
-        minLength: [4, 'A project name must be longer than 4 characters'], // validator
+        minLength: [2, 'A project name must be longer than 4 characters'], // validator
         // validator: [validator.isAlpha, 'Project name must only contain characters']
+    },
+    milestones: { 
+        type: Number,
+        required: [true, "You must give a quantity of milestones this project will have (can edit later)."]
+    },
+    currentMilestone: {
+        type: Number,
+        default: 0,
     },
     slug: String,
     duration: {
         type: Number,
         required: [true, 'A project must have a duration']
     },
-    maxGroupSize: {
+    maxTeamSize: {
         type: Number,
         required: [true, 'A project must have a group size']
     },
@@ -29,12 +37,11 @@ const projectSchema = new mongoose.Schema({
         required: [true, 'A project must have a difficulty'],
         enum: { 
             values: ['entry level', 'junior', 'experienced', 'expert'],
-            message: "Difficulty is an estimation of how hard the project will be, as low of level as possible is best. Choose 1 of: entry level, junior, experienced, expert"
+            message: "Difficulty is an estimation of how hard the project will be to complete, as low of level as possible is best. Choose 1 of: entry level, junior, experienced, expert"
         }
     },
     estimatedCost: { // estimated cost of the project
         type: Number,
-        required: [true, "A project must have a price"]
     },
     summary: {
         type: String,
@@ -48,7 +55,7 @@ const projectSchema = new mongoose.Schema({
     },
     imageCover: {
         type: String,
-        required: [true, "A project should contain a cover image, this give prospective investors and members a snapshot of your style!"]
+        // required: [true, "A project should contain a cover image, this give prospective investors and members a snapshot of your style!"]
     },
     images: [String], // an array of type string
     createdAt: {
@@ -56,8 +63,8 @@ const projectSchema = new mongoose.Schema({
         default: Date.now,
         select: false // never selectable from the client (good for internal use only opporations)
     },
-    startDates: [Date], // an array of dates
-    secretProject: {
+    projectDates: [Date], // an array of dates - [0] => startDate, [1] => endDate
+    secretProject: { // invite only setting possibility!!!
         type: Boolean,
         default: false,
     },
@@ -80,7 +87,7 @@ const projectSchema = new mongoose.Schema({
             type: {
                 type: String,
                 default: 'Point',
-                enumb: ['Point'],
+                enum: ['Point'],
             },
             coordinates: [Number],
             address: String,
@@ -94,25 +101,14 @@ const projectSchema = new mongoose.Schema({
             ref: 'User' // reference to another model to 'ref'
         }
     ],
-    // ratingsAverage: {
-    //     type: Number,
-    //     default: 4.5,
-    //     min: [1, 'Rating must be at least 1.0'],
-    //     max: [5, 'Rating must be less than 5.0'],
-    //     set: val => Math.round(val * 10) / 10 // trick to get => 4.6666667 * 10 rounds to 47 then / 10 === 4.7
-    // },
-    // ratingsQuantity: {
-    //     type: Number,
-    //     default: 0
-    // },
-    // priceDiscount: {
-    //     type: Number,
-    //     // this only points to current doc on NEW document creation -> will NOT work on update
-    //     validate: function(val) {
-    //         return val < this.price && val > 0; // returns false if discount is less than actual price
-    //     },
-    //     message: 'Discount price ({VALUE}) must be less than the cost and greater than zero'
-    // },
+    deployed: {
+        type: Boolean,
+        default: false,
+    },
+    funded: {
+        type: Boolean,
+        default: false
+    },
 }, 
 { // OPTIONS passed after the model
     toJSON: { virtuals: true }, // want virtuals when retrieving json data 
@@ -121,7 +117,7 @@ const projectSchema = new mongoose.Schema({
 
 
 // INDEXING 
-projectSchema.index({ price: 1, ratingsAverage: -1 }); ///////////////////<<<<<<<<<<<<<<<<-------------HERE HERE HERE
+projectSchema.index({ price: 1, ratingsAverage: -1 }); // indexes by price and ratings avg
 
 projectSchema.index({ slug: 1 })
 // for geospacial data - special index for locs on a 2d sphere 
@@ -150,14 +146,6 @@ projectSchema.pre('save', function(next) {
     next();
 });
 
-/// tldr; removed to implement built-in mongo refs 
-// responsible for embedding a guide's user data into the project object it belongs to 
-// projectSchema.pre('save', async function(next) {
-//     const guidesPromises = this.guides.map(async (id) => await User.findById(id)) // returns an array of promises
-//     this.guides = await Promise.all(guidesPromises) // reassigns and overwrites all promises at once by allowing all to resolve
-//     next();
-// });
-
 // projectSchema.pre('save', async function(next) {
 //     const guidesPromises = this.guides.map(async (id) => await User.findById(id)) // returns an array of promises
 //     this.guides = await Promise.all(guidesPromises) // reassigns and overwrites all promises at once by allowing all to resolve
@@ -182,7 +170,7 @@ projectSchema.pre(/^find/, function(next) { // runs b4 query executed
 })
 
 // tldr: added .populate later to fill in 'guides' param w/ ref'd data from the users w/ 
-//      role of guide ad hoc. populate is essential to know *(does impact fetching qty/performance)
+//      role of guide ad-hoc. populate is essential to know *(does impact fetching qty/performance)
 projectSchema.pre(/^find/, function(next) {
     this.populate({
         path: 'guides',
@@ -217,7 +205,6 @@ projectSchema.pre('aggregate', function(next) {
             }
         })
     }
-
     // console.log(this.pipeline()); // points to the current aggregation object
     next();
 })

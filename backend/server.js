@@ -10,7 +10,10 @@ dotenv.config({ path: './config.env'});
 
 const app = require('./app');
 
-const dbConnectionString = process.env.DATABASE.replace('<DBPASSWORD>', process.env.DATABASE_PASSWORD);
+const dbConnectionString = process.env.DATABASE.replace(
+    '<DBPASSWORD>', 
+    process.env.DATABASE_PASSWORD
+);
 
 dbConnect()
     .then(() => {
@@ -32,7 +35,7 @@ const server = app.listen(port, () => {
 process.on('unhandledRejection', (err) => {
     console.log(err.name, err.message);
     console.log('UNHANDLED REJECTION!~ Shutting down...');
-    // optional close application
+    // OPTIONAL: Ideal to close out application properly on this type of error handling
     server.close(() => { // shut down server, so ongoing requests can wrap up
         process.exit(1); // then total shutdown (too abrupt alone) - 0 is success, 1 error
     });
@@ -42,7 +45,7 @@ process.on('unhandledRejection', (err) => {
 process.on('uncaughtException', (err) => {
     console.log(err.name, err.message);
     console.log('UNCAUGHT EXCEPTION!~ Shutting down...');
-    // need to close the application in this case - bc unclean state
+    // IMPORTANT: need to close the application in this case - bc unclean state
     server.close(() => { // shut down server, so ongoing requests can wrap up
         process.exit(1); // then total shutdown (too abrupt alone) - 0 is success, 1 error
     });

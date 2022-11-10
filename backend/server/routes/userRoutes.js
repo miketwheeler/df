@@ -30,7 +30,7 @@ router.delete('/deleteMe', userController.deleteMe);
 
 
 // ADMIN only (here down)
-router.use(authController.restrictTo('admin'))
+// router.use(authController.restrictTo('admin'))
 
 // USERS
 router.route('/')

@@ -46,11 +46,12 @@ const createSendToken = (user, statusCode, statusMessage, res) => {
 const signup = catchAsync(async (req, res, next) => {
     // build the user as recieved so no one can denote themselves as an admin up front
     const newUser = await User.create({
-        name: req.body.name,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         email: req.body.email,
         password: req.body.password,
         passwordConfirm: req.body.passwordConfirm,
-        role: req.body.role
+        // role: req.body.role
     });
 
     createSendToken(newUser, 201, 'Account signup successful', res);

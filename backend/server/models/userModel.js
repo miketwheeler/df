@@ -8,11 +8,18 @@ const slugify = require('slugify');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
+
 const userSchema = new mongoose.Schema({
-    // name, email, photo, password, passwordConfirm
-    name: {
+    firstName: {
         type: String,
-        required: [true, "You must have a name, right?"],
+        required: [true, "You must have a first name, right?"],
+        trim: true,
+        maxLength: [40, "How is your name that long? Do you go by a nick-name?"],
+        minLength: [2, "Acronym? It can't be that short! (no Jr's, Sr's, Ms's or Mr's)"]
+    },
+    lastName: {
+        type: String,
+        required: [true, "You must have a last name, right?"],
         trim: true,
         maxLength: [40, "How is your name that long? Do you go by a nick-name?"],
         minLength: [2, "Acronym? It can't be that short! (no Jr's, Sr's, Ms's or Mr's)"]
@@ -24,13 +31,11 @@ const userSchema = new mongoose.Schema({
         trim: true,
         unique: true,
         lowercase: true,
-        validate: [validator.isEmail, "...Something odd about that email, try agian."],
-        // maxLength: [40, "How is your name that long? Do you go by a nick-name?"],
-        // minLength: [3, "Acronym? It can't be that short!"]
+        validate: [validator.isEmail, "...Something odd about that email, try agian."]
     },
     photo: {
         type: String,
-        // required: [true, 'Show the world your beautiful face!']
+        // required: [true, 'Add an avatar or photo for team members!']
     },
     role: {
         type: String,
@@ -48,7 +53,7 @@ const userSchema = new mongoose.Schema({
         required: [true, "That's not your password confirmation."],
         validate: {
             // This only works on SAVE or CREATE - not UPDATE!!
-            validator: function(el) { // need reg func - access to this 
+            validator: function(el) { // need reg func - b/c needs access to this keyword
                 return el === this.password;
             },
             message: "Your password confimation does not match our records!"
@@ -57,12 +62,57 @@ const userSchema = new mongoose.Schema({
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
-    active: {
+
+    ///////////////////////////////////////////////////////////////////////////
+    // TODO: NEED TO WRITE ANY MIDDLEWARES FOR THESE ATTRIBUTES AS NEEDED!!!!
+    ///////////////////////////////////////////////////////////////////////////
+    userBio: {
+        type: String,
+        required: [true, "Provide a bit about yourself so others can relate!"]
+    },
+    available: {
         type: Boolean,
         default: true,
-        select: false, // don't return this field(internal use only)
+        // select: false, // don't return this field(internal use only)
+    },
+    devType: {
+        type: String,
+        required: [true, "You need one specialization!"]
+    },
+    skillLevel: {
+        type: Number,
+        default: 5,
+        // select: false, // hidden from modification outside the server
+    },
+    skillsList: {
+        type: [String],
+        required: [true, "You need at least 1 skill and the idea is to remain truthful about it though (this isn't a job application)."]
+    },
+    usersLinks: {
+        type: [String],
+    },
+    // teamsList - need to adhoc add them, sustain this record beyond life of Project
+    teams: [ // mongoose voodoo magic - associates list of project ID's if user is on them
+        {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Project'
+        }
+    ]
+},
+{ // OPTIONS passed after the model - allows display of .virtual attrs crtd/mnpltd w/in the User
+    toJSON: { virtuals: true }, // want virtuals when retrieving json data 
+    toObject: { virtuals: true } // and as an object
+}
+);
+
+/////////////////////////////////////////////////////////////////
+// VIRTUALS
+userSchema.virtual('screenName') // procedurally returns screenName - using fName(1char)+lName(4char)
+    .get(function () {
+        const sn = this.firstName.slice(0, 1) + this.lastName.slice(0, 5);
+        return this.screenName = sn;
     }
-});
+)
 
 /////////////////////////////////////////////////////////////////
 // QUERY MIDDLEWARE on USER
