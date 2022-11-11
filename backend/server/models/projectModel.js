@@ -125,9 +125,9 @@ projectSchema.index({ startLocation: '2dsphere' }) // is used to locate given or
 
 // virtual populate
 projectSchema.virtual('durationWeeks')
-    .get((function() {
+    .get(function() {
         return this.duration / 7; // gives us in days rather than weeks
-    }))
+    })
 
 projectSchema.virtual('reviews', {
     ref: 'Review',
@@ -152,15 +152,6 @@ projectSchema.pre('save', function(next) {
 //     next();
 // });
 
-// projectSchema.pre('save', function(next) {
-//     console.log('will save document....');
-//     next();
-// })
-// // post-save middlewares
-// projectSchema.post('save', function(doc, next) {
-//     console.log(doc)
-//     next();
-// })
 
 // QUERY MIDDLEWARES: functions to run before or after a query 
 projectSchema.pre(/^find/, function(next) { // runs b4 query executed
@@ -169,11 +160,11 @@ projectSchema.pre(/^find/, function(next) { // runs b4 query executed
     next();
 })
 
-// tldr: added .populate later to fill in 'guides' param w/ ref'd data from the users w/ 
+// tldr: added .populate later to fill in 'members' param w/ ref'd data from the users w/ 
 //      role of guide ad-hoc. populate is essential to know *(does impact fetching qty/performance)
 projectSchema.pre(/^find/, function(next) {
     this.populate({
-        path: 'guides',
+        path: 'members',
         select: '-__v -passwordChangedAt',
     });
     next();
@@ -205,7 +196,9 @@ projectSchema.pre('aggregate', function(next) {
             }
         })
     }
-    // console.log(this.pipeline()); // points to the current aggregation object
+
+    console.log(this.pipeline()); // points to the current aggregation object
+
     next();
 })
 

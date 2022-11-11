@@ -15,7 +15,7 @@ const globalErrorHandler = require('./server/controllers/errorController');
 // routers
 const userRouter = require('./server/routes/userRoutes');
 const projectRouter = require('./server/routes/projectRoutes');
-// const reviewRouter = require('./server/routes/reviewRoutes');
+const reviewRouter = require('./server/routes/reviewRoutes');
 
 // express app instance
 const app = express();
@@ -23,7 +23,7 @@ const app = express();
 // vars
 const usersEndpoint = '/api/v1/users';
 const projectsEndpoint = '/api/v1/projects';
-// const reviewsEndpoint = '/api/v1/reviews';
+const reviewsEndpoint = '/api/v1/reviews';
 
 
 // Global midlewares - functions modify incomming data
@@ -53,8 +53,7 @@ app.use(express.json({
 
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize()); // looks at request string and their params to filter out malicious requests
-// Data sanitization for cross-site-scripting (XSS)
-app.use(xssClean());
+app.use(xssClean()); // Data sanitization for cross-site-scripting (XSS)
 
 // prevent param pollution - stops excess params (string insertion) into the query string
 app.use(hpp({
@@ -82,7 +81,7 @@ app.use((req, res, next) => {
 // mounting a new router for a route
 app.use(usersEndpoint, userRouter);
 app.use(projectsEndpoint, projectRouter);
-// app.use(reviewsEndpoint, reviewRouter);
+app.use(reviewsEndpoint, reviewRouter);
 
 // middleware if no router reached - 'catch' bad route handling
 app.all('*', (req, res, next) => {

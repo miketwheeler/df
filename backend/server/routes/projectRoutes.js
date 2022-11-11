@@ -4,14 +4,14 @@ const express = require('express');
 const projectController = require('../controllers/projectController');
 const authController = require('../controllers/authController');
 // const reviewController = require('../controllers/reviewController');
-// const reviewRouter = require('../routes/reviewRoutes')
+const reviewRouter = require('../routes/reviewRoutes')
 
 // routers ->
 const router = express.Router();
 
 // **** nested routing config for more intuitive access to these types of routes (common real world)
 // instead of above - import the whole router for this nested route in /projects
-// router.use('/:projectId/reviews', reviewRouter);
+router.use('/:projectId/reviews', reviewRouter);
 
 
 // param middleware

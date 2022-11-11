@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema({
         maxLength: [40, "How is your name that long? Do you go by a nick-name?"],
         minLength: [2, "Acronym? It can't be that short! (no Jr's, Sr's, Ms's or Mr's)"]
     },
+    // screenName: {
+    //     type: String,
+    //     defualt: this.firstName.slice(0, 1) + this.lastName.slice(0, 5)
+    // },
     // slug: String,
     email: {
         type: String,
@@ -31,7 +35,7 @@ const userSchema = new mongoose.Schema({
         trim: true,
         unique: true,
         lowercase: true,
-        validate: [validator.isEmail, "...Something odd about that email, try agian."]
+        validate: [validator.isEmail, "...Something is odd about that email, try agian."]
     },
     photo: {
         type: String,
@@ -95,6 +99,12 @@ const userSchema = new mongoose.Schema({
     teams: [ // mongoose voodoo magic - associates list of project ID's if user is on them
         {
             type: mongoose.Schema.ObjectId,
+            ref: 'Team'
+        }
+    ],
+    projects: [
+        { 
+            type: mongoose.Schema.ObjectId,
             ref: 'Project'
         }
     ]
@@ -108,11 +118,23 @@ const userSchema = new mongoose.Schema({
 /////////////////////////////////////////////////////////////////
 // VIRTUALS
 userSchema.virtual('screenName') // procedurally returns screenName - using fName(1char)+lName(4char)
-    .get(function () {
-        const sn = this.firstName.slice(0, 1) + this.lastName.slice(0, 5);
-        return this.screenName = sn;
+    .set(function () {
+        return `${this.firstName.slice(0, 1)}${this.lastName.slice(0, 5)}`;
     }
 )
+// userSchema.screenName = this.firstName.slice(0, 1) + this.lastName.slice(0, 5);
+//     .set(function() {
+//         return this.firstName.slice(0, 1) + this.lastName.slice(0, 5);
+//     }
+// )
+
+// userSchema.virtual('reviews', {
+//     ref: 'Review',
+//     foreignField: 'user',
+//     localField: '_id'
+// })
+
+
 
 /////////////////////////////////////////////////////////////////
 // QUERY MIDDLEWARE on USER
@@ -174,7 +196,7 @@ userSchema.methods.createPasswordResetToken = function() {
     .update(resetToken)
     .digest('hex');
 
-    console.log({resetToken}, this.passwordResetToken)
+    console.log({resetToken}, this.passwordResetToken) // dev only *****
 
     this.passwordResetExpires = Date.now() + 10 * 60 * 1000; // now + 10mins *60secnds *1000milliseconds
 

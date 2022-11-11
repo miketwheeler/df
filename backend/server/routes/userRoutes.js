@@ -4,9 +4,14 @@ const express = require('express');
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
 
+// REVIEWS: test retrieving users' reviews
+const reviewRouter = require('../routes/reviewRoutes');
 
 // routes ->
 const router = express.Router();
+
+// REVIEWS: nested routing config
+router.use('/:userId/reviews', reviewRouter);
 
 // Open routes to all
 // SIGNUP (account creation, login, password actions)

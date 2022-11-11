@@ -1,5 +1,4 @@
 
-
 const crypto = require('crypto');
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
@@ -7,6 +6,7 @@ const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const sendEmail = require('../utils/email');
+
 
 const signToken = (id) => {
     return jwt.sign(
@@ -35,7 +35,7 @@ const createSendToken = (user, statusCode, statusMessage, res) => {
     user.password = undefined;
 
     res.status(statusCode).json({
-        status: statusMessage,
+        status: statusMessage,                               
         token,
         data: {
             user
@@ -51,7 +51,6 @@ const signup = catchAsync(async (req, res, next) => {
         email: req.body.email,
         password: req.body.password,
         passwordConfirm: req.body.passwordConfirm,
-        // role: req.body.role
     });
 
     createSendToken(newUser, 201, 'Account signup successful', res);
