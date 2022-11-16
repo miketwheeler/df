@@ -41,14 +41,14 @@ const reviewSchema = new mongoose.Schema({
 });
 
 // unique indexing sort-of by joining 2 fields
-// reviewSchema.index({ project: 1, user: 1 }, { unique: true }) // by&ascending && by&ascending, then options of unique to true!
+reviewSchema.index({ project: 1, user: 1 }, { unique: true }) // by&ascending && by&ascending, then options of unique to true!
 
 // MIDDLEWARES
 // this makes 2 request queries - 1 to the Users doc, 1 to the Projects to get this information on 'find'
 reviewSchema.pre(/^find/, function(next) {
     this.populate({
         path: 'user',
-        select: 'name'
+        select: 'firstName'
     });
     next();
 })

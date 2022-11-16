@@ -129,12 +129,11 @@ projectSchema.virtual('durationWeeks')
         return this.duration / 7; // gives us in days rather than weeks
     })
 
-projectSchema.virtual('reviews', {
-    ref: 'Review',
-    foreignField: 'project',
-    localField: '_id'
-})
-
+// projectSchema.virtual('reviews', {
+//     ref: 'Review',
+//     localField: 'id',
+//     foreignField: 'project'
+// })
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // DOCUMENT MIDDLEWARE: runs before/after & only with .save() or .create() cmds (after the other pre-middlewares have completed)
@@ -170,11 +169,11 @@ projectSchema.pre(/^find/, function(next) {
     next();
 })
 
-projectSchema.post(/^find/, function(docs, next) { // runs after query has completed
-    console.log(`query took ${Date.now() - this.start} milliseconds!`)
-    console.log(docs)
-    next();
-})
+// projectSchema.post(/^find/, function(docs, next) { // runs after query has completed
+//     console.log(`query took ${Date.now() - this.start} milliseconds!`)
+//     console.log(docs)
+//     next();
+// })
 
 
 // AGGREGATION MIDDLEWARES (works as above, but before aggregations)

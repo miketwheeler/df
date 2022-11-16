@@ -158,7 +158,7 @@ const resetPassword = async (req, res, next) => {
     // get user based on token
     const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
 
-    const user = await User.findOne({ passwordResetToken: hashedToken, passwordResetExpires: { $gt: Date.now()} });
+    const user = await User.findOne({ passwordResetToken: hashedToken, passwordResetExpires: { $gt: Date.now() } });
 
     // if token not expired, and is user, set new password
     if(!user)

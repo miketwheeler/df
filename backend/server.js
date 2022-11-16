@@ -23,7 +23,7 @@ dbConnect()
 
 async function dbConnect() {
     await mongoose.connect(dbConnectionString);
-}
+};
 
 // start the server
 const port = 3001 || process.env.PORT;
@@ -49,4 +49,4 @@ process.on('uncaughtException', (err) => {
     server.close(() => { // shut down server, so ongoing requests can wrap up
         process.exit(1); // then total shutdown (too abrupt alone) - 0 is success, 1 error
     });
-})
+});

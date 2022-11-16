@@ -14,19 +14,22 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "You must have a first name, right?"],
         trim: true,
-        maxLength: [40, "How is your name that long? Do you go by a nick-name?"],
+        maxLength: [40, "How is your name that long? Can you shorten it a bit?"],
         minLength: [2, "Acronym? It can't be that short! (no Jr's, Sr's, Ms's or Mr's)"]
     },
     lastName: {
         type: String,
         required: [true, "You must have a last name, right?"],
         trim: true,
-        maxLength: [40, "How is your name that long? Do you go by a nick-name?"],
+        maxLength: [40, "How is your name that long? Can you shorten it a bit?"],
         minLength: [2, "Acronym? It can't be that short! (no Jr's, Sr's, Ms's or Mr's)"]
     },
     // screenName: {
     //     type: String,
-    //     defualt: this.firstName.slice(0, 1) + this.lastName.slice(0, 5)
+    //     trim: true,
+    //     unique: [true, "There is another with that same screen name, try something else."],
+    //     maxLength: [20, "This is supposed to be a concise & recognizable screen name."],
+    //     minLength: [2, "It can't be that short!"]
     // },
     // slug: String,
     email: {
@@ -104,10 +107,10 @@ const userSchema = new mongoose.Schema({
     ],
     projects: [
         { 
-            type: mongoose.Schema.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'Project'
         }
-    ]
+    ],
 },
 { // OPTIONS passed after the model - allows display of .virtual attrs crtd/mnpltd w/in the User
     toJSON: { virtuals: true }, // want virtuals when retrieving json data 
@@ -115,26 +118,27 @@ const userSchema = new mongoose.Schema({
 }
 );
 
+
 /////////////////////////////////////////////////////////////////
 // VIRTUALS
-userSchema.virtual('screenName') // procedurally returns screenName - using fName(1char)+lName(4char)
-    .set(function () {
-        return `${this.firstName.slice(0, 1)}${this.lastName.slice(0, 5)}`;
-    }
-)
-// userSchema.screenName = this.firstName.slice(0, 1) + this.lastName.slice(0, 5);
-//     .set(function() {
+// userSchema.virtual('screenName') // procedurally returns screenName - using fName(1char)+lName(4char)
+//     .get(function () {
 //         return this.firstName.slice(0, 1) + this.lastName.slice(0, 5);
 //     }
 // )
-
-// userSchema.virtual('reviews', {
-//     ref: 'Review',
-//     foreignField: 'user',
-//     localField: '_id'
+// userSchema.virtual('screenName').get(function() {
+//     return this.firstName.slice(0,1) + this.lastName.slice(0,5)
 // })
+// .set(function(firstName, lastName) {
+//     firstName = this.firstName;
+//     lastName = this.lastName;
+// });
 
-
+// userSchema.virtual('rating', {
+//     ref: 'Review',
+//     localField: '_id',
+//     foreignField: 'user',
+// })
 
 /////////////////////////////////////////////////////////////////
 // QUERY MIDDLEWARE on USER
@@ -142,10 +146,18 @@ userSchema.pre(/^find/, function(next) {
     // this points to the current query (find, findById, findOne, etc.)
     this.find({ active: { $ne: false } }); // any 'find' query will return all users where active attr is true(not===false)
     next();
-})
+});
 
 /////////////////////////////////////////////////////////////////
 // DOCUMENT MIDDLEWARE on USER
+// =========> trying out pre-save middleware to set screenName
+userSchema.pre('save', function(next) {
+    if(this.screenName === undefined || this.screenName === null)
+        this.screenName = this.firstName.slice(0, 1) + this.lastName.slice(0, 5)
+    
+    next();
+});
+
 userSchema.pre('save', function(next) {
     if (!this.isModified('password') || this.isNew) return next();
     this.passwordChangedAt = Date.now() - 1000;

@@ -28,6 +28,8 @@ const aliasTopProjects = async(req, res, next) => {
     next();
 }
 
+// TODO: need to add route =>  user to project's project.members array 
+
 
 // Project CRUD Operations
 const getAllProjects = factory.getAll(Project);
