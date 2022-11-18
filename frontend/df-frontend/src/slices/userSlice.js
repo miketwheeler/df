@@ -1,15 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 
-const initialUser = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null
+const initialUser = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
 
+const initialState = {
+    loading: false,
+    userInfo: {}, // stores the user object
+    userToken: null, // stores the jwt
+    error: null,
+    success: false, // monitors the registration process
+}
 
 // Slice
-const slice = createSlice({
+const userSlice = createSlice({
     name: 'user',
-    initialState: {
-        user: initialUser,
-    },
+    initialState: initialUser !== null ? initialUser : initialState,
     reducers: {
         loginSuccess: (state, action) => {
             state.user = action.payload;
@@ -22,9 +27,13 @@ const slice = createSlice({
     },
 });
 
-export default slice.reducer
+export default userSlice.reducer
+
+
+//////////////////////////////////////////////////////////////////
 // Actions
-const { loginSuccess, logoutSuccess } = slice.actions;
+// RTK says to consolidate actions & slice in same file, but can split -> actions are for making reqs to backend
+const { loginSuccess, logoutSuccess } = userSlice.actions;
 export const login = ({ username, password }) => async dispatch => {
     try {
         // const res = await api.post('/api/auth/login/', { username, password })

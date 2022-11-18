@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTheme } from '@mui/material/styles';
+import { useTheme, alpha, styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import AppBar from '@mui/material/AppBar';
@@ -15,12 +15,22 @@ import Container from '@mui/material/Container'
 import MailIcon from '@mui/icons-material/Mail';
 import IconButton from '@mui/material/IconButton';
 import ava from '../static/images/avatar/2.png'
+import Link from '@mui/material/Link';
+
+import { Navigate } from 'react-router-dom'
 
 
-
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const userLinks = ['profile', 'account', 'dashboard', 'login'];
 
 const titleStyles = { textDecoration: 'none', letterSpacing: '.1rem', color: 'inherit', fontWeight: 700 }
+
+const CustomLinkComponent = styled(Link)(({ theme }) => ({
+    '& .MuiTypography-root': {
+        '&:hover': {
+            color: theme.palette.secondary
+        }
+    },
+}))
 
 
 function MainAppBar() {
@@ -34,6 +44,38 @@ function MainAppBar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const generateLink = (link) => {
+        const buildLink = (linkToComponent) => {
+            let component = null;
+
+            switch(linkToComponent) {
+                case 'profile': 
+                    component = <CustomLinkComponent href='/profile' underline='none'>profile</CustomLinkComponent>
+                    break;
+                case 'account':
+                    component = <CustomLinkComponent href='/account' underline='none'>account</CustomLinkComponent>
+                    break;
+                case 'dashboard':
+                    component = <CustomLinkComponent href='/dashboard' underline='none'>dashboard</CustomLinkComponent>
+                    break;
+                default:
+                    component = <CustomLinkComponent href='/auth' underline='none'>login/logout</CustomLinkComponent>
+                    break;
+            }
+            
+            return component;
+        }
+
+        return (
+            <Typography 
+                textAlign="center"
+                sx={{color: 'white'}}
+                >
+                    { buildLink(link) }
+            </Typography>
+        )
+    }
     
     return (
         <AppBar  sx={{ zIndex: theme.zIndex.drawer + 1 }} id="top-appbar">
@@ -58,7 +100,7 @@ function MainAppBar() {
                                 <Notifications />
                             </Badge>
                             <Box sx={{ flexGrow: 0 }}>
-                                <Tooltip title="Open settings">
+                                <Tooltip title="open settings">
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                         <Avatar alt="Mikey Sharp" src={ava} sx={{height: 36, width: 36}} />
                                     </IconButton>
@@ -74,9 +116,11 @@ function MainAppBar() {
                                     onClose={handleCloseUserMenu}
                                     >
                                     {
-                                        settings.map((setting) => (
-                                            <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                                <Typography textAlign="center" sx={{color: 'white'}}>{setting}</Typography>
+                                        userLinks.map((userLink) => (
+                                            <MenuItem key={userLink} onClick={handleCloseUserMenu}>
+                                                { 
+                                                    generateLink(userLink) 
+                                                }
                                             </MenuItem>
                                         ))
                                     }

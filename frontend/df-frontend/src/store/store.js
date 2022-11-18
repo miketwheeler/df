@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { combineReducers } from '@reduxjs/toolkit';
-import user from '../slices/userSlice'
+import userReducer from '../slices/userSlice'
 import memberIdListReducer from '../slices/memberhallSlices/memberIdListSlice';
 import memberCardSelectedReducer from '../slices/memberhallSlices/memberCardSelectSlice';
 
@@ -13,15 +13,15 @@ import thunk from 'redux-thunk';
 // import storageSession from 'reduxjs-toolkit-persist/lib/storage/session'
 
 
-const persistConfig = {
-  key: 'root',
-  storage,
-  // or if whole session, might be considered here - 'storageSession',
-}
+// const persistConfig = {
+//   key: 'root',
+//   storage,
+//   // or if whole session, might be considered here - 'storageSession',
+// }
 
 const reducer = combineReducers({
   // add reducers here
-  // user,
+  userReducer,
   memberIdListReducer,
   memberCardSelectedReducer,
 })

@@ -23,7 +23,7 @@ import NewspaperIcon from '@mui/icons-material/Newspaper';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
 
-import LoginSignup from './loginSignup';
+import LoginSignup from './AuthOrSignup';
 
 
 const drawerWidth = 240;
@@ -219,7 +219,6 @@ export default function NavDrawer() {
                 <DrawerHeader id="spacer-drawer-header" sx={{top: 0}} />
                 {/* Outlet is for each Primary-Nav Link  --> as listed inputs */}
                 <div sx={{ position: 'static' }}>
-                    <LoginSignup />
                     <Outlet roleType={roleProp} />
                 </div>
             </Box>
