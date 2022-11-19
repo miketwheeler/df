@@ -5,9 +5,9 @@ import memberIdListReducer from '../slices/memberhallSlices/memberIdListSlice';
 import memberCardSelectedReducer from '../slices/memberhallSlices/memberCardSelectSlice';
 
 // psersist store
-import storage from 'redux-persist/lib/storage';
-import { persistReducer, persistStore } from 'redux-persist';
-import thunk from 'redux-thunk';
+// import storage from 'redux-persist/lib/storage';
+// import { persistReducer, persistStore } from 'redux-persist';
+// import thunk from 'redux-thunk';
 
 // could use sessionStorage storage engine as a persistant solution alternative
 // import storageSession from 'reduxjs-toolkit-persist/lib/storage/session'
