@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 
 // Material ui Imports
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -15,6 +14,24 @@ import ava from '../static/images/avatar/2.png'
 import { FormControl, TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 
+const formFieldStyles = {
+    root: {
+        border: 'solid 3px lightblue',
+        // '& label.Mui-focused': { color: 'lightblue' },
+        // '& .MuiInput-border': { borderColor: 'lightblue' },
+        '& .MuiOutlinedInput': { 
+            '& fieldset': {
+                borderColor: 'lightblue' 
+            },
+            '&:hover fieldset': {
+                borderColor: 'lightblue'
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: 'lightblue'
+            }
+        }
+    }
+}
 
 
 const LoginSignup = ({props}) => {
@@ -32,15 +49,6 @@ const LoginSignup = ({props}) => {
         event.preventDefualt();
         setPass(event.target.value);
     };
-
-    const loginUser = () => {
-        axios({
-            method: 'GET',
-            url: 'http://127.0.0.1:3030/api/v1/users/login',
-        }).then((res) => {
-            setUser(res.user)
-        }).catch((err) => console.log(`There was an error logging in: ${err}`))
-    }
 
     return (
         <Box 
@@ -65,16 +73,12 @@ const LoginSignup = ({props}) => {
                 }}
                 >
                 <FormControl variand="standard" sx={{m:1}}>
-                    {/* <TextField id="username" label="username" variant='outlined' value={() => setUsername()} margin='dense'> */}
-                    <InputLabel htmlFor="component-simple" sx={{color: 'lightblue'}}>username</InputLabel>
-                    <OutlinedInput id="component-simple" value={username} color='primary' onChange={handleUsernameChange} />
-                    {/* </TextField> */}
+                    <InputLabel htmlFor="component-simple">username</InputLabel>
+                    <OutlinedInput id="component-simple" value={username} onChange={handleUsernameChange} />
                 </FormControl>
                 <FormControl variand="standard" sx={{m:1}}>
-                    {/* <TextField id="username" label="username" variant='outlined' value={() => setUsername()} margin='dense'> */}
-                    <InputLabel htmlFor="pw" sx={{color: 'lightblue'}}>password</InputLabel>
-                    <OutlinedInput id="pw" value={pass} color='primary' onChange={handlePWChange} />
-                    {/* </TextField> */}
+                    <InputLabel htmlFor="password">password</InputLabel>
+                    <OutlinedInput id="password" value={pass} onChange={handlePWChange} />
                 </FormControl>
             </Box>
             <Button variant='contained' sx={{backgroundColor: 'lightblue', float: 'right', mr: 2}}>submit</Button>

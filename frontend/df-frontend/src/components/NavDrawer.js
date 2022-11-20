@@ -26,6 +26,11 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 import LoginSignup from './AuthOrSignup';
 
 
+/////////////////////////////////////////
+// TODO: change later to auth'd value & check
+const loggedIn = false;
+/////////////////////////////////////////
+
 const drawerWidth = 240;
 const pagesTabLabels = ['dashboard', 'member hall', 'project hub', 'funding tree']
 const acctSpecLabels = ['messages', 'documents', 'news'];
@@ -84,7 +89,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
         }),
     }),
 );
-
 
 
 export default function NavDrawer() {
@@ -191,8 +195,8 @@ export default function NavDrawer() {
                                 label={ open ? <Typography sx={tabLabelStyles}>{ text }</Typography> : null } 
                                 icon={ pagesIcons[i] } 
                                 iconPosition="start" 
-                                sx={ tabStyles }
-                                disabled
+                                sx={ tabStyles } 
+                                disabled // TODO: change later when page/routes intro'd
                                 />
                         ))
                     }
@@ -207,6 +211,7 @@ export default function NavDrawer() {
                                 sx={ tabStyles }
                                 component={ Link }
                                 to={ navRoutes[i+3] }
+                                disabled
                                 />
                         ))
                     }
@@ -219,7 +224,13 @@ export default function NavDrawer() {
                 <DrawerHeader id="spacer-drawer-header" sx={{top: 0}} />
                 {/* Outlet is for each Primary-Nav Link  --> as listed inputs */}
                 <div sx={{ position: 'static' }}>
-                    <Outlet roleType={roleProp} />
+                    {
+                        !loggedIn
+                        ?
+                        <LoginSignup />
+                        :
+                        <Outlet roleType={roleProp} />
+                    }
                 </div>
             </Box>
         </Box>

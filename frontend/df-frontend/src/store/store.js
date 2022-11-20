@@ -4,6 +4,9 @@ import userReducer from '../slices/userSlice'
 import memberIdListReducer from '../slices/memberhallSlices/memberIdListSlice';
 import memberCardSelectedReducer from '../slices/memberhallSlices/memberCardSelectSlice';
 
+import { apiSlice } from '../slices/api/apiSlice';
+import  authReducer  from '../slices/auth/authSlice';
+
 // psersist store
 // import storage from 'redux-persist/lib/storage';
 // import { persistReducer, persistStore } from 'redux-persist';
@@ -21,6 +24,8 @@ import memberCardSelectedReducer from '../slices/memberhallSlices/memberCardSele
 
 const reducer = combineReducers({
   // add reducers here
+  [apiSlice.reducerPath]: apiSlice.reducer,
+  auth: authReducer,
   userReducer,
   memberIdListReducer,
   memberCardSelectedReducer,
@@ -35,7 +40,8 @@ export const store = configureStore({
   reducer,
   // **
   // reducer: persistedReducer,
-
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(apiSlice.middleware),
+  devTools: true, // dont want this active in prod, extra logging for store top level
 })
 
 export default store;
