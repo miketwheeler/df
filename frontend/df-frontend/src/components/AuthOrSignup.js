@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
 // Material ui Imports
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
 import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import Avatar from '@mui/material/Avatar';
-import Container from '@mui/material/Container'
-import IconButton from '@mui/material/IconButton';
-import ava from '../static/images/avatar/2.png'
-import { FormControl, TextField } from '@mui/material';
+import { Link, Stack, Paper, TextField } from '@mui/material';
 import Button from '@mui/material/Button';
+import Grid from '@mui/material/Unstable_Grid2';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+
 
 const formFieldStyles = {
     root: {
@@ -42,47 +39,85 @@ const LoginSignup = ({props}) => {
     const [pass, setPass] = useState(null);
 
     const handleUsernameChange = (event) => {
-        event.preventDefualt();
+        event.preventDefault();
         setUsername(event.target.value);
     };
     const handlePWChange = (event) => {
-        event.preventDefualt();
+        event.preventDefault();
         setPass(event.target.value);
     };
+    const handleSignUpNav = (event) => {
+        event.preventDefault();
+        console.log('sign up link clicked')
+    }
 
     return (
-        <Box 
+        <Paper 
             component='form'
-            autoComplete='off' 
+            autoComplete='off'
+            elevation={3} 
             sx={{
                 width: '50%', 
-                border: '1px solid lightblue', 
-                borderRadius: '8px',
-                p: 2,
+                // border: `2px solid ${theme.palette.secondary.main}`, 
+                borderRadius: '4px',
+                p: 3,
                 position: 'fixed',
                 left: '50%',
-                transform: 'translate(-50%, 50%)'
+                transform: 'translate(-50%, 50%)',
+                textAlign: 'center'
                 }}
             >
-            <Typography variant='h5' sx={{color: 'lightblue', mb: 1, ml: 2}}>login or sign up</Typography>
-            <Box 
-                sx={{
-                    alignItems: 'center',
-                    display: 'flex',
-                    flexDirection: 'column'
-                }}
-                >
-                <FormControl variand="standard" sx={{m:1}}>
-                    <InputLabel htmlFor="component-simple">username</InputLabel>
-                    <OutlinedInput id="component-simple" value={username} onChange={handleUsernameChange} />
-                </FormControl>
-                <FormControl variand="standard" sx={{m:1}}>
-                    <InputLabel htmlFor="password">password</InputLabel>
-                    <OutlinedInput id="password" value={pass} onChange={handlePWChange} />
-                </FormControl>
-            </Box>
-            <Button variant='contained' sx={{backgroundColor: 'lightblue', float: 'right', mr: 2}}>submit</Button>
-        </Box>
+            <Stack spacing={3}>
+                <Typography variant='h5'>login</Typography>
+                <Grid container spacing={2}>
+                    <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
+                        <TextField 
+                            required
+                            id='username-input'
+                            label='username'
+                            value={username}
+                            onChange={handleUsernameChange}
+                            variant='outlined'
+                            />
+                    </Grid>
+                    <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
+                        <TextField
+                            required
+                            id='password-input'
+                            label='password'
+                            value={pass}
+                            onChange={handlePWChange}
+                            variant='outlined'
+                            type='password'
+                            InputLabelProps={{
+                                classes: {
+                                    root: theme.palette.secondary.dark,
+                                    focused: 'white'
+                                }
+                            }}
+                            />
+                    </Grid>
+                    <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
+                        <Link variant="body1" color="secondary" component='button' onClick={(e) => handleSignUpNav()}>
+                            sign up
+                        </Link>
+                    </Grid>
+                    <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
+                        <FormGroup sx={{display: 'flex'}}>
+                            <FormControlLabel 
+                                control={
+                                    <Checkbox color='secondary' defaultChecked />
+                                    } 
+                                label="yes, recieve communications" 
+                                />
+                        </FormGroup>
+                    </Grid>
+                    <Grid xs={12} display="flex" justifyContent="center" alignItems="center">                        
+                        <Button variant='contained' color="secondary">submit</Button>
+                    </Grid>
+                </Grid>
+            </Stack>
+        </Paper>
     )
     
 }

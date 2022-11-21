@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTheme, alpha, styled } from '@mui/material/styles';
+import { useTheme, styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import AppBar from '@mui/material/AppBar';

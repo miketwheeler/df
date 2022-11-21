@@ -1,7 +1,8 @@
 // import * as React from 'react'
 import { sx } from '@mui/joy/styles/styleFunctionSx';
 import { createTheme } from '@mui/material/styles';
-
+// import { blue } from '@mui/material/colors'
+import { ThemeOptions } from '@mui/material';
 // import '@fontsource/play/300.css'
 
 const primaryDarkColor = '#f1f1f1';
@@ -9,26 +10,30 @@ const lightBlueShade = '#1976d2';
 
 
 
-export const theme = createTheme({
+export const themeOptions = {
     palette: {
         type: 'dark',
         primary: {
-            main: '#f1f1f1',
+            main: '#e6e6e6',
+            contrastText: '#3f3f3f',
         },
         background: {
-            default: '#1e1e1e',
-            paper: '#2f2f2f',
+            default: '#252525',
+            paper: '#2d2d2d',
         },
-        divider: '#37474f',
+        divider: 'rgba(3,169,244,0.17)',
         secondary: {
-            main: lightBlueShade
+            main: '#1565c0',
+            light: '#4fc3f7',
+            dark: '#51565c',
+            contrastText: '#f9fbfd',
         },
-        cards: {
-            background: '#2f2f2f',
-            border: '1px solid transparent',
-            borderRadius: '5px',
+        text: {
+            disabled: 'rgba(72,71,71,0.5)',
+            hint: '#4fc3f7',
+            secondary: '#03a9f4',
+            primary: 'rgba(249,249,249,0.87)',
         },
-
     },
     typography: {
         fontFamily: 'Play',
@@ -56,35 +61,49 @@ export const theme = createTheme({
         subtitle2: {
             fontFamily: 'Play',
         },
-        specHeader: {
-            fontFamily: 'Play',
-        },
         button: {
             fontFamily: 'Play',
-            fontWeight: 500,
+            fontWeight: 700,
         },
         overline: {
-            fontFamily: 'Orbitron',
+            fontFamily: 'Play',
         },
     },
+};
+
+
+export const theme = createTheme({
+    ...themeOptions,
     components: {
-        // MuiButton: {
-        //     styleOverrides: {
-        //         root: ()
-        //     }
-        // },
-        MuiOutlinedInput: {
+        MuiButton: {
             styleOverrides: {
                 root: sx({
-                    color: lightBlueShade
+                    textTransform: 'none',
+                    fontWeight: 540,
                 })
-                // root: ({ ownerState }) => ({
-                //     ...(ownerState.variant === 'outlined' &&
-                //     ownerState.color === 'primary' && {
-                //         borderColor: lightBlueShade,
-                //         color: lightBlueShade, 
-                //     }),
-                // }),
+            }
+        },
+        MuiInput: {
+            styleOverrides: {
+                root: sx({
+                    borderColor: '#1565c0',
+                })
+            }
+        },
+        MuiOutlinedInput: {
+            styleOverrides: {
+                root: {
+                    borderColor: '2px solid rgb(161,161,161)'
+                },
+                input: {
+                    '&:-webkit-autofill': {
+                        'WebkitBoxShadow': '0 0 0 30px #266798 inset',
+                        'WebkitTextFillColor': '#f1f1f1',
+                    },
+                },
+                select: {
+                    'background-color': '#1565c0',
+                }
             }
         }
     }
