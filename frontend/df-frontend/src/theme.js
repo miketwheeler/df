@@ -90,10 +90,19 @@ export const theme = createTheme({
                 })
             }
         },
+        // assigns white to the input label global-mui *for all inputs (*pre->primary blue :: select-> white)
+        // --commented out due to current prefs & feel
+        MuiInputLabel: {
+            styleOverrides: {
+                root: sx({
+                    color: '#f1f1f1',
+                })
+            }
+        },
         MuiOutlinedInput: {
             styleOverrides: {
                 root: {
-                    borderColor: '2px solid rgb(161,161,161)'
+                    border: '1px solid rgb(161,161,161)'
                 },
                 input: {
                     '&:-webkit-autofill': {
@@ -101,9 +110,6 @@ export const theme = createTheme({
                         'WebkitTextFillColor': '#f1f1f1',
                     },
                 },
-                select: {
-                    'background-color': '#1565c0',
-                }
             }
         }
     }

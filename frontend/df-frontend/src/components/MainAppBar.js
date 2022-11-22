@@ -17,17 +17,21 @@ import IconButton from '@mui/material/IconButton';
 import ava from '../static/images/avatar/2.png'
 import Link from '@mui/material/Link';
 
-import { Navigate } from 'react-router-dom'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
+
+import { useNavigate } from 'react-router-dom'
 
 
-const userLinks = ['profile', 'account', 'dashboard', 'login'];
+const userLinks = ['account', 'login'];
 
 const titleStyles = { textDecoration: 'none', letterSpacing: '.1rem', color: 'inherit', fontWeight: 700 }
 
 const CustomLinkComponent = styled(Link)(({ theme }) => ({
     '& .MuiTypography-root': {
         '&:hover': {
-            color: theme.palette.secondary
+            color: theme.palette.secondary.main
         }
     },
 }))
@@ -35,47 +39,66 @@ const CustomLinkComponent = styled(Link)(({ theme }) => ({
 
 function MainAppBar() {
     const theme = useTheme();
+    const navigate = useNavigate();
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const [loggedIn, setLoggedIn] = React.useState(true); //TODO: this needs to be a state value after auth'd
     
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
+    const handleOpenUserMenu = (e) => {
+        setAnchorElUser(e.currentTarget);
     };
 
-    const handleCloseUserMenu = () => {
+    const handleCloseUserMenu = (e, linkto) => {
+        navigate(linkto === 'account' ? `/${linkto}` : "/")
         setAnchorElUser(null);
     };
 
-    const generateLink = (link) => {
-        const buildLink = (linkToComponent) => {
-            let component = null;
-
-            switch(linkToComponent) {
-                case 'profile': 
-                    component = <CustomLinkComponent href='/profile' underline='none'>profile</CustomLinkComponent>
-                    break;
-                case 'account':
-                    component = <CustomLinkComponent href='/account' underline='none'>account</CustomLinkComponent>
-                    break;
-                case 'dashboard':
-                    component = <CustomLinkComponent href='/dashboard' underline='none'>dashboard</CustomLinkComponent>
-                    break;
-                default:
-                    component = <CustomLinkComponent href='/auth' underline='none'>login/logout</CustomLinkComponent>
-                    break;
-            }
-            
-            return component;
-        }
-
-        return (
-            <Typography 
-                textAlign="center"
-                sx={{color: 'white'}}
-                >
-                    { buildLink(link) }
-            </Typography>
+    const menuIconSet = (label) => {
+        return(
+            <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'flex-start'}}>
+                {
+                    label === 'account' 
+                    ? <AccountCircleIcon sx={{mr: 1}} /> 
+                    : label === 'login' && !loggedIn 
+                    ? <LoginIcon sx={{mr: 1}} /> 
+                    : <LogoutIcon sx={{mr: 1}} />
+                }
+                { 
+                    (label === 'account' || (label === 'login' && !loggedIn))
+                    ? label 
+                    : 'log out' 
+                }
+            </div>
         )
     }
+
+    // const generateLink = (link) => {
+    //     const buildLink = (linkToComponent) => {
+    //         let component = null;
+
+    //         switch(linkToComponent) {
+    //             case 'account':
+    //                 component = <CustomLinkComponent href='/account' underline='none'>account</CustomLinkComponent>
+    //                 break;
+    //             // case 'dashboard':
+    //             //     component = <CustomLinkComponent href='/dashboard' underline='none'>dashboard</CustomLinkComponent>
+    //             //     break;
+    //             default:
+    //                 component = <CustomLinkComponent href='/' underline='none'>login/logout</CustomLinkComponent>
+    //                 break;
+    //         }
+            
+    //         return component;
+    //     }
+
+    //     return (
+    //         <Typography 
+    //             textAlign="center"
+    //             sx={{color: 'white'}}
+    //             >
+    //             { buildLink(link) }
+    //         </Typography>
+    //     )
+    // }
     
     return (
         <AppBar  sx={{ zIndex: theme.zIndex.drawer + 1 }} id="top-appbar">
@@ -113,14 +136,41 @@ function MainAppBar() {
                                     keepMounted
                                     transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                                     open={Boolean(anchorElUser)}
-                                    onClose={handleCloseUserMenu}
+                                    onClose={(e) => handleCloseUserMenu(e)}
                                     >
                                     {
                                         userLinks.map((userLink) => (
-                                            <MenuItem key={userLink} onClick={handleCloseUserMenu}>
-                                                { 
+                                            <MenuItem 
+                                                key={`menu-item-${userLink}`} 
+                                                onClick={(e) => handleCloseUserMenu(e, userLink)}
+                                                >
+                                                    {
+                                                        menuIconSet(userLink)
+                                                    }
+                                                {/* { 
                                                     generateLink(userLink) 
-                                                }
+                                                } */}
+                                                {/* {
+                                                    userLink === 'account'
+                                                    ?
+                                                    <>
+                                                        <AccountCircleIcon />
+                                                        {userLink}
+                                                    </>
+                                                    :
+                                                    loggedIn
+                                                    ? 
+                                                    <>
+                                                        <LoginIcon sx={{mr: 1}} />
+                                                        {userLink}
+                                                    </>
+                                                    :
+                                                    <>
+                                                        <LogoutIcon />
+                                                        {userLink}
+                                                    </>
+                                                    
+                                                } */}
                                             </MenuItem>
                                         ))
                                     }

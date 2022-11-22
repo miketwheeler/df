@@ -17,6 +17,7 @@ import { UserProvider } from './userContext';
 import { Provider } from 'react-redux';
 // **
 import { persistor, store } from './store/store'
+import LoginLogoutSignup from './components/LoginLogoutSignup';
 // import { PersistGate } from 'redux-persist/integration/react'
 
 
@@ -44,11 +45,10 @@ function App() {
                 <Route element={<Layout />}>
                     {/* loggedIn ? Dashboard(*either Dev/Investor/Anon) : Home (*Generic/No-Account) */}
                     <Route path="" element={<NavDrawer/>} >
+                        <Route index element={<LoginLogoutSignup props={'login'} />} />
                         <Route path="dashboard" element={<Dashboard />}>
                             <Route index element={<DashHome to="dashboard" replace/>} />
-                            {/* <Route path="" element={<DashHome />} /> */}
                             <Route path="dash-tasks" element={<DashTasks />} />
-                            {/* <Route path="dash-team" element={<DashTeam />} /> */}
                             <Route path="dash-messages" element={<DashMessages />} />
                             <Route path="dash-schedule" element={<DashSchedule />} />
                         </Route>
