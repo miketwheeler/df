@@ -10,11 +10,14 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const LoginLogoutSignup = ({props}) => {
     const theme = useTheme();
     const location = useLocation();
+    const navigator = useNavigate();
+
     const [loggedIn, setLoggedIn] = useState(false);
     const [user, setUser] = useState(null);
     const [username, setUsername] = useState(null);
@@ -45,7 +48,7 @@ const LoginLogoutSignup = ({props}) => {
     const handleSubmit = (e, ft) => {
         // e.preventDefault();
         if(ft === 'login') {
-            return null;
+            navigator('/dashboard')
         } else {
             return null;
         }
@@ -71,11 +74,7 @@ const LoginLogoutSignup = ({props}) => {
             >
             <Stack spacing={3}>
                 <Typography variant='h4'>
-                    {
-                        formType === 'signup'
-                        ? 'signup'
-                        : 'login'
-                    }
+                    { formType === 'signup' ? 'signup' : 'login' }
                 </Typography>
                 <Grid container spacing={2}>
                     <Grid xs={12} display="flex" justifyContent="center" alignItems="center">

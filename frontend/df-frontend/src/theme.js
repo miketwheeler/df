@@ -2,12 +2,12 @@
 import { sx } from '@mui/joy/styles/styleFunctionSx';
 import { createTheme } from '@mui/material/styles';
 // import { blue } from '@mui/material/colors'
-import { ThemeOptions } from '@mui/material';
+// import { ThemeOptions } from '@mui/material';
 // import '@fontsource/play/300.css'
 
-const primaryDarkColor = '#f1f1f1';
-const lightBlueShade = '#1976d2';
-
+// variable colors
+const whiteVal = '#f1f1f1';
+const highlightBlueVal = '#266798'
 
 
 export const themeOptions = {
@@ -95,7 +95,7 @@ export const theme = createTheme({
         MuiInputLabel: {
             styleOverrides: {
                 root: sx({
-                    color: '#f1f1f1',
+                    color: whiteVal,
                 })
             }
         },
@@ -106,10 +106,20 @@ export const theme = createTheme({
                 },
                 input: {
                     '&:-webkit-autofill': {
-                        'WebkitBoxShadow': '0 0 0 30px #266798 inset',
-                        'WebkitTextFillColor': '#f1f1f1',
+                        'WebkitBoxShadow': `0 0 0 30px ${highlightBlueVal} inset`,
+                        // 'WebkitBoxShadow':'0 0 0 30px #266798 inset',
+                        'WebkitTextFillColor': whiteVal,
                     },
                 },
+            }
+        },
+        MuiMenuItem: {
+            styleOverrides: {
+                root: sx({
+                    '&:hover': { 
+                        backgroundColor: highlightBlueVal 
+                    }
+                })
             }
         }
     }

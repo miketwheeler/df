@@ -28,20 +28,22 @@ const userLinks = ['account', 'login'];
 
 const titleStyles = { textDecoration: 'none', letterSpacing: '.1rem', color: 'inherit', fontWeight: 700 }
 
-const CustomLinkComponent = styled(Link)(({ theme }) => ({
-    '& .MuiTypography-root': {
-        '&:hover': {
-            color: theme.palette.secondary.main
-        }
-    },
-}))
+// const CustomLinkComponent = styled(Link)(({ theme }) => ({
+//     '& .MuiTypography-root': {
+//         '&:hover': {
+//             color: theme.palette.secondary.main
+//         }
+//     },
+// }))
 
 
 function MainAppBar() {
     const theme = useTheme();
     const navigate = useNavigate();
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const [loggedIn, setLoggedIn] = React.useState(true); //TODO: this needs to be a state value after auth'd
+    
+    //TODO: this needs to be a state value && set after auth'd !!!!!!!!!!!!!!!
+    const [loggedIn, setLoggedIn] = React.useState(true); 
     
     const handleOpenUserMenu = (e) => {
         setAnchorElUser(e.currentTarget);
@@ -144,33 +146,7 @@ function MainAppBar() {
                                                 key={`menu-item-${userLink}`} 
                                                 onClick={(e) => handleCloseUserMenu(e, userLink)}
                                                 >
-                                                    {
-                                                        menuIconSet(userLink)
-                                                    }
-                                                {/* { 
-                                                    generateLink(userLink) 
-                                                } */}
-                                                {/* {
-                                                    userLink === 'account'
-                                                    ?
-                                                    <>
-                                                        <AccountCircleIcon />
-                                                        {userLink}
-                                                    </>
-                                                    :
-                                                    loggedIn
-                                                    ? 
-                                                    <>
-                                                        <LoginIcon sx={{mr: 1}} />
-                                                        {userLink}
-                                                    </>
-                                                    :
-                                                    <>
-                                                        <LogoutIcon />
-                                                        {userLink}
-                                                    </>
-                                                    
-                                                } */}
+                                                { menuIconSet(userLink) }
                                             </MenuItem>
                                         ))
                                     }

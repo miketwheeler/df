@@ -45,7 +45,8 @@ function App() {
                 <Route element={<Layout />}>
                     {/* loggedIn ? Dashboard(*either Dev/Investor/Anon) : Home (*Generic/No-Account) */}
                     <Route path="" element={<NavDrawer/>} >
-                        <Route index element={<LoginLogoutSignup props={'login'} />} />
+                        {/*TODO: change prop state val && is home dir ok for reqs*/}
+                        <Route index element={<LoginLogoutSignup props={'login'} />} /> 
                         <Route path="dashboard" element={<Dashboard />}>
                             <Route index element={<DashHome to="dashboard" replace/>} />
                             <Route path="dash-tasks" element={<DashTasks />} />

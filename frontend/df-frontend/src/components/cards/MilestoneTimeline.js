@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Paper, Typography, Divider } from '@mui/material';
+import { Paper, Typography, Divider, makeStyles, Box, Tooltip } from '@mui/material';
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
@@ -24,6 +24,7 @@ const maxMilestones = 5;
 // console.log(`todays date: ${new Date(todaysDate).toISOString()}`)
 
 
+// TODO: replace mock data with this user's project data (req, res)!!!!!!!
 const dummyTimelineData = [
     { msNum: 1, dateVal: project.start_date, complete: true },
     { msNum: 2, dateVal: '02/22/2022', complete: true },
@@ -39,6 +40,10 @@ const dummyTimelineData = [
 const CreateTimelineItem = (props) => {
     // let isLate = new Date(props.dateVal).toISOString().localeCompare(newTodaysDate) < 0;
 
+    const handleSimplDate = (val) => {
+        return val.replace(val.slice(3,8), "")
+    }
+
     return (
         <TimelineItem 
             sx={{ 
@@ -46,20 +51,30 @@ const CreateTimelineItem = (props) => {
                 // color: isLate ? 'primary.main' : 'red'
             }}
             >
-            <TimelineOppositeContent>
-                {`m${props.msNum}`}
-            </TimelineOppositeContent>
-            <TimelineSeparator>
-                <TimelineDot variant={props.complete === true ? 'filled' : 'outlined'} />
-                {
-                    props.msNum !== maxMilestones
-                    ? <TimelineConnector />
-                    : null
-                }
-            </TimelineSeparator>
-            <TimelineContent>
-                {props.dateVal}
-            </TimelineContent>
+                {/* <> */}
+                <TimelineOppositeContent>
+                    {`m${props.msNum}`}
+                </TimelineOppositeContent>
+                <TimelineSeparator>
+                    <TimelineDot variant={props.complete === true ? 'filled' : 'outlined'} />
+                    {
+                        props.msNum !== maxMilestones
+                        ? <TimelineConnector />
+                        : null
+                    }
+                </TimelineSeparator>
+            <Tooltip title={props.dateVal} placement="top">
+                <TimelineContent 
+                    sx={{
+                        textOverflow: 'elipses', 
+                        whiteSpace: 'nowrap', 
+                        overflow: 'hidden'
+                        }}
+                        >
+                    { handleSimplDate(props.dateVal) }
+                </TimelineContent>
+            </Tooltip>
+                {/* </> */}
         </TimelineItem>
     )
 }
@@ -71,13 +86,19 @@ export default function LeftPositionedTimeline(props) {
                 { headingVal }
             </Typography>
             <Divider orientation="horizontal" flexItem  sx={{ mb: 1 }} />
-            <Timeline position="right">
-                { 
-                    dummyTimelineData.map((item, i) => {
-                        return <CreateTimelineItem { ...item } />
-                    })
-                }
-            </Timeline>
+            <Box 
+                // overflow="hidden" 
+                // display="flex" 
+                id="timeline-container" 
+                >
+                <Timeline position="right" sx={{}}>
+                    { 
+                        dummyTimelineData.map((item, i) => {
+                            return <CreateTimelineItem {...item} />
+                        })
+                    }
+                </Timeline>
+            </Box>
         </Paper>
     );
 }
