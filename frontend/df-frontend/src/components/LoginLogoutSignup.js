@@ -74,7 +74,7 @@ const LoginLogoutSignup = ({props}) => {
             >
             <Stack spacing={3}>
                 <Typography variant='h4'>
-                    { formType === 'signup' ? 'signup' : 'login' }
+                    { formType === 'signup' ? 'sign up' : 'log in' }
                 </Typography>
                 <Grid container spacing={2}>
                     <Grid xs={12} display="flex" justifyContent="center" alignItems="center">

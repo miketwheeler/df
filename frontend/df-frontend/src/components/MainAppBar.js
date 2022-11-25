@@ -50,7 +50,8 @@ function MainAppBar() {
     };
 
     const handleCloseUserMenu = (e, linkto) => {
-        navigate(linkto === 'account' ? `/${linkto}` : "/")
+        // navigate(linkto === 'account' ? `/${linkto}` : "/")
+        navigate(`/${linkto}`)
         setAnchorElUser(null);
     };
 
@@ -135,8 +136,8 @@ function MainAppBar() {
                                     id="menu-appbar"
                                     anchorEl={anchorElUser}
                                     anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                                    keepMounted
                                     transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                                    keepMounted
                                     open={Boolean(anchorElUser)}
                                     onClose={(e) => handleCloseUserMenu(e)}
                                     >

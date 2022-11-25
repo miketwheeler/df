@@ -32,9 +32,8 @@ function App() {
 
   // CHANGE THIS LATER FOR CURRENT LOGGED IN USERTYPE - ADD OTHER USER DATA(UN, SESSIONID, LOCALSTORAGE... OTHERS)
   // currently context for the primary NAV (and test DataPayload before final server/api integration)
-  const userType = "dev-user"
+  const userType = "dev-user";
   // const userType = "invalidated-user"
-
 
   return (
     <Provider store={store}>
@@ -44,9 +43,10 @@ function App() {
             <Routes>
                 <Route element={<Layout />}>
                     {/* loggedIn ? Dashboard(*either Dev/Investor/Anon) : Home (*Generic/No-Account) */}
-                    <Route path="" element={<NavDrawer/>} >
-                        {/*TODO: change prop state val && is home dir ok for reqs*/}
-                        <Route index element={<LoginLogoutSignup props={'login'} />} /> 
+                    <Route element={<NavDrawer />}>
+                        {/* TODO: change prop state val && is home dir ok for reqs */}
+                        <Route path="login" element={<LoginLogoutSignup props={'login'} />} />
+                        <Route path="signup" element={<LoginLogoutSignup props={'signup'} />} />
                         <Route path="dashboard" element={<Dashboard />}>
                             <Route index element={<DashHome to="dashboard" replace/>} />
                             <Route path="dash-tasks" element={<DashTasks />} />
@@ -67,6 +67,6 @@ function App() {
       {/* </PersistGate> */}
     </Provider>
   );
-}
+};
 
 export default App;
