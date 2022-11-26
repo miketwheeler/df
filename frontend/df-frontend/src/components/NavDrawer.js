@@ -108,8 +108,7 @@ export default function NavDrawer() {
         mr: 'auto',
         minHeight: 55.98,
         minWidth: "fit-content",
-        // width: '100%',
-        // width: open ? drawerWidth : 0,
+        width: open ? drawerWidth : 0,
     }
     const tabLabelStyles = { 
         margin: 'auto auto auto 1rem', 

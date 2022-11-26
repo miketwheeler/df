@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { Typography, Stack, Box, Paper, TextField, Button, Chip, Slide, Popper, Collapse, CardActionArea} from '@mui/material';
+import { Typography, Stack, Box, Paper, TextField, Button, Chip, Slide, Popper, Collapse, CardActionArea, Fade} from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from 'yup'
 import { useSelector } from 'react-redux'
 import { user_data } from '../../data/data_data';
 import MessageIcon from '@mui/icons-material/Message';
+import { styled, useTheme } from '@mui/material/styles';
 
 
 const validateSchema = yup.object({
@@ -14,6 +15,7 @@ const validateSchema = yup.object({
 })
 
 const MessageBox = () => {
+    const theme = useTheme();
     const [expandValue, setExpandValue] = useState(false);
     const containerRef = useRef(null);
     const contactsList = useSelector((state) => state.memberIdListReducer.memberIdList);
@@ -39,18 +41,31 @@ const MessageBox = () => {
     }
     
     const buttonStyles = {
+        '& .MuiInputLabel-root': {
+            color: 'secondary.main'
+        },
+        '& .MuiInputLabel-shrink': {
+            backgroundColor: 'primary.main'
+        },
+        '& .MuiFormLabel': {
+            backgroundColor: 'primary.main'
+        },
+        color: 'secondary.main',
+        '& label': {
+            color: 'secondary.main'
+        },
         '& label.Mui-focused': {
             color: 'secondary.main',
         },
-        '& .MuiInput-underline:after': {
-            borderBottomColor: 'secondary.main',
-        },
+        // '& .MuiInput-underline:after': {
+        //     borderBottomColor: 'secondary.main',
+        // },
         '& .MuiOutlinedInput-root': {
-            '&:hover fieldset': {
-                borderColor: 'secondary.main',
-            },
+            borderColor: 'secondary.main',
+            color: 'primary.dark',
             '&.Mui-focused fieldset': {
                 borderColor: 'secondary.main',
+                color: 'secondary.main'
             },
         },
     }
@@ -84,75 +99,105 @@ const MessageBox = () => {
 
     return (
         <CardActionArea 
-            elevation={6} 
-            id={'member-button-card'} 
-            onClick={() => handleMessageSelected()}
+            elevation={ 6 } 
+            id={ 'member-button-card' } 
+            onClick={ () => handleMessageSelected() }
             >
             <Popper
-                open={true}
+                open={ true }
                 keepMounted 
                 aria-labelledby="modal-title"
                 aria-describedby="modal"
+                
                 >
-                <Paper sx={cardComponent} elevation={18}>
+                <Paper sx={ cardComponent } elevation={ 18 }>
                     {
                         expandValue === false 
                         ?
-                        <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'center'}}>
-                            <Typography variant="subtitle1" id="modal-title">
-                                select members to dispatch message
-                            </Typography>
-                            <MessageIcon sx={{my: 'auto', ml: '4px'}} />
-                        </div>
+                        <Fade 
+                            in={ !expandValue } 
+                            timeout={{ enter: 700, exit: 10 }} 
+                            easing={{ enter: 'ease-in-out' }}
+                            >
+                            <div 
+                                style={{
+                                    display: 'flex', 
+                                    flexDirection: 'row', 
+                                    flexWrap: 'nowrap', 
+                                    justifyContent: 'center',
+                                    color: theme.palette.primary.contrastText
+                                }}
+                                >
+                                <Typography variant="subtitle1" id="modal-title">
+                                    select members to dispatch message
+                                </Typography>
+                                <MessageIcon sx={{ my: 'auto', ml: '4px' }} />
+                            </div>
+                        </Fade>
                         :
                         null
                     }
-                    <Collapse in={expandValue}>
-                        <form onSubmit={formik.onSubmit}>
-                            <Stack spacing={2} pb={2}>
-                                <Typography variant="subtitle1" id="modal-title">
-                                    dispatch message to group
-                                </Typography>
-                                <Box sx={{flexGrow: 1}}>
-                                    {
-                                        contactsList.map((id) => 
-                                            <Slide direction='left' in={id} mountOnEnter unmountOnExit container={containerRef.current}>
-                                                <Chip label={`${user_data[id-1].user_name}`} sx={{m: .25}} />
-                                            </Slide>
-                                        )
-                                    }
+                    <Collapse in={ expandValue } easing={{ enter: 'ease-in-out', exit: 'ease-in-out' }} timeout={{ enter: 200, exit: 200 }}>
+                        <Fade in={ expandValue } timeout={{ enter: 200, exit: 10 }} easing={{ enter: 'ease-in-out' }}>
+                            <form onSubmit={ formik.onSubmit }>
+                                <Stack spacing={ 2 } pb={ 2 }>
+                                    <Typography variant="subtitle1" id="modal-title" color={ theme.palette.primary.contrastText }>
+                                        people to message
+                                    </Typography>
+                                    <Box sx={{ flexGrow: 1 }}>
+                                        {
+                                            contactsList.map((id) => 
+                                                <Slide 
+                                                    direction='left' 
+                                                    in={id}
+                                                    mountOnEnter 
+                                                    unmountOnExit 
+                                                    container={containerRef.current}
+                                                    style={{ transitionDelay: '200ms' }}
+                                                    >
+                                                    <Chip 
+                                                        label={ `${user_data[id-1].user_name}` } 
+                                                        sx={{ m: .25, backgroundColor: theme.palette.primary.contrastText }} 
+                                                        />
+                                                </Slide>
+                                            )
+                                        }
+                                    </Box>
+                                    <TextField 
+                                        fullWidth 
+                                        id='quickMessage' 
+                                        name='quick-message' 
+                                        label='message'
+                                        multiline
+                                        required
+                                        value={ formik.values.message }
+                                        onChange={ formik.handleChange }
+                                        onError={ formik.touched.message && Boolean(formik.errors.message) }
+                                        helperText={ formik.touched.message && formik.errors.message }
+                                        sx={ buttonStyles }
+                                        onClick={ (e) => e.stopPropagation() }
+                                        />
+                                </Stack> 
+                                <Box sx={{ flexGrow: 1, width: '100%', flexDirection: 'row' }}> 
+                                    <Button 
+                                        vaiant='contained' 
+                                        type='submit' 
+                                        sx={{ 
+                                            color: 'primary',
+                                            textTransform: 'none', 
+                                            backgroundColor: 'secondary.main', 
+                                            '& .MuiButton': {
+                                                '&:hover': {
+                                                    opacity: .5
+                                                }
+                                            }
+                                        }}
+                                        >
+                                        send it
+                                    </Button>
                                 </Box>
-                                <TextField 
-                                    fullWidth 
-                                    id='quickMessage' 
-                                    name='quick-message' 
-                                    label='message'
-                                    multiline
-                                    required
-                                    value={formik.values.message}
-                                    onChange={formik.handleChange}
-                                    onError={formik.touched.message && Boolean(formik.errors.message)}
-                                    helperText={formik.touched.message && formik.errors.message}
-                                    sx={buttonStyles}
-                                    onClick={(e) => e.stopPropagation()}
-                                    />
-                            </Stack> 
-                            <Box sx={{ flexGrow: 1, width: '100%', flexDirection: 'row' }}> 
-                                <Button 
-                                    color='primary' 
-                                    vaiant='contained' 
-                                    type='submit' 
-                                    sx={{ 
-                                        textTransform: 'none', 
-                                        backgroundColor: 'secondary.main', 
-                                        '&:hover': { opacity: .5 }
-                                    }}
-                                    // onClick={(e) => handleSubmitButtonAction(e)}
-                                    >
-                                    send it
-                                </Button>
-                            </Box>
-                        </form>
+                            </form>
+                        </Fade>
                     </Collapse>
                 </Paper>
             </Popper>

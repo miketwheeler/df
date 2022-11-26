@@ -24,6 +24,7 @@ export const themeOptions = {
         divider: 'rgba(3,169,244,0.17)',
         secondary: {
             main: '#1565c0',
+            altMain: highlightBlueVal,
             light: '#4fc3f7',
             dark: '#51565c',
             contrastText: '#f9fbfd',
@@ -102,7 +103,10 @@ export const theme = createTheme({
         MuiOutlinedInput: {
             styleOverrides: {
                 root: {
-                    border: '1px solid rgb(161,161,161)'
+                    border: '1px solid rgb(161,161,161)',
+                    '& .Mui-focused': {
+                        borderColor: 'rgb(161,161,161)',
+                    },
                 },
                 input: {
                     '&:-webkit-autofill': {

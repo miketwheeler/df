@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect} from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
@@ -41,7 +41,7 @@ const Login = () => {
             } else if(!err?.status === 400) {
                 setErrMsg('No Server Response');
             } else if(!err?.status === 401) {
-                setErrMsg('Umauthorized');
+                setErrMsg('Unauthorized');
             } else {
                 setErrMsg('Login Failed');
             }
@@ -52,7 +52,7 @@ const Login = () => {
     const handleUserInput = (e) => setUser(e.target.value);
     const handlePwdInput = (e) => setPwd(e.target.value);
 
-    const content = isLoading ? <h1>Loading...</h1> : (
+    const content = isLoading ? <h1>loading...</h1> : (
         <section className="login">
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-label="error-message"></p>
             <h1>Login</h1>
