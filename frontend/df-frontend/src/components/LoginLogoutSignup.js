@@ -34,6 +34,10 @@ const LoginLogoutSignup = ({props}) => {
         e.preventDefault();
         setPass(e.target.value);
     };
+    const handlePWConfirmChange = (e) => {
+        e.preventDefault();
+        setPassConfirm(e.target.value);
+    };
     const handlePassConfirmChange = (e) => {
         e.preventDefault();
         setPassConfirm(e.target.value);
@@ -94,6 +98,17 @@ const LoginLogoutSignup = ({props}) => {
                             label='password'
                             value={pass}
                             onChange={handlePWChange}
+                            variant='outlined'
+                            type='password'
+                            />
+                    </Grid>
+                    <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
+                        <TextField
+                            required
+                            id='password-confirm-input'
+                            label='confirm password'
+                            value={passConfirm}
+                            onChange={handlePWConfirmChange}
                             variant='outlined'
                             type='password'
                             />
