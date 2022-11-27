@@ -110,7 +110,7 @@ const protect = catchAsync(async (req, res, next) => {
 });
 
 const restrictTo = (...roles) => (req, res, next) => {
-    // roles is an array ex: ['admin', 'lead-guide']
+    // roles is an array ex: ['admin', 'team-leader', TODO: 'team-member] <--lookup actual is est.
     if(!roles.includes(req.user.role))
         return next(new AppError(`You don't have the permissions to perform this action`, 403));
     
@@ -191,5 +191,10 @@ const updatePassword = catchAsync(async (req, res, next) => {
     // log user in (send jwt back to user)
     createSendToken(user, 200, 'Successful updating your password', res);
 });
+
+// TODO: create logout controller -> for userRoute & FE selection 
+const logout = catchAsync(async (req, res, next) => {
+    // needs to delete token/cookie so unenrolls logged-in user
+})
 
 module.exports = { signup, login, protect, restrictTo, forgotPassword, resetPassword, updatePassword }

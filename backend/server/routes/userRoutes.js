@@ -13,15 +13,16 @@ const router = express.Router();
 // REVIEWS: nested routing config
 router.use('/:userId/reviews', reviewRouter);
 
-// Open routes to all
+// Open routes to all ////////////////////////////////
 // SIGNUP (account creation, login, password actions)
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 router.post('/forgotPassword', authController.forgotPassword);
 router.patch('/resetPassword/:token', authController.resetPassword);
+// router.post('/logout', authController.logout);
 
 
-// Route Protection (here down)
+// Route Protection (here down) //////////////////////
 // router.use(authController.protect); // <-- protects all routes after this point
 
 router.patch('/updateMyPassword', authController.updatePassword);
@@ -34,7 +35,7 @@ router.patch('/updateMe', userController.updateMe);
 router.delete('/deleteMe', userController.deleteMe);
 
 
-// ADMIN only (here down)
+// ADMIN only (here down) ////////////////////////////
 // router.use(authController.restrictTo('admin'))
 
 // USERS
