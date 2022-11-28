@@ -46,6 +46,7 @@ export const apiSlice = createApi({
     reducerPath: 'v1/api',
     baseQuery: fetchBaseQuery({ baseUrl: 'http://127.0.0.1:3030'}),
     endpoints: (builder) => ({
+        
         getAllUsers: builder.query({
             query: () => '/users',
         }),
@@ -58,6 +59,28 @@ export const apiSlice = createApi({
                 method: 'POST',
                 body: reqBody
             }) 
-        })
+        }),
+        login: builder.mutation({
+            query: (email, password, reqBody) => ({
+                url: '/login',
+                method: 'POST',
+                body: reqBody
+            }),
+        }),
+        signup: builder.mutation({
+            query: (email, password, passowrdConfirm, reqBody) => ({
+                url: '/signup',
+                method: 'POST',
+                body: reqBody
+            }),
+        }),
+        // need to wipe jwt from client state, and invalidate/remove token on the backend
+        // logout: builder.mutation({
+        //     query: (reqBody) => ({
+        //         url: '/signup',
+        //         method: 'POST',
+        //         body: reqBody
+        //     }),
+        // }),
     })
 })

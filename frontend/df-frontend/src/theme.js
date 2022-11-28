@@ -8,7 +8,7 @@ import { createTheme } from '@mui/material/styles';
 // variable colors
 const whiteVal = '#f1f1f1';
 const highlightBlueVal = '#266798'
-
+const darkPaper = '#2d2d2d'
 
 export const themeOptions = {
     palette: {
@@ -104,19 +104,36 @@ export const theme = createTheme({
             styleOverrides: {
                 root: {
                     border: '1px solid rgb(161,161,161)',
-                    '& .Mui-focused': {
-                        borderColor: 'rgb(161,161,161)',
-                    },
+                    // '& .Mui-focused': {
+                    //     borderColor: 'rgb(161,161,161)',
+                    // },
                 },
                 input: {
                     '&:-webkit-autofill': {
-                        'WebkitBoxShadow': `0 0 0 30px ${highlightBlueVal} inset`,
-                        // 'WebkitBoxShadow':'0 0 0 30px #266798 inset',
+                        // 'WebkitBoxShadow': `0 0 0 30px ${highlightBlueVal} inset`,
+                        'WebkitBoxShadow':`0 0 0 30px ${darkPaper} inset`,
                         'WebkitTextFillColor': whiteVal,
                     },
                 },
             }
         },
+        // MuiFormControl: {
+        //     styleOverrides: {
+        //         root: {
+        //             border: '1px solid rgb(161,161,161)',
+        //             '& .Mui-focused': {
+        //                 borderColor: 'rgb(161,161,161)',
+        //             },
+        //         },
+        //         input: {
+        //             '&:-webkit-autofill': {
+        //                 'WebkitBoxShadow': `0 0 0 30px ${highlightBlueVal} inset`,
+        //                 // 'WebkitBoxShadow':'0 0 0 30px #266798 inset',
+        //                 'WebkitTextFillColor': whiteVal,
+        //             },
+        //         },
+        //     }
+        // },
         MuiMenuItem: {
             styleOverrides: {
                 root: sx({
