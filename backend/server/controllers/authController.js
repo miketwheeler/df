@@ -8,7 +8,7 @@ const AppError = require('../utils/appError');
 const sendEmail = require('../utils/email');
 
 
-const signToken = (id) => {
+const signedToken = (id) => {
     return jwt.sign(
         { id }, 
         process.env.JWT_SECRET,
@@ -17,14 +17,16 @@ const signToken = (id) => {
 }
 
 const createSendToken = (user, statusCode, statusMessage, res) => {
-    const token = signToken(user._id);
+    const token = signedToken(user._id);
 
     const cookieOptions = {
-        expires: new Date(
-            Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60* 60 * 1000  // *24hrs*60mins*60secs*1000msecs => to get ms-date
-        ), 
         httpOnly: true,
+        expires: new Date(
+            Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60* 60 * 1000  // *24hrs*60mins*60secs*1000msecs => date in milsec
+        ), 
     };
+    if(process.env.NODE_ENV !== 'production')
+        cookieOptions.sameSite = 'None'; // not production, allow same site 
 
     if(process.env.NODE_ENV === 'production') 
         cookieOptions.secure = true; // if in production, set the cookie prop 'secure' to true
