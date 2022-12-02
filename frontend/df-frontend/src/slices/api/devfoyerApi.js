@@ -25,7 +25,7 @@ import { setCredentials, logOut } from '../auth/authSlice';
 //         const refreshResult = await baseQuery('/refresh', api, extraOptions);
 //         console.log(refreshResult);
 //         if(refreshResult?.data) {
-//             const user = api.getState().auth.user // gets username from FE form vs sending it back from server
+//             const user = api.getState().auth.user // gets username from cache store vs agian from server
 //             // store the new issued token
 //             api.dispatch(setCredentials({ ...refreshResult.data, user }));
 //             // retry the original query w/ new access token
@@ -41,46 +41,81 @@ import { setCredentials, logOut } from '../auth/authSlice';
 //////////////////////////////////////////////////////////////////////////////////
 // the API 
 
-export const apiSlice = createApi({
-    // baseQuery: baseQueryWithReauth,
-    reducerPath: 'v1/api',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://127.0.0.1:3030'}),
+export const devfoyerApi = createApi({
+    reducerPath: 'devfoyerApi',
+    baseQuery: fetchBaseQuery({ baseUrl: 'http://127.0.0.1:8080/api/v1'}),
+    // tagTypes: ["Users"],
     endpoints: (builder) => ({
-        
         getAllUsers: builder.query({
             query: () => '/users',
         }),
         getUserById: builder.query({
             query: (id) => `/users/:${id}`
         }),
+        getMe: builder.query({
+            query: () => '/users/me'
+        }),
+
+        addNewUser: builder.mutation({
+            query: (newUserBody) => ({
+                url: '/users',
+                method: 'POST',
+                body: newUserBody
+            })
+        }),
         updateUserById: builder.mutation({
-            query: (id, reqBody) => ({
-                url: `/users/:${id}`,
-                method: 'POST',
-                body: reqBody
-            }) 
+            query: (id, updateUserByIdBody) => ({
+                url: `/users/${id}`,
+                method: 'PATCH',
+                body: updateUserByIdBody
+            })
         }),
-        login: builder.mutation({
-            query: (email, password, reqBody) => ({
-                url: '/login',
-                method: 'POST',
-                body: reqBody
-            }),
+        updateMe: builder.mutation({
+            query: (updateMeBody) => ({
+                url: '/users/updateMe',
+                method: 'PATCH',
+                body: updateMeBody
+            })
         }),
-        signup: builder.mutation({
-            query: (email, password, passowrdConfirm, reqBody) => ({
-                url: '/signup',
-                method: 'POST',
-                body: reqBody
-            }),
-        }),
-        // need to wipe jwt from client state, and invalidate/remove token on the backend
-        // logout: builder.mutation({
-        //     query: (reqBody) => ({
-        //         url: '/signup',
+        // login: builder.mutation({
+        //     query: (loginBody) => ({
+        //         url: '/users/login',
         //         method: 'POST',
-        //         body: reqBody
+        //         body: loginBody
         //     }),
         // }),
+        // signup: builder.mutation({
+        //     query: (signupBody) => ({
+        //         url: '/users/signup',
+        //         method: 'POST',
+        //         body: signupBody
+        //     }),
+        // }),
+        deleteUserByIdAdmin: builder.mutation({
+            query: (id) => ({
+                url: `/users/${id}`,
+                method: 'DELETE',
+            })
+        }),
+        deleteMe: builder.mutation({
+            query: () => ({
+                url: '/users/deleteMe',
+                method: 'DELETE',
+            })
+        })
+        
     })
 })
+
+export const { 
+    useGetAllUsersQuery, 
+    useGetUserByIdQuery,
+    useGetMeQuery,
+    useAddNewUserMutation,
+    useUpdateUserByIdMutation,
+    useUpdateMeMutation, 
+    // useLoginMutation, 
+    // useSignupMutation, 
+    useDeleteUserByIdAdminMutation,
+    useDeleteMeMutation
+} = devfoyerApi;

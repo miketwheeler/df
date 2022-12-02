@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { combineReducers } from '@reduxjs/toolkit';
+import { setupListeners } from '@reduxjs/toolkit/query'
 import userReducer from '../slices/userSlice'
 import memberIdListReducer from '../slices/memberhallSlices/memberIdListSlice';
 import memberCardSelectedReducer from '../slices/memberhallSlices/memberCardSelectSlice';
 
-import { apiSlice } from '../slices/api/apiSlice';
+import { devfoyerApi } from '../slices/api/devfoyerApi';
 import  authReducer  from '../slices/auth/authSlice';
 
 // psersist store
@@ -24,7 +25,7 @@ import  authReducer  from '../slices/auth/authSlice';
 
 const reducer = combineReducers({
   // add reducers here
-  [apiSlice.reducerPath]: apiSlice.reducer,
+  [devfoyerApi.reducerPath]: devfoyerApi.reducer,
   auth: authReducer,
   userReducer,
   memberIdListReducer,
@@ -40,9 +41,13 @@ export const store = configureStore({
   reducer,
   // **
   // reducer: persistedReducer,
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(apiSlice.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(devfoyerApi.middleware),
   devTools: true, // dont want this active in prod, extra logging for store top level
 })
+
+setupListeners(store.dispatch);
+
+// console.log(store.getState())
 
 export default store;
 

@@ -1,15 +1,25 @@
-import { apiSlice } from "../api/apiSlice";
+import { devfoyerApi } from "../api/devfoyerApi";
 
-export const authApiSlice = apiSlice.injectEndpoints({
+export const authApiSlice = devfoyerApi.injectEndpoints({
     endpoints: builder => ({
         login: builder.mutation({
-            query: credentials => ({
-                url: '/auth',
+            query: (loginBody) => ({
+                url: '/users/login',
                 method: 'POST',
-                body: { ...credentials }
+                body: loginBody
             })
         }),
+        signup: builder.mutation({
+            query: (signupBody) => ({
+                url: '/users/signup',
+                method: 'POST',
+                body: signupBody
+            })
+        })
     })
 })
 
-export const { useLoginMutation } = authApiSlice;
+export const { 
+    useLoginMutation,
+    useSignupMutation
+} = authApiSlice;

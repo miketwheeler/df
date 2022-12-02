@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 // Material ui Imports
 import { useTheme } from '@mui/material/styles';
 import { 
-    Link, Stack, Paper, TextField, FormControl, 
+    Link, Stack, Paper, FormControl, 
     InputAdornment, InputLabel, OutlinedInput, 
     IconButton, Button, FormGroup, FormControlLabel,
     Checkbox, Typography
@@ -13,6 +13,10 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useLoginMutation } from '../slices/auth/authApiSlice';
+
+
+// import { devfoyerApi, useLoginMutation } from '../slices/api/devfoyerApi';
 
 
 const LoginLogoutSignup = ({props}) => {
@@ -22,12 +26,16 @@ const LoginLogoutSignup = ({props}) => {
 
     const [loggedIn, setLoggedIn] = useState(false);
     const [user, setUser] = useState(null);
-    const [usernameEmail, setUsernameEmail] = useState(null);
-    const [pass, setPass] = useState(null);
-    const [passConfirm, setPassConfirm] = useState(null);
+    const [usernameEmail, setUsernameEmail] = useState("");
+    const [pass, setPass] = useState("");
+    const [passConfirm, setPassConfirm] = useState("");
     const [showPw, setShowPw] = useState(false);
 
     const [formType, setFormType] = useState(props);
+
+    // const [login, result] = useLoginMutation();
+    // const { data, error, isLoading } = devfoyerApi.endpoints.useLoginMutation.mutation();
+    const [loginUser, { isLoading, error }] = useLoginMutation()
 
 
     const handleUsernameEmailChange = (e) => {
@@ -63,9 +71,22 @@ const LoginLogoutSignup = ({props}) => {
     const handleSubmit = (e, ft) => {
         // e.preventDefault();
         if(ft === 'login') {
-            navigator('/dashboard')
+            try {
+                loginUser({ 
+                    "email": usernameEmail, 
+                    "password": pass
+                })
+                if (!error) {
+                    // setUsernameEmail("");
+                    // setPass("");
+                    navigator('/dashboard')
+                }
+            } catch (error) {
+                console.log(`There was an error loggin in there --> ${error}`)
+            }
+            
         } else {
-            return null; // will be 'account' dashboard
+            return null; // will be sign in route & form instead TODO: write handle
         }
     } 
 
@@ -102,16 +123,6 @@ const LoginLogoutSignup = ({props}) => {
                     { formType === 'signup' ? 'sign up' : 'log in' }
                 </Typography>
                 <Grid container spacing={2}>
-                    {/* <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
-                        <TextField 
-                            required
-                            id='username-input'
-                            label='username/email'
-                            value={username}
-                            onChange={handleUsernameChange}
-                            variant='outlined'
-                            />
-                    </Grid> */}
                     <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
                         <FormControl sx={{ width: '25ch' }} variant="outlined" required>
                             <InputLabel htmlFor="email">username/email</InputLabel>
@@ -124,17 +135,6 @@ const LoginLogoutSignup = ({props}) => {
                             />
                         </FormControl>
                     </Grid>
-                    {/* <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
-                        <TextField
-                            required
-                            id='password-input'
-                            label='password'
-                            value={pass}
-                            onChange={handlePWChange}
-                            variant='outlined'
-                            type='password'
-                            />
-                    </Grid> */}
                     <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
                         <FormControl sx={{ width: '25ch' }} variant="outlined" required>
                             <InputLabel htmlFor="password">password</InputLabel>
@@ -163,19 +163,6 @@ const LoginLogoutSignup = ({props}) => {
                     {
                         formType === 'signup'
                         ? 
-                        // <>
-                        //     <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
-                        //         <TextField 
-                        //             required
-                        //             id='password-confirm'
-                        //             label='confirm password'
-                        //             value={passConfirm}
-                        //             onChange={handlePWConfirmChange}
-                        //             variant='outlined'
-                        //             type={showPw ? 'text' : 'password'}
-                        //             />
-                        //     </Grid>
-                        // </>
                         <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
                             <FormControl sx={{ width: '25ch' }} variant="outlined" required>
                                 <InputLabel htmlFor="confirm-password">confirm password</InputLabel>

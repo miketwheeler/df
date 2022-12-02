@@ -104,7 +104,7 @@ function MainAppBar() {
     // }
     
     return (
-        <AppBar  sx={{ zIndex: theme.zIndex.drawer + 1 }} id="top-appbar">
+        <AppBar  sx={{ zIndex: theme.zIndex.drawer + 1, boxShadow: '1px 1px 8px 1px #2d2d2d' }} id="top-appbar">
             <Container maxWidth="xl">
                 <Toolbar >
                     <Typography 
