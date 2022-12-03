@@ -77,6 +77,7 @@ export const devfoyerApi = createApi({
                 body: updateMeBody
             })
         }),
+        // TRANSFERRED TO IT'S OWN INJECTED ENDPOINT
         // login: builder.mutation({
         //     query: (loginBody) => ({
         //         url: '/users/login',

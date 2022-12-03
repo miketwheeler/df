@@ -8,8 +8,8 @@ import { HeadingThenData } from '../utility-components/HeadingThenData';
 import HeadingRow from '../utility-components/HeadingRow'
 
 import { SpecialSwitch } from '../utility-components/SpecialSwitch';
-import { memberAdd, memberRemove } from '../../slices/memberhallSlices/memberIdListSlice';
-import { memberSelect } from '../../slices/memberhallSlices/memberCardSelectSlice';
+import { memberAdd, memberRemove } from '../../features/memberhallSlices/memberIdListSlice';
+import { memberSelect } from '../../features/memberhallSlices/memberCardSelectSlice';
 import { SkillLevel } from '../utility-components/SkillLevel';
 import { StarRatingComponent } from '../utility-components/StarRatingComponent';
 

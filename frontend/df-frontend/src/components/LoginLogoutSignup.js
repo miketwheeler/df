@@ -8,15 +8,16 @@ import {
     IconButton, Button, FormGroup, FormControlLabel,
     Checkbox, Typography
 } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import Grid from '@mui/material/Unstable_Grid2';
-import { useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { useLoginMutation } from '../slices/auth/authApiSlice';
+
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useLoginMutation } from '../features/auth/authApiSlice';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from '../features/auth/authSlice';
 
 
-// import { devfoyerApi, useLoginMutation } from '../slices/api/devfoyerApi';
 
 
 const LoginLogoutSignup = ({props}) => {
@@ -33,8 +34,6 @@ const LoginLogoutSignup = ({props}) => {
 
     const [formType, setFormType] = useState(props);
 
-    // const [login, result] = useLoginMutation();
-    // const { data, error, isLoading } = devfoyerApi.endpoints.useLoginMutation.mutation();
     const [loginUser, { isLoading, error }] = useLoginMutation()
 
 

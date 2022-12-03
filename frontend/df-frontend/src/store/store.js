@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { combineReducers } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query'
-import userReducer from '../slices/userSlice'
-import memberIdListReducer from '../slices/memberhallSlices/memberIdListSlice';
-import memberCardSelectedReducer from '../slices/memberhallSlices/memberCardSelectSlice';
+import userReducer from '../features/userSlice'
+import memberIdListReducer from '../features/memberhallSlices/memberIdListSlice';
+import memberCardSelectedReducer from '../features/memberhallSlices/memberCardSelectSlice';
 
-import { devfoyerApi } from '../slices/api/devfoyerApi';
-import  authReducer  from '../slices/auth/authSlice';
+import { devfoyerApi } from '../features/api/devfoyerApi';
+import  authReducer  from '../features/auth/authSlice';
 
 // psersist store
 // import storage from 'redux-persist/lib/storage';

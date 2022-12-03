@@ -18,6 +18,7 @@ import { Provider } from 'react-redux';
 // **
 import { persistor, store } from './store/store'
 import LoginLogoutSignup from './components/LoginLogoutSignup';
+import RequireAuth from './features/auth/RequireAuth';
 // import { PersistGate } from 'redux-persist/integration/react'
 
 
@@ -47,11 +48,13 @@ function App() {
                         {/* TODO: change prop state val && is home dir ok for reqs */}
                         <Route path="login" element={<LoginLogoutSignup props={'login'} />} />
                         <Route path="signup" element={<LoginLogoutSignup props={'signup'} />} />
-                        <Route path="dashboard" element={<Dashboard />}>
-                            <Route index element={<DashHome to="dashboard" replace/>} />
-                            <Route path="dash-tasks" element={<DashTasks />} />
-                            <Route path="dash-messages" element={<DashMessages />} />
-                            <Route path="dash-schedule" element={<DashSchedule />} />
+                        <Route element={<RequireAuth />}>
+                          <Route path="dashboard" element={<Dashboard />}>
+                              <Route index element={<DashHome to="dashboard" replace/>} />
+                              <Route path="dash-tasks" element={<DashTasks />} />
+                              <Route path="dash-messages" element={<DashMessages />} />
+                              <Route path="dash-schedule" element={<DashSchedule />} />
+                          </Route>
                         </Route>
                         <Route index path="member-hall" element={<MemberHall />} />
                         <Route path="project-hub" element={<ProjectHub />}>

@@ -18,4 +18,4 @@ const RequireAuth = () => {
     )
 }
 
-export default RequireAuth
+export default RequireAuth;
