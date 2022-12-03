@@ -26,7 +26,7 @@ async function dbConnect() {
 };
 
 // start the server
-const port = 3030 || process.env.PORT;
+const port = process.env.PORT || 3030;
 const server = app.listen(port, () => {
     console.log(`App running on port ${port}...`);
 });

@@ -22,9 +22,9 @@ const createSendToken = (user, statusCode, statusMessage, res) => {
     const cookieOptions = {
         httpOnly: true,
         expires: new Date(
-            Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60* 60 * 1000  // *24hrs*60mins*60secs*1000msecs => date in milsec
-        ), 
-    };
+            Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60* 60 * 1000  // *24hrs*60mins*60secs*1000msecs => date in milsecS        ), 
+            )
+        };
     if(process.env.NODE_ENV !== 'production')
         cookieOptions.sameSite = 'None'; // not production, allow same site 
 

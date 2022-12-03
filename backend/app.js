@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xssClean = require('xss-clean');
 const hpp = require('hpp');
+const cors = require('cors')
 
 // Error handling
 const AppError = require('./server/utils/appError');
@@ -26,6 +27,7 @@ const projectsEndpoint = '/api/v1/projects';
 const reviewsEndpoint = '/api/v1/reviews';
 
 
+app.use(cors())
 // Global midlewares - functions modify incomming data
 // set security http headers
 app.use(helmet()) // important to use early on in the stack
