@@ -23,10 +23,9 @@ import { setCredentials } from '../features/auth/authSlice';
 const LoginLogoutSignup = ({props}) => {
     const theme = useTheme();
     const location = useLocation();
-    const navigator = useNavigate();
+    const navigate = useNavigate();
 
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [user, setUser] = useState(null);
+
     const [usernameEmail, setUsernameEmail] = useState("");
     const [pass, setPass] = useState("");
     const [passConfirm, setPassConfirm] = useState("");
@@ -35,6 +34,7 @@ const LoginLogoutSignup = ({props}) => {
     const [formType, setFormType] = useState(props);
 
     const [loginUser, { isLoading, error }] = useLoginMutation()
+    const dispatch = useDispatch();
 
 
     const handleUsernameEmailChange = (e) => {
@@ -67,21 +67,18 @@ const LoginLogoutSignup = ({props}) => {
     }
 
     // submits either a login cred (rtkq -> backend then to users dash) || signup cred (rtkq -> backend) then to profile for more data
-    const handleSubmit = (e, ft) => {
-        // e.preventDefault();
+    const handleSubmit = async (e, ft) => {
+        e.preventDefault();
         if(ft === 'login') {
             try {
-                loginUser({ 
+                const { data }  = await loginUser({
                     "email": usernameEmail, 
                     "password": pass
                 })
-                if (!error) {
-                    // setUsernameEmail("");
-                    // setPass("");
-                    navigator('/dashboard')
-                }
+                dispatch(setCredentials({...data}));
+                navigate('/dashboard');
             } catch (error) {
-                console.log(`There was an error loggin in there --> ${error}`)
+                console.log(`There was an error loggin in there --> ${error}`);
             }
             
         } else {

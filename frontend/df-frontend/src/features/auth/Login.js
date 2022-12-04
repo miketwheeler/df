@@ -23,7 +23,7 @@ const Login = () => {
 
     useEffect(() => {
         // set err back to empty bc it might mean we've seen an errmsg AND NOW hide/erase it means we're changing dep arr vals
-        setErrMsg(''); 
+        setErrMsg('');
     }, [user, pwd]);
 
     const handleSubmit = async (e) => {
@@ -68,7 +68,7 @@ const Login = () => {
                     required
                     />
 
-                <label htlmlFor="password">Password:</label>
+                <label htlmlFor="password">Password: </label>
                 <input
                     type="password"
                     id="password"

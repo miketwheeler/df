@@ -40,7 +40,6 @@ import { setCredentials, logOut } from '../auth/authSlice';
 
 //////////////////////////////////////////////////////////////////////////////////
 // the API 
-
 export const devfoyerApi = createApi({
     reducerPath: 'devfoyerApi',
     baseQuery: fetchBaseQuery({ baseUrl: 'http://127.0.0.1:8080/api/v1'}),

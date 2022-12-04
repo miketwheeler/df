@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTheme, styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -15,13 +15,15 @@ import Container from '@mui/material/Container'
 import MailIcon from '@mui/icons-material/Mail';
 import IconButton from '@mui/material/IconButton';
 import ava from '../static/images/avatar/2.png'
-import Link from '@mui/material/Link';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+
+import { logOut, selectCurrentUser } from '../features/auth/authSlice';
 
 
 const userLinks = ['account', 'login'];
@@ -41,19 +43,35 @@ function MainAppBar() {
     const theme = useTheme();
     const navigate = useNavigate();
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    
-    //TODO: this needs to be a state value && set after auth'd !!!!!!!!!!!!!!!
-    const [loggedIn, setLoggedIn] = React.useState(true); 
+
+    const dispatch = useDispatch();
+    const activeUser = useSelector(val => selectCurrentUser !== null);    
+
+    const [loggedIn, setLoggedIn] = React.useState(false); 
+
+
+    useEffect(() => {
+        if(activeUser != null)
+            setLoggedIn(true);
+    }, [activeUser]);
     
     const handleOpenUserMenu = (e) => {
         setAnchorElUser(e.currentTarget);
     };
 
     const handleCloseUserMenu = (e, linkto) => {
-        // navigate(linkto === 'account' ? `/${linkto}` : "/")
-        navigate(`/${linkto}`)
+        if(linkto === 'account')
+            navigate('/dashboard')
+        else if(linkto === 'login')
+            navigate('/dashboard');
+        else
+            dispatch(logOut());
+        
+        // navigate(`/${linkto}`)
         setAnchorElUser(null);
     };
+
+
 
     const menuIconSet = (label) => {
         return(
@@ -73,35 +91,6 @@ function MainAppBar() {
             </div>
         )
     }
-
-    // const generateLink = (link) => {
-    //     const buildLink = (linkToComponent) => {
-    //         let component = null;
-
-    //         switch(linkToComponent) {
-    //             case 'account':
-    //                 component = <CustomLinkComponent href='/account' underline='none'>account</CustomLinkComponent>
-    //                 break;
-    //             // case 'dashboard':
-    //             //     component = <CustomLinkComponent href='/dashboard' underline='none'>dashboard</CustomLinkComponent>
-    //             //     break;
-    //             default:
-    //                 component = <CustomLinkComponent href='/' underline='none'>login/logout</CustomLinkComponent>
-    //                 break;
-    //         }
-            
-    //         return component;
-    //     }
-
-    //     return (
-    //         <Typography 
-    //             textAlign="center"
-    //             sx={{color: 'white'}}
-    //             >
-    //             { buildLink(link) }
-    //         </Typography>
-    //     )
-    // }
     
     return (
         <AppBar  sx={{ zIndex: theme.zIndex.drawer + 1, boxShadow: '1px 1px 8px 1px #2d2d2d' }} id="top-appbar">
