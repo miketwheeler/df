@@ -75,7 +75,7 @@ const userSchema = new mongoose.Schema({
     ///////////////////////////////////////////////////////////////////////////
     userBio: {
         type: String,
-        required: [true, "Provide a bit about yourself so others can relate!"]
+        // required: [true, "Provide a bit about yourself so others can relate!"]
     },
     available: {
         type: Boolean,
@@ -84,7 +84,7 @@ const userSchema = new mongoose.Schema({
     },
     devType: {
         type: String,
-        required: [true, "You need one specialization!"]
+        // required: [true, "You need one specialization!"]
     },
     skillLevel: {
         type: Number,
@@ -151,12 +151,11 @@ userSchema.pre(/^find/, function(next) {
 /////////////////////////////////////////////////////////////////
 // DOCUMENT MIDDLEWARE on USER
 // =========> trying out pre-save middleware to set screenName
-userSchema.pre('save', function(next) {
-    if(this.screenName === undefined || this.screenName === null)
-        this.screenName = this.firstName.slice(0, 1) + this.lastName.slice(0, 5)
-    
-    next();
-});
+// userSchema.pre('save', function(next) {
+//     if(this.screenName === undefined || this.screenName === null)
+//         this.screenName = this.firstName.slice(0, 1) + this.lastName.slice(0, 5)
+//     next();
+// });
 
 userSchema.pre('save', function(next) {
     if (!this.isModified('password') || this.isNew) return next();
