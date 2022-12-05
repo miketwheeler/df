@@ -72,7 +72,6 @@ export const themeOptions = {
     },
 };
 
-
 export const theme = createTheme({
     ...themeOptions,
     components: {
@@ -104,36 +103,16 @@ export const theme = createTheme({
             styleOverrides: {
                 root: {
                     border: '1px solid rgb(161,161,161)',
-                    // '& .Mui-focused': {
-                    //     borderColor: 'rgb(161,161,161)',
-                    // },
                 },
                 input: {
                     '&:-webkit-autofill': {
-                        // 'WebkitBoxShadow': `0 0 0 30px ${highlightBlueVal} inset`,
                         'WebkitBoxShadow':`0 0 0 30px ${darkPaper} inset`,
                         'WebkitTextFillColor': whiteVal,
                     },
+                    caretColor: whiteVal
                 },
             }
         },
-        // MuiFormControl: {
-        //     styleOverrides: {
-        //         root: {
-        //             border: '1px solid rgb(161,161,161)',
-        //             '& .Mui-focused': {
-        //                 borderColor: 'rgb(161,161,161)',
-        //             },
-        //         },
-        //         input: {
-        //             '&:-webkit-autofill': {
-        //                 'WebkitBoxShadow': `0 0 0 30px ${highlightBlueVal} inset`,
-        //                 // 'WebkitBoxShadow':'0 0 0 30px #266798 inset',
-        //                 'WebkitTextFillColor': whiteVal,
-        //             },
-        //         },
-        //     }
-        // },
         MuiMenuItem: {
             styleOverrides: {
                 root: sx({

@@ -49,6 +49,9 @@ function App() {
                         <Route path="login" element={<LoginLogoutSignup props={'login'} />} />
                         <Route path="signup" element={<LoginLogoutSignup props={'signup'} />} />
                         <Route element={<RequireAuth />}>
+                          {/* <Route path='account' element={<Account />} /> */}
+                        </Route>
+                        <Route element={<RequireAuth />}>
                           <Route path="dashboard" element={<Dashboard />}>
                               <Route index element={<DashHome to="dashboard" replace/>} />
                               <Route path="dash-tasks" element={<DashTasks />} />

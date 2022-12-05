@@ -6,7 +6,7 @@ import {
     Link, Stack, Paper, FormControl, 
     InputAdornment, InputLabel, OutlinedInput, 
     IconButton, Button, FormGroup, FormControlLabel,
-    Checkbox, Typography
+    Checkbox, Typography, Divider, Box,
 } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -19,22 +19,38 @@ import { setCredentials } from '../features/auth/authSlice';
 
 
 
+const containerStyles = { 
+    maxWidth: 400,
+    minWidth: 300,
+    borderRadius: '4px',
+    px: 3,
+    py: 4,
+    position: 'fixed',
+    left: '50%',
+    transform: 'translate(-50%, 50%)',
+    textAlign: 'center'
+}
+
 
 const LoginLogoutSignup = ({props}) => {
     const theme = useTheme();
     const location = useLocation();
-    const navigate = useNavigate();
+    const navigate = useNavigate(); 
+    const [loginUser, { isLoading, error }] = useLoginMutation();
+    // const [signinUser, { isLoading, error }] = useSignupMutation();
+    const dispatch = useDispatch();
 
 
     const [usernameEmail, setUsernameEmail] = useState("");
     const [pass, setPass] = useState("");
     const [passConfirm, setPassConfirm] = useState("");
-    const [showPw, setShowPw] = useState(false);
+    // signup + above
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
 
+    const [showPw, setShowPw] = useState(false);
     const [formType, setFormType] = useState(props);
 
-    const [loginUser, { isLoading, error }] = useLoginMutation()
-    const dispatch = useDispatch();
 
 
     const handleUsernameEmailChange = (e) => {
@@ -49,20 +65,20 @@ const LoginLogoutSignup = ({props}) => {
         e.preventDefault();
         setShowPw(!showPw);
     }
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
+    const handleMouseDownPassword = (e) => {
+        e.preventDefault();
     };
     const handlePWConfirmChange = (e) => {
         e.preventDefault();
         setPassConfirm(e.target.value);
     };
     const handleBackButton = (e) => {
-        navigator('/login')
+        navigate('/login')
         setFormType('login')
     }
     const handleSignupSelected = (e) => {
         // e.preventDefault();
-        navigator('/signup')
+        navigate('/signup')
         setFormType('signup')
     }
 
@@ -75,14 +91,28 @@ const LoginLogoutSignup = ({props}) => {
                     "email": usernameEmail, 
                     "password": pass
                 })
-                dispatch(setCredentials({...data}));
-                navigate('/dashboard');
+
+                if(!error) {
+                    dispatch(setCredentials(data));
+                    navigate('/dashboard');
+                }
             } catch (error) {
                 console.log(`There was an error loggin in there --> ${error}`);
             }
             
         } else {
-            return null; // will be sign in route & form instead TODO: write handle
+            try {
+                // const { data } = await signupUser({
+                //     //firstName, lastName, email, password, passwordConfirm <-- these are the keys in order
+                //     "firstName": firstName,
+                //     "lastName": lastName,
+                //     "email": usernameEmail,
+                //     "password": pass,
+                //     "passwordConfirm": passConfirm
+                // })
+            } catch (error) {
+                console.log(`There was an error signing up there --> ${error}`);
+            }
         }
     } 
 
@@ -90,19 +120,9 @@ const LoginLogoutSignup = ({props}) => {
         <Paper 
             component='form'
             autoComplete='off'
-            elevation={3}
-            onSubmit={(e) => handleSubmit(e, formType)} 
-            sx={{
-                maxWidth: 400,
-                minWidth: 300,
-                borderRadius: '4px',
-                px: 3,
-                py: 4,
-                position: 'fixed',
-                left: '50%',
-                transform: 'translate(-50%, 50%)',
-                textAlign: 'center'
-                }}
+            elevation={ 3 }
+            onSubmit={ (e) => handleSubmit(e, formType) } 
+            sx={ containerStyles }
             >
             {
                 formType === 'signup'
@@ -119,9 +139,20 @@ const LoginLogoutSignup = ({props}) => {
                     { formType === 'signup' ? 'sign up' : 'log in' }
                 </Typography>
                 <Grid container spacing={2}>
-                    <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
-                        <FormControl sx={{ width: '25ch' }} variant="outlined" required>
-                            <InputLabel htmlFor="email">username/email</InputLabel>
+                    <Grid 
+                        xs={12} 
+                        display="flex" 
+                        justifyContent="center" 
+                        alignItems="center"
+                        >
+                        <FormControl 
+                            sx={{ width: '25ch' }} 
+                            variant="outlined" 
+                            required
+                            >
+                            <InputLabel htmlFor="email">
+                                username/email
+                            </InputLabel>
                             <OutlinedInput
                                 id="username-email"
                                 type='text'
@@ -149,7 +180,7 @@ const LoginLogoutSignup = ({props}) => {
                                             onMouseDown={handleMouseDownPassword}
                                             edge="end"
                                             >
-                                            {showPw ? <VisibilityOff /> : <Visibility />}
+                                            { showPw ? <VisibilityOff /> : <Visibility /> }
                                         </IconButton>
                                     </InputAdornment>
                                 }
@@ -159,31 +190,68 @@ const LoginLogoutSignup = ({props}) => {
                     {
                         formType === 'signup'
                         ? 
-                        <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
-                            <FormControl sx={{ width: '25ch' }} variant="outlined" required>
-                                <InputLabel htmlFor="confirm-password">confirm password</InputLabel>
-                                <OutlinedInput
-                                    id="confirm-password"
-                                    type={showPw ? 'text' : 'password'}
-                                    value={passConfirm}
-                                    onChange={handlePWConfirmChange}
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                color='secondary'
-                                                aria-label="toggle password visibility"
-                                                onClick={handleClickShowPw}
-                                                onMouseDown={handleMouseDownPassword}
-                                                edge="end"
-                                                >
-                                                {showPw ? <VisibilityOff /> : <Visibility />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                label="Password"
-                                />
-                            </FormControl>
-                        </Grid>
+                        <>
+                            <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
+                                <FormControl sx={{ width: '25ch' }} variant="outlined" required>
+                                    <InputLabel htmlFor="confirm-password">
+                                        confirm password
+                                    </InputLabel>
+                                    <OutlinedInput
+                                        id="confirm-password"
+                                        type={showPw ? 'text' : 'password'}
+                                        value={passConfirm}
+                                        onChange={handlePWConfirmChange}
+                                        endAdornment={
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    color='secondary'
+                                                    aria-label="toggle password visibility"
+                                                    onClick={handleClickShowPw}
+                                                    onMouseDown={handleMouseDownPassword}
+                                                    edge="end"
+                                                    >
+                                                    {showPw ? <VisibilityOff /> : <Visibility />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        }
+                                        label="password"
+                                    />
+                                </FormControl>
+                            </Grid>
+                            <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
+                                <Box flexGrow={1}>
+                                    <Divider sx={{color: theme.palette.primary.main}} variant="middle" />
+                                </Box>
+                            </Grid>
+                            <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
+                                <FormControl sx={{ width: '25ch' }} variant="outlined" required>
+                                    <InputLabel htmlFor="first name">
+                                        first name
+                                    </InputLabel>
+                                    <OutlinedInput
+                                        id="first-name"
+                                        type={'text'}
+                                        value={firstName}
+                                        onChange={(e) => setFirstName(e.target.value)}
+                                        label="first name"
+                                    />
+                                </FormControl>
+                            </Grid>
+                            <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
+                                <FormControl sx={{ width: '25ch' }} variant="outlined" required>
+                                    <InputLabel htmlFor="last-name">
+                                        last name
+                                    </InputLabel>
+                                    <OutlinedInput
+                                        id="last-name"
+                                        type={'text'}
+                                        value={lastName}
+                                        onChange={(e) => setLastName(e.target.value)}
+                                        label="last name"
+                                    />
+                                </FormControl>
+                            </Grid>
+                        </>
                         : null
                     }
                     
@@ -216,11 +284,11 @@ const LoginLogoutSignup = ({props}) => {
                         </Stack>
                     </Grid>
                     <Grid xs={12} display="flex" justifyContent="center" alignItems="center">                        
-                        <Button variant='contained' type="submit" color="secondary">
+                        <Button  variant='contained' type='submit' color="secondary">
                             {
                                 formType === 'signup'
-                                ? 'sign up'
-                                : 'login'
+                                ? 'create my account'
+                                : 'log in'
                             }
                         </Button>
                     </Grid>

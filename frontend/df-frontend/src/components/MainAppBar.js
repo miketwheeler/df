@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTheme, styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -23,51 +23,40 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 
-import { logOut, selectCurrentUser } from '../features/auth/authSlice';
+import { logOut } from '../features/auth/authSlice';
 
 
-const userLinks = ['account', 'login'];
-
-const titleStyles = { textDecoration: 'none', letterSpacing: '.1rem', color: 'inherit', fontWeight: 700 }
-
-// const CustomLinkComponent = styled(Link)(({ theme }) => ({
-//     '& .MuiTypography-root': {
-//         '&:hover': {
-//             color: theme.palette.secondary.main
-//         }
-//     },
-// }))
+const titleStyles = { textDecoration: 'none', letterSpacing: '.1rem', color: 'inherit', fontWeight: 700 };
 
 
-function MainAppBar() {
+const MainAppBar = () => {
     const theme = useTheme();
     const navigate = useNavigate();
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const [anchorElUser, setAnchorElUser] = useState(null);
 
     const dispatch = useDispatch();
-    const activeUser = useSelector(val => selectCurrentUser !== null);    
-
-    const [loggedIn, setLoggedIn] = React.useState(false); 
-
+    const inactiveUser = useSelector((state) => !state.auth.user);    
+    const [loggedIn, setLoggedIn] = useState(true); 
 
     useEffect(() => {
-        if(activeUser != null)
+        if(!inactiveUser)
             setLoggedIn(true);
-    }, [activeUser]);
+    }, [inactiveUser]);
     
     const handleOpenUserMenu = (e) => {
         setAnchorElUser(e.currentTarget);
     };
 
     const handleCloseUserMenu = (e, linkto) => {
-        if(linkto === 'account')
-            navigate('/dashboard')
-        else if(linkto === 'login')
-            navigate('/dashboard');
-        else
+        // e.preventDefault();
+        if(linkto === 'logout') {
             dispatch(logOut());
-        
-        // navigate(`/${linkto}`)
+            setLoggedIn(false);
+            navigate('/login');
+        }
+        else { 
+            navigate(`/${linkto}`) 
+        }
         setAnchorElUser(null);
     };
 
@@ -79,14 +68,12 @@ function MainAppBar() {
                 {
                     label === 'account' 
                     ? <AccountCircleIcon sx={{mr: 1}} /> 
-                    : label === 'login' && !loggedIn 
+                    : label === 'login' 
                     ? <LoginIcon sx={{mr: 1}} /> 
                     : <LogoutIcon sx={{mr: 1}} />
                 }
                 { 
-                    (label === 'account' || (label === 'login' && !loggedIn))
-                    ? label 
-                    : 'log out' 
+                    label === 'account' ? 'account' : label === 'login' ? 'login' : 'log out' 
                 }
             </div>
         )
@@ -96,16 +83,10 @@ function MainAppBar() {
         <AppBar  sx={{ zIndex: theme.zIndex.drawer + 1, boxShadow: '1px 1px 8px 1px #2d2d2d' }} id="top-appbar">
             <Container maxWidth="xl">
                 <Toolbar >
-                    <Typography 
-                        variant="h4" 
-                        noWrap 
-                        component="a" 
-                        href='/' 
-                        sx={titleStyles}
-                        >
+                    <Typography variant="h4" noWrap component="a" href='/' sx={titleStyles}>
                         dev foyer
                     </Typography>
-                    <Box sx={{ flexGrow: 1 }}/>
+                    <Box sx={{ flexGrow: 1 }}/> {/* this is the spacer */}
                     <Box sx={{ flexGrow: 0 }}>
                         <Stack spacing={4} direction="row" sx={{ color: 'action.active', alignItems: 'center' }}>
                             <Badge color="secondary" badgeContent={1} showZero sx={{ display: { xs: 'none', sm: 'block' }, top: 8}}>
@@ -122,7 +103,7 @@ function MainAppBar() {
                                 </Tooltip>
                                 <Menu
                                     sx={{ mt: '45px' }}
-                                    id="menu-appbar"
+                                    id="appbar-user-menu"
                                     anchorEl={anchorElUser}
                                     anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
                                     transformOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -130,15 +111,28 @@ function MainAppBar() {
                                     open={Boolean(anchorElUser)}
                                     onClose={(e) => handleCloseUserMenu(e)}
                                     >
+                                    <MenuItem 
+                                        key={'menu-item-account'} 
+                                        onClick={(e) => handleCloseUserMenu(e, 'account')}
+                                        >
+                                        { menuIconSet('account') }
+                                    </MenuItem>
                                     {
-                                        userLinks.map((userLink) => (
-                                            <MenuItem 
-                                                key={`menu-item-${userLink}`} 
-                                                onClick={(e) => handleCloseUserMenu(e, userLink)}
-                                                >
-                                                { menuIconSet(userLink) }
-                                            </MenuItem>
-                                        ))
+                                        loggedIn && anchorElUser
+                                        ?
+                                        <MenuItem 
+                                            key={'menu-item-logout'} 
+                                            onClick={(e) => handleCloseUserMenu(e, 'logout')}
+                                            >
+                                            { menuIconSet('logout') }
+                                        </MenuItem>
+                                        :
+                                        <MenuItem 
+                                            key={'menu-item-login'} 
+                                            onClick={(e) => handleCloseUserMenu(e, 'login')}
+                                            >
+                                            { menuIconSet('login') }
+                                        </MenuItem>
                                     }
                                 </Menu>
                             </Box>
