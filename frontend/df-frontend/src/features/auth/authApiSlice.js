@@ -1,7 +1,7 @@
 import { devfoyerApi } from "../api/devfoyerApi";
 
 export const authApiSlice = devfoyerApi.injectEndpoints({
-    endpoints: builder => ({
+    endpoints: (builder) => ({
         login: builder.mutation({
             query: (loginBody) => ({
                 url: '/users/login',

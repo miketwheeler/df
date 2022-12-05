@@ -14,6 +14,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../features/auth/authApiSlice';
+import { useSignupMutation } from '../features/auth/signupApiSlice';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../features/auth/authSlice';
 
@@ -37,7 +38,7 @@ const LoginLogoutSignup = ({props}) => {
     const location = useLocation();
     const navigate = useNavigate(); 
     const [loginUser, { isLoading, error }] = useLoginMutation();
-    // const [signinUser, { isLoading, error }] = useSignupMutation();
+    const [signupUser, { isLoadingSignup, errorSignup }] = useSignupMutation();
     const dispatch = useDispatch();
 
 
@@ -99,20 +100,24 @@ const LoginLogoutSignup = ({props}) => {
             } catch (error) {
                 console.log(`There was an error loggin in there --> ${error}`);
             }
-            
         } else {
             try {
-                // const { data } = await signupUser({
-                //     //firstName, lastName, email, password, passwordConfirm <-- these are the keys in order
-                //     "firstName": firstName,
-                //     "lastName": lastName,
-                //     "email": usernameEmail,
-                //     "password": pass,
-                //     "passwordConfirm": passConfirm
-                // })
+                const { data } = await signupUser({
+                    //firstName, lastName, email, password, passwordConfirm <-- these are the keys in order
+                    "firstName": firstName,
+                    "lastName": lastName,
+                    "email": usernameEmail,
+                    "password": pass,
+                    "passwordConfirm": passConfirm
+                })
+                if(!errorSignup) {
+                    dispatch(setCredentials(data));
+                    navigate('/dashboard');
+                }
             } catch (error) {
                 console.log(`There was an error signing up there --> ${error}`);
             }
+            // console.log(`There was an error signing up there -->`);
         }
     } 
 

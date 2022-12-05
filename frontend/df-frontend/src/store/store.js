@@ -7,6 +7,7 @@ import memberCardSelectedReducer from '../features/memberhallSlices/memberCardSe
 
 import { devfoyerApi } from '../features/api/devfoyerApi';
 import  authReducer  from '../features/auth/authSlice';
+// import  signupReducer  from '../features/auth/signupSlice';
 
 // psersist store
 // import storage from 'redux-persist/lib/storage';
@@ -27,6 +28,7 @@ const reducer = combineReducers({
   // add reducers here
   [devfoyerApi.reducerPath]: devfoyerApi.reducer,
   auth: authReducer,
+  // signup: signupReducer,
   userReducer,
   memberIdListReducer,
   memberCardSelectedReducer,
