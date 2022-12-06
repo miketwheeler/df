@@ -9,17 +9,17 @@ export const authApiSlice = devfoyerApi.injectEndpoints({
                 body: loginBody
             })
         }),
-        signup: builder.mutation({
-            query: (signupBody) => ({
-                url: '/users/signup',
-                method: 'POST',
-                body: signupBody
-            })
-        })
+        // signup: builder.mutation({
+        //     query: (signupBody) => ({
+        //         url: '/users/signup',
+        //         method: 'POST',
+        //         body: signupBody
+        //     })
+        // })
     })
 })
 
 export const { 
     useLoginMutation,
-    useSignupMutation
+    // useSignupMutation
 } = authApiSlice;

@@ -12,4 +12,6 @@ export const signupApiSlice = devfoyerApi.injectEndpoints({
     })
 })
 
-export const { useSignupMutation } = signupApiSlice;
+export const { 
+    useSignupMutation
+} = signupApiSlice;

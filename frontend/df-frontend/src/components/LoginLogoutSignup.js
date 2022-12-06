@@ -20,17 +20,7 @@ import { setCredentials } from '../features/auth/authSlice';
 
 
 
-const containerStyles = { 
-    maxWidth: 400,
-    minWidth: 300,
-    borderRadius: '4px',
-    px: 3,
-    py: 4,
-    position: 'fixed',
-    left: '50%',
-    transform: 'translate(-50%, 50%)',
-    textAlign: 'center'
-}
+
 
 
 const LoginLogoutSignup = ({props}) => {
@@ -53,6 +43,18 @@ const LoginLogoutSignup = ({props}) => {
     const [formType, setFormType] = useState(props);
 
 
+    const containerStyles = { 
+        maxWidth: 400,
+        minWidth: 300,
+        borderRadius: '4px',
+        px: 3,
+        py: 4,
+        position: 'fixed',
+        left: '50%',
+        // transform: 'translate(-50%, 50%)',
+        transform: `translate(-50%, ${formType === 'signup' ? '28%' : '50%'})`,
+        textAlign: 'center'
+    }
 
     const handleUsernameEmailChange = (e) => {
         e.preventDefault();
@@ -86,7 +88,7 @@ const LoginLogoutSignup = ({props}) => {
     // submits either a login cred (rtkq -> backend then to users dash) || signup cred (rtkq -> backend) then to profile for more data
     const handleSubmit = async (e, ft) => {
         e.preventDefault();
-        if(ft === 'login') {
+        if(ft === 'login') { // login?
             try {
                 const { data }  = await loginUser({
                     "email": usernameEmail, 
@@ -100,10 +102,9 @@ const LoginLogoutSignup = ({props}) => {
             } catch (error) {
                 console.log(`There was an error loggin in there --> ${error}`);
             }
-        } else {
+        } else { // signup
             try {
                 const { data } = await signupUser({
-                    //firstName, lastName, email, password, passwordConfirm <-- these are the keys in order
                     "firstName": firstName,
                     "lastName": lastName,
                     "email": usernameEmail,
@@ -111,13 +112,12 @@ const LoginLogoutSignup = ({props}) => {
                     "passwordConfirm": passConfirm
                 })
                 if(!errorSignup) {
-                    dispatch(setCredentials(data));
+                    dispatch(setCredentials(data)); // after posting, use login mutation to set credentials
                     navigate('/dashboard');
                 }
             } catch (error) {
                 console.log(`There was an error signing up there --> ${error}`);
             }
-            // console.log(`There was an error signing up there -->`);
         }
     } 
 
