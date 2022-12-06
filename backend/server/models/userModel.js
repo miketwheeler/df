@@ -24,14 +24,6 @@ const userSchema = new mongoose.Schema({
         maxLength: [40, "How is your name that long? Can you shorten it a bit?"],
         minLength: [2, "Acronym? It can't be that short! (no Jr's, Sr's, Ms's or Mr's)"]
     },
-    // screenName: {
-    //     type: String,
-    //     trim: true,
-    //     unique: [true, "There is another with that same screen name, try something else."],
-    //     maxLength: [20, "This is supposed to be a concise & recognizable screen name."],
-    //     minLength: [2, "It can't be that short!"]
-    // },
-    // slug: String,
     email: {
         type: String,
         required: [true, "How do you get your electronic mail?"],
@@ -93,7 +85,7 @@ const userSchema = new mongoose.Schema({
     },
     skillsList: {
         type: [String],
-        required: [true, "You need at least 1 skill and the idea is to remain truthful about it though (this isn't a job application)."]
+        // required: [true, "You need at least 1 skill and the idea is to remain truthful about it though (this isn't a job application)."]
     },
     usersLinks: {
         type: [String],
